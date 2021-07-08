@@ -1,3 +1,5 @@
+@import 'themes/variables';
+
 *,
 *::before,
 *::after {
@@ -10,13 +12,13 @@
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
+    font-size: 10px;
+    font-family: $main-font;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -24,6 +26,20 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+input {
+    font-family: $main-font;
+    border: none;
+    outline: none;
+    &:focus-visible {
+        outline: none !important;
+    }
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+    display: none;
 }
 
 // OVERRIDE CSS
@@ -36,4 +52,10 @@ img {
     max-width: 100%;
     width: 100%;
     display: block;
+}
+
+// MAIN CSS
+.layout {
+    min-height: 100vh;
+    width: 100%;
 }

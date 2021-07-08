@@ -2,4 +2,8 @@ const HOST: string = process.env.REACT_APP_HOST;
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
 
-export { HOST, isDev };
+const config = {
+    apiTimeout: 20000,
+};
+
+export { HOST, isDev, config };

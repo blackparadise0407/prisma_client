@@ -1,0 +1,6 @@
+@import 'themes/color-theme';
+.login-form {
+    @include themed() {
+        padding: 1rem;
+    }
+}

@@ -1,5 +1,9 @@
 {
     "translation": {
         "hello": "Hello world"
+    },
+    "login": {
+        "required_email": "Email is required",
+        "invalid_email": "Email address is invalid"
     }
 }

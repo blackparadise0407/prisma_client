@@ -1,4 +1,5 @@
 import store from 'app/store';
+import { Loader } from 'components';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -9,7 +10,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Suspense fallback={'Loading...'}>
+        <Suspense fallback={<Loader />}>
             <Provider store={store}>
                 <App />
             </Provider>

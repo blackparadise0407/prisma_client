@@ -1,13 +1,34 @@
-$bg-primary: 'bg-primary';
-$bg-secondary: 'bg-secondary';
-$text-primary: 'text-primary';
-$text-secondary: 'text-secondary';
-$link: 'link';
-$hover: 'hover';
-$border: 'border';
-$shadow: 'shadow';
-$warning: 'warning';
-$success: 'success';
-$danger: 'danger';
-$primary: 'primary';
-$secondary: 'secondary';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+// DEFAULT THEME
+
+$text--primary--default: #333045;
+$text--secondary--default: #b4b5c5;
+$text--contrast--default: #fff;
+$link--default: #83dde9;
+$hover--default: hover;
+$border--default: #b4b5c5;
+$shadow--default: shadow;
+$warning--default: warning;
+$success--default: success;
+$danger--default: #fc434f;
+$primary--default: #615efa;
+$secondary--default: #20d2e3;
+
+// DARK THEME
+
+$text--primary--dark: text-primary;
+$text--secondary--dark: text-secondary;
+$text--contrast--dark: text-contrast;
+$link--dark: #83dde9;
+$hover--dark: hover;
+$border--dark: border;
+$shadow--dark: shadow;
+$warning--dark: warning;
+$success--dark: success;
+$danger--dark: #fc434f;
+$primary--dark: #615efa;
+$secondary--dark: #20d2e3;
+
+// COMMON
+$main-font: 'Poppins', sans-serif;

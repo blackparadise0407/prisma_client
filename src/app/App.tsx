@@ -1,4 +1,5 @@
 import { PrivateRoute, ScrollToTop } from 'components';
+import { AppLayout } from 'layouts';
 import { map } from 'lodash';
 import React from 'react';
 import { Router, Switch } from 'react-router-dom';
@@ -7,11 +8,17 @@ import ThemeProvider from 'themes/ThemeProvider';
 import history from 'utils/history';
 
 const _renderRoutes = () => {
-    return map(routes, ({ Layout, component, path, ...rest }) => (
-        <Layout key={path}>
-            <PrivateRoute path={path} component={component} {...rest} />
-        </Layout>
-    ));
+    return map(routes, ({ useLayout, ...rest }, idx) => {
+        if (useLayout) {
+            return (
+                <AppLayout key={idx}>
+                    <PrivateRoute {...rest} />
+                </AppLayout>
+            );
+        } else {
+            return <PrivateRoute {...rest} />;
+        }
+    });
 };
 function App() {
     return (
