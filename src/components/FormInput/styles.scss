@@ -4,11 +4,9 @@
     @include themed() {
         position: relative;
         border-radius: 10px;
-        // overflow: hidden;
-        max-width: 500px;
         width: 100%;
         font-size: 1rem;
-        margin: 4rem 0;
+        margin: 2rem 0;
         .label {
             position: absolute;
             top: 50%;
@@ -52,7 +50,8 @@
         }
         &--focus {
             .label {
-                transform: translateY(-180%);
+                background-color: #fff;
+                transform: translateY(-160%);
             }
         }
     }

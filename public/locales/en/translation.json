@@ -4,6 +4,16 @@
     },
     "login": {
         "required_email": "Email is required",
-        "invalid_email": "Email address is invalid"
+        "invalid_email": "Email address is invalid",
+        "welcome_text": "The next generation social network & community!",
+        "login_button": "Login",
+        "register_button": "Register",
+        "form_login_button": "Login in your Account!",
+        "form_forget_password": "Forgot password?",
+        "form_title": "Account Login",
+        "heading_sub": "Welcome to",
+        "heading_main": "Prisma",
+        "form_remember": "Remember me",
+        "form_divider": "Login with your Social Account"
     }
 }

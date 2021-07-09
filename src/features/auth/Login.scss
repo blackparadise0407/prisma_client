@@ -1,7 +1,63 @@
 @import 'themes/color-theme';
 .login-page {
     @include themed() {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
         min-height: 100vh;
-        // background-color: t($primary);
+        background-color: t($primary);
+        > * {
+            margin: 0 4rem;
+        }
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            height: 40rem;
+            text-align: center;
+
+            .logo {
+            }
+            .heading {
+                .sub {
+                    text-transform: uppercase;
+                    color: t($text-contrast);
+                }
+                .main {
+                    font-size: 10rem;
+                    text-transform: uppercase;
+                    line-height: 1.2;
+                    font-weight: 800;
+                    color: t($text-contrast);
+                }
+            }
+            .welcome-text {
+                color: t($text-contrast);
+            }
+            .btn-group {
+                .btn {
+                    padding: 1.5rem 6rem;
+                    border-color: t($text-contrast);
+                    border-style: solid;
+                    border-width: 1px;
+                    font-weight: 900;
+                    font-size: 1.4rem;
+                    color: t($text-contrast);
+                    cursor: pointer;
+                    &--active {
+                        color: t($text-primary);
+                        background-color: #fff;
+                    }
+                }
+                .btn-login {
+                    border-top-left-radius: 8px;
+                    border-bottom-left-radius: 8px;
+                }
+                .btn-register {
+                    border-top-right-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                }
+            }
+        }
     }
 }

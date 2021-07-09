@@ -26,6 +26,7 @@ function renderInput(
 ): JSX.Element[] {
     return map(items, (i) => (
         <FormInput
+            className="input"
             name={i.name}
             type={i.type}
             label={i.label}
@@ -45,11 +46,28 @@ const LoginForm = ({
     const { t } = useTranslation();
     return (
         <form className="login-form">
+            {/* <div className="container"> */}
+            <h1 className="title">{t('login.form_title')}</h1>
             {renderInput(inputItems, {
                 values,
                 errors,
                 handleChange,
             })}
+            <div className="util">
+                <label className="remember">
+                    {t('login.form_remember')}
+                    <input type="checkbox" name="remember" />
+                    <span className="check-mark"></span>
+                </label>
+                <div className="forgot-password">
+                    {t('login.form_forget_password')}
+                </div>
+            </div>
+            <button className="btn">{t('login.form_login_button')}</button>
+            <div className="divider">
+                <div className="text">{t('login.form_divider')}</div>
+            </div>
+            {/* </div> */}
         </form>
     );
 };

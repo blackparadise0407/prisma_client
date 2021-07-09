@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { ChangeEventHandler, useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -10,6 +11,7 @@ type Props = {
     value?: string;
     error?: string;
     type?: InputType;
+    className?: string;
     onChange?: (e: ChangeEventHandler) => void;
 };
 
@@ -20,6 +22,7 @@ const FormInput = ({
     onChange,
     error,
     name,
+    className,
     ...rest
 }: Props) => {
     const inputEl = useRef(null);
@@ -51,7 +54,13 @@ const FormInput = ({
     };
 
     return (
-        <div className={`form-input` + (isFocus ? ' form-input--focus' : '')}>
+        <div
+            className={clsx(
+                'form-input',
+                isFocus && 'form-input--focus',
+                className,
+            )}
+        >
             <div className="label">{label}</div>
             <input
                 name={name}
