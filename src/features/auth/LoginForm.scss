@@ -9,7 +9,7 @@
         border-radius: 10px;
         padding: 1rem 6rem;
         background-color: #fff;
-        box-shadow: 0 0 5px -10px rgb(107, 107, 107);
+        box-shadow: t($shadow);
 
         .title {
             color: t($text-primary);
@@ -94,6 +94,7 @@
             width: 100%;
             margin: 2rem 0;
             padding: 1.5rem 3rem;
+            height: 5rem;
             font-weight: 600;
             border-radius: 10px;
             color: t($text-contrast);
@@ -145,6 +146,68 @@
             //     right: -10rem;
             //     transform-origin: center left;
             // }
+        }
+        .social {
+            display: flex;
+            flex-direction: row;
+            margin: 2.5rem 0;
+            .item {
+                position: relative;
+                width: 4rem;
+                height: 4rem;
+                margin: 0 1.6rem;
+                border-radius: 10px;
+                background-color: t($primary);
+                transition: all ease 0.2s;
+                cursor: pointer;
+                &:hover {
+                }
+                &:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0px 0px 10px -5px rgb(49, 49, 49);
+                    background-color: #fff;
+                    &.google .icon {
+                        color: #ea4335;
+                    }
+                    &.facebook .icon {
+                        color: #1a77f1;
+                    }
+                    &.github .icon {
+                        color: #211f1f;
+                    }
+                }
+
+                .icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    font-size: 1.8rem;
+                    color: #fff;
+                    transform: translate(-50%, -50%);
+                    transition: transform ease 0.2s;
+                }
+            }
+            .google {
+                background-color: #ea4335;
+            }
+            .github {
+                background-color: #211f1f;
+            }
+            .facebook {
+                background-color: #1a77f1;
+            }
+        }
+        .alert-transition-enter {
+            opacity: 0;
+        }
+        .alert-transition-enter-active {
+            opacity: 1;
+        }
+        .alert-transition-exit {
+            opacity: 1;
+        }
+        .alert-transition-exit-active {
+            opacity: 0;
         }
     }
 }

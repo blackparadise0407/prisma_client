@@ -1,23 +1,16 @@
 import { PrivateRoute, ScrollToTop } from 'components';
-import { AppLayout } from 'layouts';
+import Google from 'features/auth/Google';
+import Login from 'features/auth/SignUp';
 import { map } from 'lodash';
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import { routes } from 'routes';
 import ThemeProvider from 'themes/ThemeProvider';
 import history from 'utils/history';
 
 const _renderRoutes = () => {
-    return map(routes, ({ useLayout, ...rest }, idx) => {
-        if (useLayout) {
-            return (
-                <AppLayout key={idx}>
-                    <PrivateRoute {...rest} />
-                </AppLayout>
-            );
-        } else {
-            return <PrivateRoute {...rest} />;
-        }
+    return map(routes, ({ ...rest }, idx) => {
+        return <PrivateRoute key={idx} {...rest} />;
     });
 };
 function App() {
@@ -26,6 +19,9 @@ function App() {
             <ThemeProvider>
                 <ScrollToTop />
                 <Switch>{_renderRoutes()}</Switch>
+                <Route component={Google} path="/google" />
+                <Route component={Login} path="/login" />
+                <Route component={Login} path="/signup" />
             </ThemeProvider>
         </Router>
     );

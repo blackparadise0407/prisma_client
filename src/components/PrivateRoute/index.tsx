@@ -1,34 +1,27 @@
-import { indexOf, isEmpty } from 'lodash';
+import { authSelector } from 'features/auth/authSlice';
+import { AppLayout } from 'layouts';
 import React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { Roles } from 'schema';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
+import { IRoute } from 'schema';
 
-type Props = {
-    auth?: boolean;
-    roles?: Roles[];
-} & RouteProps;
+const PrivateRoute = ({ ...rest }: IRoute) => {
+    const auth = useSelector(authSelector);
 
-const PrivateRoute = ({ children, roles, auth, ...rest }: Props) => {
-    const user: { role: Roles } = { role: 'user' };
+    if (!auth.isAuth)
+        return (
+            <Redirect
+                to={{
+                    pathname: '/login',
+                }}
+            />
+        );
 
-    if (roles && roles.indexOf(user.role) === -1)
-        return <Redirect to={{ pathname: '/' }} />;
-
-    return <Route {...rest} />;
-    // return (
-    //     <Route
-    //         {...rest}
-    //         render={({ location }) =>
-    //             !isEmpty(auth) ? (
-    //                 children
-    //             ) : (
-    //                 <Redirect
-    //                     to={{ pathname: '/login', state: { from: location } }}
-    //                 />
-    //             )
-    //         }
-    //     />
-    // );
+    return (
+        <AppLayout>
+            <Route {...rest} />
+        </AppLayout>
+    );
 };
 
 export default PrivateRoute;

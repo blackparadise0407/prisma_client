@@ -1,0 +1,58 @@
+@import 'themes/color-theme';
+
+.alert {
+    @include themed() {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 1.3rem 3.2rem 1.3rem 1.5rem;
+        font-size: 1.3rem;
+        font-weight: 500;
+        border-radius: 10px;
+        line-height: 1.3;
+        color: t($text-contrast);
+        background-color: t($primary);
+        box-shadow: t($shadow);
+        transition: all ease 0.7s;
+        .icon {
+            $width: 1.4rem;
+            $height: 2px;
+            position: absolute;
+            top: 50%;
+            right: 0.8rem;
+            width: $width;
+            height: $height;
+            border-radius: 2px;
+            background-color: t($text-contrast);
+            transform: translateY(-50%) rotate(45deg);
+            cursor: pointer;
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: $width;
+                height: $height;
+                border-radius: 2px;
+                background-color: t($text-contrast);
+                transform: rotate(90deg);
+                cursor: pointer;
+            }
+        }
+        &--success {
+            background-color: t($success);
+        }
+        &--error {
+            background-color: t($danger);
+        }
+        &--warning {
+            background-color: t($warning);
+        }
+        &--info {
+            background-color: t($info);
+        }
+        &--hiden {
+            display: none;
+        }
+    }
+}

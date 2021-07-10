@@ -4,7 +4,6 @@ import qs from 'query-string';
 import Cookies from 'js-cookie';
 import store from 'app/store';
 import { METHODS } from 'http';
-
 interface OriginalRequest {
     url?: string;
     data?: any;
@@ -20,10 +19,11 @@ const axiosClient = axios.create({
     headers: {
         'content-type': 'application/json',
     },
-    paramsSerializer: (p) =>
-        qs.stringify(p, {
+    paramsSerializer: (p) => {
+        return qs.stringify(p, {
             skipNull: true,
-        }),
+        });
+    },
 });
 
 axiosClient.interceptors.request.use(async (config) => {
@@ -47,6 +47,16 @@ axiosClient.interceptors.response.use(
         }
     },
     async (error) => {
+        if (error.response.status === 401) {
+            const { headers } = originalRequest;
+            if (!headers['Authorization']) {
+                throw new Error(`Session expired`);
+            }
+            try {
+            } catch (e) {
+                throw e;
+            }
+        }
         if (error.response) {
             throw error.response.data;
         } else {
@@ -58,11 +68,12 @@ axiosClient.interceptors.response.use(
 async function request<T>(method: Method, url: string, data?: any) {
     const config: AxiosRequestConfig = {
         method,
+        url,
     };
     if (method === 'GET' || method === 'get') {
         config.params = data;
     } else config.data = data;
-
+    console.log(config);
     const response = (await axiosClient.request(config)) as T;
     return response;
 }

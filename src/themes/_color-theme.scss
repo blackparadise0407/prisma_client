@@ -8,6 +8,7 @@ $hover: 'hover';
 $border: 'border';
 $shadow: 'shadow';
 $warning: 'warning';
+$info: 'info';
 $success: 'success';
 $danger: 'danger';
 $primary: 'primary';
@@ -22,6 +23,7 @@ $themes: (
         hover: $hover--default,
         border: $border--default,
         shadow: $shadow--default,
+        info: $info--default,
         warning: $warning--default,
         success: $success--default,
         danger: $danger--default,
@@ -36,6 +38,7 @@ $themes: (
         hover: $hover--dark,
         border: $border--dark,
         shadow: $shadow--dark,
+        info: $info--dark,
         warning: $warning--dark,
         success: $success--dark,
         danger: $danger--dark,

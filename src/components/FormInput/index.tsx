@@ -12,6 +12,7 @@ type Props = {
     error?: string;
     type?: InputType;
     className?: string;
+    autoComplete?: boolean;
     onChange?: (e: ChangeEventHandler) => void;
 };
 
@@ -23,12 +24,15 @@ const FormInput = ({
     error,
     name,
     className,
+    autoComplete = true,
     ...rest
 }: Props) => {
     const inputEl = useRef(null);
+    const labelEl = useRef(null);
     const [isFocus, setIsFocus] = useState<boolean>(false);
     const [_val, setVal] = useState<string>(value);
     const [isShow, setIsShow] = useState<boolean>(false);
+    const [isTouch, setIsTouch] = useState<boolean>(false);
 
     useEffect(() => {
         if (_val) {
@@ -38,10 +42,12 @@ const FormInput = ({
 
     const handleFocus = () => {
         setIsFocus(true);
+        inputEl.current.focus();
     };
 
     const handleBlur = () => {
         if (!_val) setIsFocus(false);
+        setIsTouch(true);
     };
 
     const handleChange = (e) => {
@@ -52,7 +58,6 @@ const FormInput = ({
     const toggleShow = () => {
         setIsShow(!isShow);
     };
-
     return (
         <div
             className={clsx(
@@ -61,8 +66,11 @@ const FormInput = ({
                 className,
             )}
         >
-            <div className="label">{label}</div>
+            <div className="label" onClick={handleFocus}>
+                {label}
+            </div>
             <input
+                autoComplete={autoComplete ? 'off' : 'auto'}
                 name={name}
                 type={
                     type === 'password' ? (isShow ? 'text' : 'password') : type
@@ -83,7 +91,7 @@ const FormInput = ({
                 ) : (
                     <AiOutlineEye onClick={toggleShow} className="icon" />
                 ))}
-            {error && <div className="error">{error}</div>}
+            {error && isTouch && <div className="error">{error}</div>}
         </div>
     );
 };

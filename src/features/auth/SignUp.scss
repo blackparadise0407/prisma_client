@@ -1,12 +1,15 @@
 @import 'themes/color-theme';
-.login-page {
+
+.signup-page {
     @include themed() {
         display: flex;
         justify-content: center;
         flex-direction: row;
         align-items: center;
         min-height: 100vh;
-        background-color: t($primary);
+        // background-color: #fff;
+        background: url('../../assets/images/bg.PNG') no-repeat center;
+        background-size: cover;
         > * {
             margin: 0 4rem;
         }
@@ -35,19 +38,27 @@
                 color: t($text-contrast);
             }
             .btn-group {
+                position: relative;
+                overflow: hidden;
+                width: 32rem;
+                margin: 0 auto;
+                border-radius: 10px;
+                border-color: t($text-contrast);
+                border-style: solid;
+                border-width: 1px;
                 .btn {
-                    padding: 1.5rem 6rem;
-                    border-color: t($text-contrast);
-                    border-style: solid;
-                    border-width: 1px;
+                    width: 50%;
+                    padding: 1.5rem 0;
                     font-weight: 900;
                     font-size: 1.4rem;
+                    text-align: center;
                     color: t($text-contrast);
                     cursor: pointer;
                     &--active {
                         color: t($text-primary);
                         background-color: #fff;
                     }
+                    z-index: 2;
                 }
                 .btn-login {
                     border-top-left-radius: 8px;
