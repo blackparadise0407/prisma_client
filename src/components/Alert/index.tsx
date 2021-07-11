@@ -1,9 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
-
+import React, { useEffect, useState } from 'react';
 import './styles.scss';
 
 type Props = {

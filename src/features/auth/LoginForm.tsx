@@ -1,6 +1,7 @@
-import { Alert, FormInput, Spin } from 'components';
+import { IMAGES } from 'assets';
+import { Alert, CheckBox, FormInput, Spin } from 'components';
 import { config } from 'constant/config';
-import { FormikErrors, FormikProps, withFormik } from 'formik';
+import { FormikErrors, useFormik } from 'formik';
 import i18n from 'i18n';
 import { map } from 'lodash';
 import qs from 'query-string';
@@ -11,32 +12,35 @@ import {
     AiOutlineGithub,
     AiOutlineGoogle,
 } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppState, FormInputItem } from 'schema';
+import { FormInputItem } from 'schema';
 import { validateEmail } from 'utils/validation';
+import { authSelector, login } from './authSlice';
 import './LoginForm.scss';
 
 const queries = qs.stringify({
-    client_id: config.googleClientId,
-    redirect_uri: config.googleRedirectURL,
-    scope: config.scope,
-    response_type: config.response_type,
+    client_id: config.google.client_id,
+    redirect_uri: config.google.redirect_uri,
+    scope: config.google.scope,
+    response_type: config.google.response_type,
 });
 
 interface FormValues {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
 }
 
-interface Props {}
-
 const inputItems: FormInputItem[] = [
-    { name: 'email', label: 'Email', type: 'email' },
-    { name: 'password', label: 'Password', type: 'password' },
+    { name: 'email', label: 'login.form.label.email', type: 'email' },
+    {
+        name: 'password',
+        label: 'login.form.label.password',
+        type: 'password',
+    },
 ];
 
-function renderInput(
+export function renderInput(
     items: FormInputItem[],
     { values, errors, handleChange, touched }: any,
 ): JSX.Element[] {
@@ -54,16 +58,15 @@ function renderInput(
     ));
 }
 
-const LoginForm = ({
-    values,
-    touched,
-    errors,
-    handleChange,
-    handleSubmit,
-}: Props & FormikProps<FormValues>) => {
+const LoginForm = () => {
     const { t } = useTranslation();
     const history = useHistory();
-    const { status, error } = useSelector((state: AppState) => state.auth);
+    const dispatch = useDispatch();
+    const { status, error } = useSelector(authSelector);
+
+    const handleFinish = (v: FormValues) => {
+        dispatch(login(v));
+    };
 
     useEffect(() => {
         if (status === 'success') {
@@ -71,36 +74,58 @@ const LoginForm = ({
         }
     }, [status]);
 
-    return (
-        <form onSubmit={handleSubmit} className="login-form">
-            <h1 className="title">{t('login.form_title')}</h1>
+    const formik = useFormik<FormValues>({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validate: ({ email, password }: FormValues) => {
+            let errors: FormikErrors<FormValues> = {};
+            if (!email) {
+                errors.email = i18n.t('login.form.error.email.required');
+            } else if (!validateEmail(email)) {
+                errors.email = i18n.t('login.form.error.email.invalid');
+            }
+            if (!password) {
+                errors.password = i18n.t('login.form.error.password.required');
+            } else if (password.length < 3) {
+                errors.password = i18n.t('login.form.error.password.min');
+            } else if (password.length > 20) {
+                errors.password = i18n.t('login.form.error.password.max');
+            }
+            return errors;
+        },
+        onSubmit: (v) => {
+            handleFinish(v);
+        },
+    });
 
+    return (
+        <form onSubmit={formik.handleSubmit} className="login-form">
+            <h1 className="title">{t('login.form.title')}</h1>
+            <img src={IMAGES.rocket} alt="rocket" className="rocket" />
             {error && <Alert closable type="error" message={error} />}
             {renderInput(inputItems, {
-                values,
-                errors,
-                handleChange,
-                touched,
+                values: formik.values,
+                errors: formik.errors,
+                handleChange: formik.handleChange,
+                touched: formik.touched,
             })}
             <div className="util">
-                <label className="remember">
-                    {t('login.form_remember')}
-                    <input type="checkbox" name="remember" />
-                    <span className="check-mark"></span>
-                </label>
+                <CheckBox name="remember" label={t('login.form.remember')} />
                 <div className="forgot-password">
-                    {t('login.form_forget_password')}
+                    {t('login.form.forget_password')}
                 </div>
             </div>
             <button type="submit" className="btn">
-                {status === 'loading' ? <Spin /> : t('login.form_login_button')}
+                {status === 'loading' ? <Spin /> : t('login.form.login_button')}
             </button>
             <div className="divider">
-                <div className="text">{t('login.form_divider')}</div>
+                <div className="text">{t('login.form.divider')}</div>
             </div>
             <div className="social">
                 <a
-                    href={`${config.googleURL}?${queries}`}
+                    href={`${config.google.url}?${queries}`}
                     className="item google"
                 >
                     <AiOutlineGoogle className="icon" />
@@ -116,24 +141,4 @@ const LoginForm = ({
     );
 };
 
-const enhancedLoginForm = withFormik<any, FormValues>({
-    mapPropsToValues: ({ email, password }) => ({
-        email: email || '',
-        password: password || '',
-    }),
-    validate: ({ email, password }: FormValues) => {
-        let errors: FormikErrors<FormValues> = {};
-        if (!email) {
-            errors.email = i18n.t('login.required_email');
-        } else if (!validateEmail(email)) {
-            errors.email = i18n.t('login.invalid_email');
-        }
-        return errors;
-    },
-    handleSubmit: (v, { props }) => {
-        console.log(v);
-        props.submit(v);
-    },
-})(LoginForm);
-
-export default enhancedLoginForm;
+export default LoginForm;

@@ -1,0 +1,56 @@
+@import 'themes/color-theme';
+
+.check-box {
+    @include themed() {
+        color: t($text-primary);
+        cursor: pointer;
+        display: block;
+        position: relative;
+        padding-left: 3rem;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            &:checked ~ .check-mark::after {
+                display: block;
+            }
+            &:checked ~ .check-mark::before {
+                display: block;
+            }
+        }
+        .check-mark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 3px;
+            background-color: t($secondary);
+            transform: translateY(-50%);
+            &::after,
+            &::before {
+                display: none;
+                content: '';
+                position: absolute;
+                width: 1.2rem;
+                height: 3px;
+                top: 50%;
+                left: 50%;
+                border-radius: 2px;
+                background-color: #fff;
+            }
+            &::before {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+            &::after {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+        }
+    }
+}

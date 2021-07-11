@@ -1,0 +1,25 @@
+@import 'themes/color-theme';
+
+.app-header {
+    @include themed() {
+        width: 100%;
+        height: $header-height;
+        background-color: t($primary);
+        .app-brand {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            img {
+                width: 3rem;
+                margin-right: 1rem;
+            }
+            .name {
+                text-transform: uppercase;
+                font-weight: 800;
+                font-size: 1.8rem;
+                color: t($text-contrast);
+            }
+        }
+    }
+}

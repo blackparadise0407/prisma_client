@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig, Method } from 'axios';
 import { config, HOST } from 'constant/config';
-import qs from 'query-string';
 import Cookies from 'js-cookie';
-import store from 'app/store';
-import { METHODS } from 'http';
+import qs from 'query-string';
+import AuthApi from './_apis/auth';
 interface OriginalRequest {
     url?: string;
     data?: any;
@@ -53,6 +52,14 @@ axiosClient.interceptors.response.use(
                 throw new Error(`Session expired`);
             }
             try {
+                const token = localStorage.getItem('refreshToken');
+                if (!token) {
+                    throw new Error(`Session expired`);
+                }
+                const {
+                    data: { accessToken },
+                } = await AuthApi.refreshToken(token);
+                Cookies.set('accessToken', accessToken);
             } catch (e) {
                 throw e;
             }

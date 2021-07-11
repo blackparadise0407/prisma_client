@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AppState } from 'schema';
-import { googleLogin } from './authSlice';
+import { authSelector, googleLogin } from './authSlice';
 
 const getToken = (hash: string): string => {
     const hashArray = hash.slice(1).split('&');
@@ -19,7 +19,7 @@ const Google = () => {
     const { hash } = useLocation();
     const dispatch = useDispatch();
 
-    const { status } = useSelector((state: AppState) => state.auth);
+    const { status } = useSelector(authSelector);
 
     useEffect(() => {
         console.log(hash);

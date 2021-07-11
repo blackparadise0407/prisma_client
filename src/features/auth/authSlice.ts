@@ -1,18 +1,14 @@
-import {
-    AnyAction,
-    AsyncThunk,
-    createAsyncThunk,
-    createSlice,
-} from '@reduxjs/toolkit';
-import { AuthApi } from 'api';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AuthApi, UserApi } from 'api';
+import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
 import Cookies from 'js-cookie';
-import { AppState, ReducerStatus } from 'schema';
+import { AppState, ReducerStatus, User } from 'schema';
 
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
+// type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
-type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
+// type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
+// type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
+// type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
 
 export interface AuthState {
     isAuth?: boolean;
@@ -28,39 +24,62 @@ const authInitState: AuthState = {
     error: null,
 };
 
-export const login = createAsyncThunk<any, any, any>(
-    'auth/Login',
-    async (data, thunkAPI) => {
+export const signup = createAsyncThunk<
+    any,
+    SignUpRequest,
+    { rejectValue: string }
+>('auth/Signup', async (data, thunkAPI) => {
+    try {
+        await AuthApi.signup(data);
+        return thunkAPI.fulfillWithValue(null);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message as string);
+    }
+});
+
+export const login = createAsyncThunk<
+    User,
+    LoginRequest,
+    { rejectValue: string }
+>('auth/Login', async (data, thunkAPI) => {
+    try {
+        const { data: resp } = await AuthApi.login(data);
+        localStorage.setItem('refreshToken', resp.refreshToken);
+        Cookies.set('accessToken', resp.accessToken);
+        return thunkAPI.fulfillWithValue(resp.user) as User;
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message as string);
+    }
+});
+
+export const googleLogin = createAsyncThunk<
+    User,
+    string,
+    { rejectValue: string }
+>('auth/LoginGoogle', async (data, thunkAPI) => {
+    try {
+        const { data: resp } = await AuthApi.googleSignIn({
+            access_token: data,
+        });
+        localStorage.setItem('refreshToken', resp.refreshToken);
+        Cookies.set('accessToken', resp.accessToken);
+        return thunkAPI.fulfillWithValue(resp.user) as User;
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message as string);
+    }
+});
+
+export const userInfo = createAsyncThunk<User, null, { rejectValue: string }>(
+    'auth/Info',
+    async (_, thunkAPI) => {
         try {
-            const { data: resp } = await AuthApi.login(data);
-            localStorage.setItem('refreshToken', resp.refreshToken);
-            Cookies.set('accessToken', resp.accessToken);
-            return thunkAPI.fulfillWithValue(resp.user);
+            const user = await UserApi.info();
+            return thunkAPI.fulfillWithValue(user) as User;
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+            return thunkAPI.rejectWithValue(e.message as string);
         }
     },
 );
-
-export const googleLogin = createAsyncThunk<any, any, any>(
-    'auth/LoginGoogle',
-    async (data, thunkAPI) => {
-        try {
-            const { data: resp } = await AuthApi.googleSignIn({
-                access_token: data,
-            });
-            localStorage.setItem('refreshToken', resp.refreshToken);
-            Cookies.set('accessToken', resp.accessToken);
-            return thunkAPI.fulfillWithValue(resp.user);
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    },
-);
-
-function isPendingAction(action: AnyAction): action is PendingAction {
-    return action.type.endsWith('/pending');
-}
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -90,6 +109,30 @@ export const authSlice = createSlice({
             state.user = payload;
         });
         builder.addCase(googleLogin.rejected, (state, { payload }) => {
+            state.status = 'error';
+            state.error = payload as string;
+        });
+        builder.addCase(signup.pending, (state) => {
+            state.status = 'loading';
+            state.error = null;
+        });
+        builder.addCase(signup.fulfilled, (state) => {
+            state.status = 'success';
+        });
+        builder.addCase(signup.rejected, (state, { payload }) => {
+            state.status = 'error';
+            state.error = payload as string;
+        });
+        builder.addCase(userInfo.pending, (state) => {
+            state.status = 'loading';
+            state.error = null;
+        });
+        builder.addCase(userInfo.fulfilled, (state, { payload }) => {
+            state.status = 'success';
+            state.isAuth = true;
+            state.user = payload;
+        });
+        builder.addCase(userInfo.rejected, (state, { payload }) => {
             state.status = 'error';
             state.error = payload as string;
         });

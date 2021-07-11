@@ -1,22 +1,25 @@
 import clsx from 'clsx';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { login } from './authSlice';
+import { authSelector } from './authSlice';
 import LoginForm from './LoginForm';
 import './SignUp.scss';
+import SignUpForm from './SignUpForm';
 
 const Login = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
     const history = useHistory();
-    const dispatch = useDispatch();
 
-    const handleLogin = (data) => {
-        dispatch(login(data));
-    };
+    const { isAuth } = useSelector(authSelector);
+
+    useEffect(() => {
+        if (isAuth) {
+            history.push('/');
+        }
+    }, [isAuth]);
 
     const goToLogin = () => {
         history.push('/login');
@@ -59,11 +62,7 @@ const Login = () => {
                     </button>
                 </div>
             </div>
-            {pathname === '/login' ? (
-                <LoginForm submit={handleLogin} />
-            ) : (
-                'register'
-            )}
+            {pathname === '/login' ? <LoginForm /> : <SignUpForm />}
         </div>
     );
 };

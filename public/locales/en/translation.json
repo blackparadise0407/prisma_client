@@ -1,19 +1,69 @@
 {
-    "translation": {
-        "hello": "Hello world"
-    },
     "login": {
-        "required_email": "Email is required",
-        "invalid_email": "Email address is invalid",
         "welcome_text": "The next generation social network & community!",
-        "login_button": "Login",
-        "register_button": "Register",
-        "form_login_button": "Login in your Account!",
-        "form_forget_password": "Forgot password?",
-        "form_title": "Account Login",
         "heading_sub": "Welcome to",
         "heading_main": "Prisma",
-        "form_remember": "Remember me",
-        "form_divider": "Login with your Social Account"
+        "register_button": "Register",
+        "login_button": "Login",
+        "form": {
+            "error": {
+                "email": {
+                    "required": "Email address cannot be empty",
+                    "invalid": "Please enter a valid email address"
+                },
+                "password": {
+                    "required": "Password cannot be empty",
+                    "min": "Your password is too short",
+                    "max": "Your password is too long"
+                }
+            },
+            "label": {
+                "email": "Email",
+                "password": "Password"
+            },
+            "divider": "Login with your Social Account",
+            "remember": "Remember me",
+            "title": "Account Login",
+            "forget_password": "Forgot password?",
+            "login_button": "Login in your Account!"
+        }
+    },
+    "signup": {
+        "form": {
+            "success": "Register success!",
+            "title": "Create your Account!",
+            "newsletter": "Send me news and updates via email",
+            "label": {
+                "username": "Username",
+                "email": "Email",
+                "password": "Password",
+                "confirm_password": "Repeat password"
+            },
+            "register_button": "Register Now",
+            "error": {
+                "email": {
+                    "required": "Email address cannot be empty",
+                    "invalid": "Please enter a valid email address"
+                },
+                "password": {
+                    "required": "Please enter your password",
+                    "not_match": "Your password and confirmation password do not match",
+                    "min": "Your password is too short",
+                    "max": "Your password is too long"
+                },
+                "confirm_password": {
+                    "required": "Please enter confirmation password",
+                    "not_match": "Your password and confirmation password do not match"
+                },
+                "username": {
+                    "required": "Please enter your desired username",
+                    "invalid": "Username must not contain special characters",
+                    "min": "Your username is too short",
+                    "max": "Your username is too long"
+                }
+            },
+            "reminder": "You'll receive a confirmation email in your inbox with a a link to activate your account. If you any problems, ",
+            "contact": "contact us!"
+        }
     }
 }

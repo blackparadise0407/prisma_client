@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { ChangeEventHandler, useRef, useState } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { InputType } from 'schema';
 import './styles.scss';
@@ -27,15 +28,15 @@ const FormInput = ({
     autoComplete = true,
     ...rest
 }: Props) => {
+    const { t } = useTranslation();
     const inputEl = useRef(null);
-    const labelEl = useRef(null);
     const [isFocus, setIsFocus] = useState<boolean>(false);
-    const [_val, setVal] = useState<string>(value);
+    // const [_val, setVal] = useState<string>(value);
     const [isShow, setIsShow] = useState<boolean>(false);
     const [isTouch, setIsTouch] = useState<boolean>(false);
 
     useEffect(() => {
-        if (_val) {
+        if (inputEl.current.value) {
             setIsFocus(true);
         }
     }, []);
@@ -46,12 +47,12 @@ const FormInput = ({
     };
 
     const handleBlur = () => {
-        if (!_val) setIsFocus(false);
+        if (!inputEl.current.value) setIsFocus(false);
         setIsTouch(true);
     };
 
     const handleChange = (e) => {
-        setVal(e.target.value as string);
+        // setVal(e.target.value as string);
         onChange && onChange(e);
     };
 
@@ -67,7 +68,7 @@ const FormInput = ({
             )}
         >
             <div className="label" onClick={handleFocus}>
-                {label}
+                {t(label)}
             </div>
             <input
                 autoComplete={autoComplete ? 'off' : 'auto'}
@@ -79,7 +80,7 @@ const FormInput = ({
                 onBlur={handleBlur}
                 onChange={handleChange}
                 ref={inputEl}
-                value={_val}
+                value={value}
                 {...rest}
             />
             {type === 'password' &&

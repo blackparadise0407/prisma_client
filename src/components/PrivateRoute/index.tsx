@@ -6,9 +6,9 @@ import { Redirect, Route } from 'react-router-dom';
 import { IRoute } from 'schema';
 
 const PrivateRoute = ({ ...rest }: IRoute) => {
-    const auth = useSelector(authSelector);
+    const { isAuth } = useSelector(authSelector);
 
-    if (!auth.isAuth)
+    if (!isAuth)
         return (
             <Redirect
                 to={{

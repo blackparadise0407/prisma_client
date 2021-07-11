@@ -1,6 +1,7 @@
 @import 'themes/color-theme';
 .login-form {
     @include themed() {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -10,7 +11,13 @@
         padding: 1rem 6rem;
         background-color: #fff;
         box-shadow: t($shadow);
-
+        .rocket {
+            position: absolute;
+            top: -8%;
+            left: -10%;
+            width: 14rem;
+            height: auto;
+        }
         .title {
             color: t($text-primary);
             font-weight: 700;
@@ -98,8 +105,15 @@
             font-weight: 600;
             border-radius: 10px;
             color: t($text-contrast);
-            background-color: t($primary);
+            background-color: t($secondary);
             cursor: pointer;
+            transition: all ease 0.2s;
+            &:hover {
+                transform: scale(1.05);
+                color: t($secondary);
+                background-color: t($text-contrast);
+                box-shadow: 0px 0px 10px -5px rgb(49, 49, 49);
+            }
         }
         .divider {
             position: relative;
@@ -197,17 +211,14 @@
                 background-color: #1a77f1;
             }
         }
-        .alert-transition-enter {
-            opacity: 0;
-        }
-        .alert-transition-enter-active {
-            opacity: 1;
-        }
-        .alert-transition-exit {
-            opacity: 1;
-        }
-        .alert-transition-exit-active {
-            opacity: 0;
+        .reminder {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1rem 0 3rem;
+            color: t($text-primary);
+            a {
+                color: t($text-secondary);
+            }
         }
     }
 }
