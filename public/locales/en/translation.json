@@ -65,5 +65,12 @@
             "reminder": "You'll receive a confirmation email in your inbox with a a link to activate your account. If you any problems, ",
             "contact": "contact us!"
         }
+    },
+    "layout": {
+        "header": {
+            "search": {
+                "placeholder": "Search here for people or posts"
+            }
+        }
     }
 }

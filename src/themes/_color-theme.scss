@@ -13,6 +13,7 @@ $success: 'success';
 $danger: 'danger';
 $primary: 'primary';
 $secondary: 'secondary';
+$background: 'background';
 
 $themes: (
     default: (
@@ -29,6 +30,7 @@ $themes: (
         danger: $danger--default,
         primary: $primary--default,
         secondary: $secondary--default,
+        background: $background--default,
     ),
     dark: (
         text-primary: $text--primary--dark,
@@ -44,6 +46,7 @@ $themes: (
         danger: $danger--dark,
         primary: $primary--dark,
         secondary: $secondary--dark,
+        background: $background--default,
     ),
 );
 

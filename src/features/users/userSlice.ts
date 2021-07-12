@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { UserApi } from 'api';
+import { createSlice } from '@reduxjs/toolkit';
 import { ReducerStatus, User } from 'schema';
 
 export interface UserState {

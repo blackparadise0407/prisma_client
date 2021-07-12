@@ -47,9 +47,9 @@ axiosClient.interceptors.response.use(
     },
     async (error) => {
         if (error.response.status === 401) {
-            const { headers } = originalRequest;
+            const { headers, method, data, url } = originalRequest;
             if (!headers['Authorization']) {
-                throw new Error(`Session expired`);
+                throw new Error('');
             }
             try {
                 const token = localStorage.getItem('refreshToken');
@@ -60,6 +60,7 @@ axiosClient.interceptors.response.use(
                     data: { accessToken },
                 } = await AuthApi.refreshToken(token);
                 Cookies.set('accessToken', accessToken);
+                await request(method, url, data);
             } catch (e) {
                 throw e;
             }
@@ -77,10 +78,11 @@ async function request<T>(method: Method, url: string, data?: any) {
         method,
         url,
     };
+
     if (method === 'GET' || method === 'get') {
         config.params = data;
     } else config.data = data;
-    console.log(config);
+
     const response = (await axiosClient.request(config)) as T;
     return response;
 }

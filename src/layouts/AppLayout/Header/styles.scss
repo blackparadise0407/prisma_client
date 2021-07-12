@@ -2,9 +2,15 @@
 
 .app-header {
     @include themed() {
+        display: grid;
+        // display: flex;
+        // flex-direction: row;
+        // align-items: center;
+        grid-template-columns: $left-sider-width auto $right-sider-width;
         width: 100%;
         height: $header-height;
         background-color: t($primary);
+
         .app-brand {
             display: flex;
             flex-direction: row;
@@ -19,6 +25,26 @@
                 font-weight: 800;
                 font-size: 1.8rem;
                 color: t($text-contrast);
+            }
+        }
+        .main {
+            .menu {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                > * + * {
+                    margin-left: 1.5rem;
+                }
+                .menu-item {
+                    font-weight: 600;
+                    font-size: 1.3rem;
+                    color: t($text-contrast);
+                    cursor: pointer;
+                    transition: opacity ease 0.2s;
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 import { SVGS } from 'assets';
 import React from 'react';
+import Search from './Search';
 import './styles.scss';
 
 const Header = () => {
@@ -12,9 +13,10 @@ const Header = () => {
             <div className="main">
                 <ul className="menu">
                     <li className="menu-item">Home</li>
-                    <li className="menu-item"></li>
-                    <li className="menu-item"></li>
+                    <li className="menu-item">Contact</li>
+                    <li className="menu-item">FAQs</li>
                 </ul>
+                <Search />
             </div>
         </div>
     );

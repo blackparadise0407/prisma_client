@@ -1,0 +1,8 @@
+@import 'themes/color-theme';
+.friend-sider {
+    @include themed() {
+        height: calc(100vh - #{$header-height});
+
+        background: #fff;
+    }
+}

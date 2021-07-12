@@ -14,7 +14,8 @@ $success--default: #35f53f;
 $info--default: #417fdb;
 $danger--default: #fc434f;
 $primary--default: #615efa;
-$secondary--default: #20d2e3;
+$secondary--default: #5d6768;
+$background--default: #f8f7fc;
 
 // DARK THEME
 
@@ -31,7 +32,10 @@ $success--dark: success;
 $danger--dark: #fc434f;
 $primary--dark: #615efa;
 $secondary--dark: #20d2e3;
+$background--dark: #f8f7fc;
 
 // COMMON
 $main-font: 'Poppins', sans-serif;
 $header-height: 6rem;
+$left-sider-width: 26rem;
+$right-sider-width: 8rem;

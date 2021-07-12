@@ -11,7 +11,7 @@
             position: absolute;
             top: 50%;
             left: 1.5rem;
-            padding: 0.5rem;
+            padding: 0 0.5rem;
             font-size: 1.2rem;
             color: t($text-secondary);
             background-color: transparent;
@@ -51,7 +51,8 @@
         &--focus {
             .label {
                 background-color: #fff;
-                transform: translateY(-160%);
+                transform: translate3d(0, -220%, 0px);
+                // top: 0;
             }
         }
     }

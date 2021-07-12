@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import Footer from './Footer';
+import FriendSider from './FriendSider';
 import Header from './Header';
+import MenuSider from './MenuSider';
 import './styles.scss';
 
 type Props = {
@@ -12,9 +13,13 @@ const AppLayout = ({ children }: Props) => {
         <div className="layout">
             <Header />
             <div className="main">
-                <div className="left-sider"></div>
-                <div className="child">{children}</div>
-                <div className="right-sider"></div>
+                <div className="left-sider">
+                    <MenuSider />
+                </div>
+                <div className="content">{children}</div>
+                <div className="right-sider">
+                    <FriendSider />
+                </div>
             </div>
         </div>
     );
