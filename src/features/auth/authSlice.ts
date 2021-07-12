@@ -12,7 +12,7 @@ import { AppState, ReducerStatus, User } from 'schema';
 
 export interface AuthState {
     isAuth?: boolean;
-    user?: any;
+    user?: User;
     status?: ReducerStatus;
     error?: string;
 }
