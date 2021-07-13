@@ -1,0 +1,24 @@
+@import './variables';
+
+@mixin hover($c, $isBgC: false) {
+    cursor: pointer;
+    @if ($isBgC) {
+        transition: background ease 0.2s;
+    } @else {
+        transition: color ease 0.2s;
+    }
+    &:hover {
+        @if ($isBgC) {
+            background-color: lighten($c, 10%);
+        } @else {
+            color: lighten($c, 10%);
+        }
+    }
+}
+
+@mixin absoluteCenter() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,4 +1,5 @@
 import { SVGS } from 'assets';
+import { Setting } from 'assets/icons';
 import React from 'react';
 import Search from './Search';
 import './styles.scss';
@@ -17,6 +18,9 @@ const Header = () => {
                     <li className="menu-item">FAQs</li>
                 </ul>
                 <Search />
+            </div>
+            <div className="setting">
+                <Setting className="icon" size={20} color="#fff" />
             </div>
         </div>
     );

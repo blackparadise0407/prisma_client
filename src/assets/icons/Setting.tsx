@@ -3,6 +3,7 @@ import React from 'react';
 type Props = {
     size?: number;
     color?: string;
+    [key: string]: any;
 };
 
 const Setting = ({ color, size = 16, ...rest }: Props) => {
@@ -15,7 +16,7 @@ const Setting = ({ color, size = 16, ...rest }: Props) => {
                 viewBox="0 0 18.076 18.076"
             >
                 <g
-                    id="Group_14"
+                    id="setting_icon"
                     data-name="Group 14"
                     transform="translate(-155.802 -12.525)"
                 >

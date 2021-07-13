@@ -16,62 +16,24 @@
                 }
                 z-index: 1;
             }
-            .avatar-wrapper {
-                position: relative;
-                width: 9rem;
-                height: 9rem;
-                border-radius: 10px;
-                margin: -2rem auto 0;
-                display: block;
-                position: relative;
-                -webkit-clip-path: polygon(
-                    0 25%,
-                    50% 0,
-                    100% 25%,
-                    100% 75%,
-                    50% 100%,
-                    0 75%
-                );
-
-                clip-path: polygon(
-                    0 25%,
-                    50% 0,
-                    100% 25%,
-                    100% 75%,
-                    50% 100%,
-                    0 75%
-                );
-
-                background-color: #fff;
-                z-index: 2;
-                .avatar {
-                    width: 9rem;
-                    height: 9rem;
-                    position: relative;
-                    background-color: #aaa;
-                    z-index: 3;
-                    -webkit-clip-path: polygon(
-                        0 25%,
-                        50% 0,
-                        100% 25%,
-                        100% 75%,
-                        50% 100%,
-                        0 75%
-                    );
-
-                    clip-path: polygon(
-                        0 25%,
-                        50% 0,
-                        100% 25%,
-                        100% 75%,
-                        50% 100%,
-                        0 75%
-                    );
-                    transform: scale(0.9);
-
-                    img {
-                        // width: 100%;
-                    }
+            .avatar {
+                margin: -4rem auto 0;
+            }
+            .name-wrapper {
+                margin: 1rem auto 0;
+                text-align: center;
+                & > * + * {
+                    margin-top: 0.8rem;
+                }
+                .name {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    color: t($text-primary);
+                }
+                .website {
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    color: t($text-secondary);
                 }
             }
         }
