@@ -16,7 +16,9 @@ const AppLayout = ({ children }: Props) => {
                 <div className="left-sider">
                     <MenuSider />
                 </div>
-                <div className="content">{children}</div>
+                <div className="content-wrapper">
+                    <div className="content-main">{children}</div>
+                </div>
                 <div className="right-sider">
                     <FriendSider />
                 </div>

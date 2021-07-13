@@ -7,11 +7,13 @@
             height: 100%;
             display: grid;
             grid-template-columns: $left-sider-width auto $right-sider-width;
-            .content {
-                // padding: 3rem;
-                margin: 3rem;
-                background-color: #fff;
-                border-radius: 10px;
+            .content-wrapper {
+                padding: 3rem;
+                background-color: t($background);
+                height: calc(100vh - #{$header-height});
+                overflow-y: scroll;
+                .content-main {
+                }
             }
         }
     }
