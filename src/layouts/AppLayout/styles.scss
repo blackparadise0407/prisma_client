@@ -5,9 +5,10 @@
         background-color: t($background);
         .main {
             height: 100%;
-            display: grid;
-            grid-template-columns: $left-sider-width auto $right-sider-width;
+            display: flex;
+            flex-direction: row;
             .content-wrapper {
+                width: 100%;
                 padding: 3rem;
                 background-color: t($background);
                 height: calc(100vh - #{$header-height});

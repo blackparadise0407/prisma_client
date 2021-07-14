@@ -49,12 +49,12 @@ axiosClient.interceptors.response.use(
         if (error.response.status === 401) {
             const { headers, method, data, url } = originalRequest;
             if (!headers['Authorization']) {
-                throw new Error('');
+                return Promise.reject('');
             }
             try {
                 const token = localStorage.getItem('refreshToken');
                 if (!token) {
-                    throw new Error(`Session expired`);
+                    throw new Error(``);
                 }
                 const {
                     data: { accessToken },
@@ -62,6 +62,7 @@ axiosClient.interceptors.response.use(
                 Cookies.set('accessToken', accessToken);
                 await request(method, url, data);
             } catch (e) {
+                console.log(e);
                 throw e;
             }
         }

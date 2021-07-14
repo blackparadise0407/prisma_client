@@ -3,6 +3,7 @@ import { AuthApi, UserApi } from 'api';
 import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
 import Cookies from 'js-cookie';
 import { AppState, ReducerStatus, User } from 'schema';
+import history from 'utils/history';
 
 // type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
 
@@ -84,7 +85,16 @@ export const userInfo = createAsyncThunk<User, null, { rejectValue: string }>(
 export const authSlice = createSlice({
     name: 'auth',
     initialState: authInitState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            state.isAuth = false;
+            state.user = null;
+            history.push('/login');
+        },
+        resetStatus: (state) => {
+            state.status = 'idle';
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(login.pending, (state) => {
             state.status = 'loading';
@@ -138,6 +148,8 @@ export const authSlice = createSlice({
         });
     },
 });
+
+export const { logout, resetStatus } = authSlice.actions;
 
 export const authSelector = (state: AppState) => state.auth;
 

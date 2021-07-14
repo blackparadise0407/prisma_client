@@ -71,6 +71,10 @@
             "search": {
                 "placeholder": "Search here for people or posts"
             }
+        },
+        "sidebar": {
+            "newsfeed": "Newsfeed",
+            "logout": "Logout"
         }
     }
 }

@@ -1,10 +1,14 @@
 @import 'themes/color-theme';
+@import 'themes/mixins';
+
 .menu-sider {
     @include themed() {
-        width: 100%;
+        width: $left-sider-width;
         height: calc(100vh - #{$header-height});
         background-color: #fff;
         position: sticky;
+        display: flex;
+        flex-direction: column;
         .user-profile {
             .cover-img {
                 position: relative;
@@ -34,6 +38,85 @@
                     font-weight: 600;
                     font-size: 1.2rem;
                     color: t($text-secondary);
+                }
+            }
+        }
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            margin-top: 2rem;
+            .item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                color: t($text-secondary);
+                padding: 1.2rem 1.6rem;
+                margin: 1rem 2rem;
+                font-size: 1.4rem;
+                font-weight: 600;
+                border-radius: 10px;
+                cursor: pointer;
+                .icon {
+                    font-size: 2rem;
+                    margin-right: 2rem;
+                }
+                transition: all ease 0.2s;
+                &:hover {
+                    // box-shadow: t($shadow);
+                    box-shadow: 2px 2px 20px -5px rgb(216, 203, 203);
+                }
+                &--active {
+                    background-color: t($secondary);
+                    color: t($text-contrast);
+                    box-shadow: 2px 2px 20px -5px rgb(216, 203, 203);
+                }
+            }
+        }
+
+        .collapse-btn {
+            $size: 4rem;
+            position: relative;
+            width: $size;
+            height: $size;
+            border-radius: 10px;
+            background-color: t($primary);
+            margin: 0 2rem 2rem auto;
+            box-shadow: t($shadow);
+            @include hover(t($primary), true);
+            .icon {
+                font-size: 2rem;
+                color: t($text-contrast);
+                @include absoluteCenter();
+            }
+        }
+        transition: all ease 0.2s;
+
+        &--collapsed {
+            width: $left-sider-width-collapsed;
+            .user-profile {
+                .cover-img {
+                    display: none;
+                    // visibility: collapse;
+                }
+                .avatar {
+                    margin: 1rem auto;
+                }
+                .name-wrapper {
+                    display: none;
+                    // visibility: collapse;
+                }
+            }
+            .menu-list {
+                .item {
+                    padding: 1rem;
+                    margin: 1rem auto;
+                    .icon {
+                        margin: 0 auto;
+                        font-size: 2rem;
+                    }
+                    span {
+                        display: none;
+                    }
                 }
             }
         }

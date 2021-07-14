@@ -62,17 +62,17 @@ const LoginForm = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const dispatch = useDispatch();
-    const { status, error } = useSelector(authSelector);
+    const { isAuth, error, status } = useSelector(authSelector);
 
     const handleFinish = (v: FormValues) => {
         dispatch(login(v));
     };
 
     useEffect(() => {
-        if (status === 'success') {
+        if (isAuth) {
             history.push('/');
         }
-    }, [status]);
+    }, [history, isAuth]);
 
     const formik = useFormik<FormValues>({
         initialValues: {

@@ -29,8 +29,10 @@
             }
         }
         .main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             padding: 0 3rem;
-
             .menu {
                 display: flex;
                 flex-direction: row;

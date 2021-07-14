@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormInputItem } from 'schema';
 import { hasSpecialCharaters, validateEmail } from 'utils/validation';
-import { authSelector, signup } from './authSlice';
+import { authSelector, resetStatus, signup } from './authSlice';
 import { renderInput } from './LoginForm';
 
 interface FormValues {
@@ -88,7 +88,10 @@ const SignUpForm = () => {
     });
 
     useEffect(() => {
-        if (status === 'success') formik.resetForm();
+        if (status === 'success') {
+            formik.resetForm();
+            dispatch(resetStatus());
+        }
     }, [status]);
 
     return (

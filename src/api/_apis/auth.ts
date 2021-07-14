@@ -43,6 +43,8 @@ const AuthApi = {
             AuthEndpoint + '/refresh-token',
             { refreshToken },
         ),
+
+    logout: () => request<GeneralApiResponse>('GET', AuthEndpoint + '/logout'),
 };
 
 export default AuthApi;

@@ -4,7 +4,11 @@ import React from 'react';
 import Search from './Search';
 import './styles.scss';
 
-const Header = () => {
+type Props = {
+    isCollapse?: boolean;
+};
+
+const Header = ({ isCollapse }: Props) => {
     return (
         <div className="app-header">
             <div className="app-brand">

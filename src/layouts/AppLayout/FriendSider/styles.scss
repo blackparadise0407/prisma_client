@@ -2,7 +2,8 @@
 .friend-sider {
     @include themed() {
         height: calc(100vh - #{$header-height});
-
+        top: $header-height;
+        width: $right-sider-width;
         background: #fff;
     }
 }

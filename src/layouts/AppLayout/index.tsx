@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import FriendSider from './FriendSider';
 import Header from './Header';
 import MenuSider from './MenuSider';
@@ -9,12 +9,23 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
+    const [isCollapse, setIsCollapse] = useState<boolean>(
+        window.innerWidth < 960,
+    );
+
+    const handleToggleCollapse = () => {
+        setIsCollapse(!isCollapse);
+    };
+
     return (
         <div className="layout">
-            <Header />
+            <Header isCollapse={isCollapse} />
             <div className="main">
                 <div className="left-sider">
-                    <MenuSider />
+                    <MenuSider
+                        handleToggleCollapse={handleToggleCollapse}
+                        isCollapse={isCollapse}
+                    />
                 </div>
                 <div className="content-wrapper">
                     <div className="content-main">{children}</div>

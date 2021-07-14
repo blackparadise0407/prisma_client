@@ -54,3 +54,9 @@ export interface Token {
     accessToken?: string;
     refreshToken?: string;
 }
+
+export interface INavigationItem {
+    name: string;
+    icon?: JSX.Element;
+    path?: string;
+}

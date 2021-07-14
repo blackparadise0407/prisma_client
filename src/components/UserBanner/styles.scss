@@ -1,0 +1,27 @@
+@import 'themes/color-theme';
+@import 'themes/mixins';
+
+.user-banner {
+    @include themed() {
+        border-radius: 10px;
+        background-color: #fff;
+        .cover {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+
+            position: relative;
+            height: 20rem;
+            overflow: hidden;
+
+            img {
+                @include absoluteCenter();
+            }
+        }
+        .info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            .user {
+            }
+        }
+    }
+}

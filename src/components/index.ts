@@ -6,6 +6,7 @@ import Spin from './Spin';
 import Alert from './Alert';
 import CheckBox from './CheckBox';
 import Avatar from './Avatar';
+import UserBanner from './UserBanner';
 
 export {
     Loader,
@@ -16,4 +17,5 @@ export {
     Alert,
     CheckBox,
     Avatar,
+    UserBanner,
 };
