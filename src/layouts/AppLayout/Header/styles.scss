@@ -3,11 +3,12 @@
 
 .app-header {
     @include themed() {
-        display: grid;
+        display: flex;
+        flex-direction: row;
         // display: flex;
         // flex-direction: row;
         // align-items: center;
-        grid-template-columns: $left-sider-width auto $right-sider-width;
+        // grid-template-columns: $left-sider-width auto $right-sider-width;
         width: 100%;
         height: $header-height;
         background-color: t($primary);
@@ -17,6 +18,7 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
+            width: $left-sider-width;
             img {
                 width: 3rem;
                 margin-right: 1rem;
@@ -27,12 +29,15 @@
                 font-size: 1.8rem;
                 color: t($text-contrast);
             }
+            transition: width ease 0.2s;
         }
         .main {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             padding: 0 3rem;
+            width: calc(100% - #{$left-sider-width} - #{$right-sider-width});
+
             .menu {
                 display: flex;
                 flex-direction: row;
@@ -51,23 +56,44 @@
                     }
                 }
             }
+            transition: width ease 0.2s;
         }
         .setting {
             position: relative;
             display: grid;
             place-items: center;
+            width: $right-sider-width;
             &::before {
                 content: '';
                 position: absolute;
                 top: 50%;
                 left: 0;
                 width: 0.5px;
-                height: 50%;
+                height: 40%;
                 background-color: t($border);
                 transform: translateY(-50%);
             }
 
             .icon {
+            }
+        }
+        &--collapsed {
+            .app-brand {
+                display: block;
+                width: $left-sider-width-collapsed;
+                position: relative;
+
+                img {
+                    @include absoluteCenter();
+                    margin: 0 auto;
+                }
+
+                .name {
+                    display: none;
+                }
+            }
+            .main {
+                width: calc(100% - #{$left-sider-width-collapsed});
             }
         }
     }

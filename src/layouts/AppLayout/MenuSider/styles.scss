@@ -41,6 +41,8 @@
                 }
             }
         }
+        transition: width ease 0.2s;
+
         .menu-list {
             display: flex;
             flex-direction: column;

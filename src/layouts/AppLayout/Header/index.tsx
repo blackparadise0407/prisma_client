@@ -1,5 +1,6 @@
 import { SVGS } from 'assets';
 import { Setting } from 'assets/icons';
+import clsx from 'clsx';
 import React from 'react';
 import Search from './Search';
 import './styles.scss';
@@ -10,7 +11,12 @@ type Props = {
 
 const Header = ({ isCollapse }: Props) => {
     return (
-        <div className="app-header">
+        <div
+            className={clsx(
+                'app-header',
+                isCollapse && 'app-header--collapsed',
+            )}
+        >
             <div className="app-brand">
                 <img src={SVGS.game} alt="logo" />
                 <div className="name">prisma</div>
