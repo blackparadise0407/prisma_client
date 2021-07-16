@@ -4,13 +4,6 @@ import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
 import Cookies from 'js-cookie';
 import { AppState, ReducerStatus, User } from 'schema';
 import history from 'utils/history';
-
-// type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
-
-// type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
-// type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-// type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
-
 export interface AuthState {
     isAuth?: boolean;
     user?: User;

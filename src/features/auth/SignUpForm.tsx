@@ -2,7 +2,7 @@ import { IMAGES } from 'assets';
 import { Alert, CheckBox, Spin } from 'components';
 import { FormikErrors, useFormik } from 'formik';
 import i18n from 'i18n';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormInputItem } from 'schema';
@@ -36,6 +36,8 @@ const SignUpForm = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const { status, error } = useSelector(authSelector);
+
+    const [success, setSuccess] = useState(false);
 
     const onFinish = (v: FormValues) => {
         dispatch(signup(v));
@@ -89,24 +91,32 @@ const SignUpForm = () => {
 
     useEffect(() => {
         if (status === 'success') {
+            setSuccess(true);
             formik.resetForm();
             dispatch(resetStatus());
         }
     }, [status]);
 
+    const handleClose = () => {
+        setSuccess(false);
+    };
+
     return (
         <form onSubmit={formik.handleSubmit} className="login-form">
             <h1 className="title">{t('signup.form.title')}</h1>
             <img src={IMAGES.rocket} alt="rocket" className="rocket" />
-            {status === 'success' && (
+            {success && (
                 <Alert
+                    autoClose={5}
+                    onClose={handleClose}
                     closable
                     type="success"
                     message={t('signup.form.success')}
                 />
             )}
-
-            {error && <Alert closable type="error" message={error} />}
+            {error && (
+                <Alert autoClose={5} closable type="error" message={error} />
+            )}
             {renderInput(inputItems, {
                 values: formik.values,
                 errors: formik.errors,
@@ -137,7 +147,6 @@ const SignUpForm = () => {
                     <AiFillFacebook className="icon" />
                 </a>
             </div> */}
-
             <div className="reminder">
                 {t('signup.form.reminder')}
                 <a href="#a">{t('signup.form.contact')}</a>
