@@ -13,8 +13,6 @@
                 background-color: t($background);
                 height: calc(100vh - #{$header-height});
                 overflow-y: scroll;
-                .content-main {
-                }
             }
         }
     }

@@ -89,6 +89,10 @@ const SignUpForm = () => {
         },
     });
 
+    const handleClose = () => {
+        setSuccess(false);
+    };
+
     useEffect(() => {
         if (status === 'success') {
             setSuccess(true);
@@ -97,9 +101,12 @@ const SignUpForm = () => {
         }
     }, [status]);
 
-    const handleClose = () => {
-        setSuccess(false);
-    };
+    useEffect(() => {
+        return () => {
+            dispatch(resetStatus());
+            setSuccess(false);
+        };
+    }, []);
 
     return (
         <form onSubmit={formik.handleSubmit} className="login-form">
@@ -133,20 +140,6 @@ const SignUpForm = () => {
                     t('signup.form.register_button')
                 )}
             </button>
-            {/* <div className="social">
-                <a
-                    href={`${config.google.url}?${queries}`}
-                    className="item google"
-                >
-                    <AiOutlineGoogle className="icon" />
-                </a>
-                <a href="#a" className="item github">
-                    <AiOutlineGithub className="icon" />
-                </a>
-                <a href="#a" className="item facebook">
-                    <AiFillFacebook className="icon" />
-                </a>
-            </div> */}
             <div className="reminder">
                 {t('signup.form.reminder')}
                 <a href="#a">{t('signup.form.contact')}</a>

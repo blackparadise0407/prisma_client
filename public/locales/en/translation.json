@@ -76,5 +76,14 @@
             "newsfeed": "Newsfeed",
             "logout": "Logout"
         }
+    },
+    "newsfeed": {
+        "banner": {
+            "title": "Newsfeed",
+            "sub": "Check what your friends have been up to!"
+        },
+        "post_create": {
+            "placeholder": "What's on your mind"
+        }
     }
 }

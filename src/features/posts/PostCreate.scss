@@ -1,0 +1,29 @@
+@import 'themes/color-theme';
+.post-create {
+    @include themed() {
+        width: 100%;
+        border: 1px solid t($border);
+        border-radius: 10px;
+        background-color: t($text-contrast);
+
+        textarea {
+            width: 100%;
+            height: 14rem;
+            padding: 2rem;
+            resize: none;
+            white-space: normal;
+            letter-spacing: 0.1px;
+            word-break: normal;
+            word-wrap: break-word;
+            line-height: 1.33;
+            background-color: transparent;
+            overflow-y: scroll;
+            font-size: $fs-middle;
+
+            &::placeholder {
+                color: t($text-secondary);
+                font-size: $fs-middle;
+            }
+        }
+    }
+}

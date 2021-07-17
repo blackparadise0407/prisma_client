@@ -7,6 +7,9 @@ import Alert from './Alert';
 import CheckBox from './CheckBox';
 import Avatar from './Avatar';
 import UserBanner from './UserBanner';
+import Text from './Text';
+import Divider from './Divider';
+import Button from './Button';
 
 export {
     Loader,
@@ -18,4 +21,7 @@ export {
     CheckBox,
     Avatar,
     UserBanner,
+    Text,
+    Divider,
+    Button,
 };

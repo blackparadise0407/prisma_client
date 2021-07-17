@@ -29,7 +29,8 @@ code {
         monospace;
 }
 
-input {
+input,
+textarea {
     font-family: $main-font;
     border: none;
     outline: none;

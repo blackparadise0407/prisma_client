@@ -2,14 +2,14 @@ import { Loader } from 'components';
 import Loadable from 'react-loadable';
 import { IRoute } from 'schema';
 
-const Home = Loadable({
-    loader: () => import('features/posts/Home'),
+const Newsfeed = Loadable({
+    loader: () => import('features/posts/Newsfeed'),
     loading: Loader,
 });
 
 export const routes: IRoute[] = [
     {
-        component: Home,
+        component: Newsfeed,
         path: '/',
         exact: true,
     },

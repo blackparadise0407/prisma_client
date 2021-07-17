@@ -27,9 +27,7 @@ const AppLayout = ({ children }: Props) => {
                         isCollapse={isCollapse}
                     />
                 </div>
-                <div className="content-wrapper">
-                    <div className="content-main">{children}</div>
-                </div>
+                <div className="content-wrapper">{children}</div>
                 <div className="right-sider">
                     <FriendSider />
                 </div>

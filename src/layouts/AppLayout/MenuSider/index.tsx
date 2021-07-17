@@ -1,7 +1,7 @@
 import { AuthApi } from 'api';
 import { IMAGES } from 'assets';
 import clsx from 'clsx';
-import { Avatar } from 'components';
+import { Avatar, Text } from 'components';
 import { authSelector, logout } from 'features/auth/authSlice';
 import i18n from 'i18n';
 import { map } from 'lodash';
@@ -80,7 +80,9 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
                 />
                 <div className="name-wrapper">
                     <div className="name">{user?.username}</div>
-                    <div className="website">www.prisma.com</div>
+                    <Text size="small" className="website">
+                        www.prisma.com
+                    </Text>
                 </div>
             </div>
             <ul className="menu-list">

@@ -1,0 +1,45 @@
+@import 'themes/color-theme';
+@import 'themes/mixins';
+
+.button {
+    @include themed() {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        &--default {
+            color: #000;
+            background-color: #fff;
+            @include hover(#fff, true);
+            &--outline {
+                color: t($primary);
+                border: 1px solid t($primary);
+            }
+            @include active(t($primary));
+        }
+        &--primary {
+            color: t($text-contrast);
+            background-color: t($primary);
+            @include hover(t($primary), true);
+        }
+        &--secondary {
+            color: t($text-contrast);
+            background-color: t($secondary);
+            @include hover(t($secondary), true);
+        }
+        &--danger {
+            color: t($text-contrast);
+            background-color: t($danger);
+            @include hover(t($danger), true);
+        }
+        &--block {
+            width: 100%;
+        }
+        span {
+            margin-left: 0.6rem;
+            display: grid;
+            place-items: center;
+        }
+    }
+}

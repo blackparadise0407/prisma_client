@@ -1,0 +1,21 @@
+@import 'themes/color-theme';
+.text {
+    @include themed() {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: normal;
+        letter-spacing: 0.1px;
+        word-break: normal;
+        word-wrap: break-word;
+        line-height: 1.33;
+        &--small {
+            font-size: $fs-small;
+        }
+        &--middle {
+            font-size: $fs-middle;
+        }
+        &--large {
+            font-size: $fs-large;
+        }
+    }
+}
