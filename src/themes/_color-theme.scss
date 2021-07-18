@@ -12,6 +12,7 @@ $info: 'info';
 $success: 'success';
 $danger: 'danger';
 $primary: 'primary';
+$ghost: 'ghost';
 $secondary: 'secondary';
 $background: 'background';
 
@@ -29,6 +30,7 @@ $themes: (
         success: $success--default,
         danger: $danger--default,
         primary: $primary--default,
+        ghost: $ghost--default,
         secondary: $secondary--default,
         background: $background--default,
     ),
@@ -45,8 +47,9 @@ $themes: (
         success: $success--dark,
         danger: $danger--dark,
         primary: $primary--dark,
+        ghost: $ghost--dark,
         secondary: $secondary--dark,
-        background: $background--default,
+        background: $background--dark,
     ),
 );
 

@@ -5,25 +5,23 @@ $text--primary--default: #333045;
 $text--secondary--default: #b4b5c5;
 $text--contrast--default: #fff;
 $link--default: #83dde9;
-$hover--default: hover;
+$hover--default: rgb(241, 240, 240);
 $border--default: #dbdce0;
-$shadow--default: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    0 100px 80px rgba(0, 0, 0, 0.12);
+$shadow--default: 0px 0px 3.2px #bbbbbb33;
 $warning--default: #ffaa2a;
 $success--default: #33e651;
 $info--default: #417fdb;
 $danger--default: #fc434f;
 $primary--default: #615efa;
+$ghost--default: #ffffff;
 $secondary--default: #20d2e3;
 $background--default: #f8f7fc;
 
 // DARK THEME
 
-$text--primary--dark: text-primary;
-$text--secondary--dark: text-secondary;
-$text--contrast--dark: text-contrast;
+$text--primary--dark: #fff;
+$text--secondary--dark: #b0b3b8;
+$text--contrast--dark: rgb(112, 106, 106);
 $link--dark: #83dde9;
 $hover--dark: hover;
 $border--dark: border;
@@ -32,9 +30,10 @@ $warning--dark: warning;
 $info--dark: #417fdb;
 $success--dark: success;
 $danger--dark: #fc434f;
-$primary--dark: #615efa;
+$primary--dark: #232626;
+$ghost--dark: #a3a3a3;
 $secondary--dark: #20d2e3;
-$background--dark: #f8f7fc;
+$background--dark: #191a1b;
 
 // COMMON
 $main-font: 'Fira Sans', sans-serif;

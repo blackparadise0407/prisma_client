@@ -83,7 +83,14 @@
             "sub": "Check what your friends have been up to!"
         },
         "post_create": {
-            "placeholder": "What's on your mind"
+            "placeholder": "What's on your mind",
+            "discard": "Discard",
+            "post": "Post"
+        }
+    },
+    "components": {
+        "text": {
+            "see_more": "See more"
         }
     }
 }

@@ -4,11 +4,9 @@ import {
     getDefaultMiddleware,
     ThunkAction,
 } from '@reduxjs/toolkit';
-import persistedReducer from 'app/rootReducer';
-import rootReducer from 'app/rootReducer';
+import persistedReducer, { AppState } from 'app/rootReducer';
 import { isDev } from 'constant/config';
 import persistStore from 'redux-persist/es/persistStore';
-import { AppState } from 'schema';
 
 const middleware = getDefaultMiddleware({
     serializableCheck: false,

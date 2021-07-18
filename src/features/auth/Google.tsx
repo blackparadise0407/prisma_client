@@ -1,9 +1,7 @@
 import { findIndex, includes } from 'lodash';
-import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { AppState } from 'schema';
 import { authSelector, googleLogin } from './authSlice';
 
 const getToken = (hash: string): string => {

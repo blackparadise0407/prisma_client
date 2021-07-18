@@ -1,0 +1,61 @@
+@import 'themes/color-theme';
+
+$padding: 3rem;
+
+.post-card {
+    @include themed() {
+        background-color: t($text-contrast);
+        border-radius: 10px;
+        box-shadow: t($shadow);
+        .header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: $padding;
+            .user {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .info {
+                    margin-left: 1rem;
+                    .name {
+                        font-weight: 600;
+                    }
+                    .created-at {
+                        font-size: 1.2rem !important;
+                        color: t($text-secondary);
+                    }
+                }
+            }
+            .action {
+                font-size: 2.6rem;
+                color: t($text-secondary);
+                cursor: pointer;
+                align-self: baseline;
+            }
+        }
+        .body {
+            .content {
+                padding: 0 $padding $padding;
+            }
+            .photos {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                .photo {
+                    width: 100%;
+                    &--two {
+                        width: 50%;
+                    }
+                    &--three {
+                        width: calc(100% / 3);
+                        &:first-child {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,11 +1,30 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import authReducer from 'features/auth/authSlice';
-import localeReducer from 'features/locale/localeSlice';
-import themeReducer from 'features/theme/themeSlice';
-import userReducer from 'features/users/userSlice';
+import authReducer, { AuthState } from 'features/auth/authSlice';
+import postCreateReducer, {
+    PostCreateState,
+} from 'features/postCreate/postCreateSlice';
+import postListReducer, {
+    PostListState,
+} from 'features/postsList/postListSlice';
+import preferencesReducer, {
+    PreferencesState,
+} from 'features/preferences/preferencesSlice';
+import userReducer, { UserState } from 'features/users/userSlice';
 import { persistReducer } from 'redux-persist';
 import sessionStorage from 'redux-persist/lib/storage/session';
-import { AppState } from 'schema';
+
+export interface AppState {
+    auth: AuthState;
+    preferences: PreferencesState;
+    user: UserState;
+    postCreate: PostCreateState;
+    postList: PostListState;
+}
+
+export type AsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
 
 const persistConfig = {
     key: 'root',
@@ -16,9 +35,10 @@ const persistConfig = {
 
 const rootReducer = combineReducers<AppState>({
     auth: authReducer,
-    locale: localeReducer,
-    theme: themeReducer,
+    preferences: preferencesReducer,
+    postCreate: postCreateReducer,
     user: userReducer,
+    postList: postListReducer,
 });
 
 const persistedReducer = persistReducer<AppState>(persistConfig, rootReducer);

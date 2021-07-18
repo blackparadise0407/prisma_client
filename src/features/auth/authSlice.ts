@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthApi, UserApi } from 'api';
 import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
+import { AppState, AsyncThunkConfig } from 'app/rootReducer';
 import Cookies from 'js-cookie';
-import { AppState, ReducerStatus, User } from 'schema';
+import { ReducerStatus, User } from 'schema';
 import history from 'utils/history';
 export interface AuthState {
     isAuth?: boolean;
@@ -18,52 +19,49 @@ const authInitState: AuthState = {
     error: null,
 };
 
-export const signup = createAsyncThunk<
-    any,
-    SignUpRequest,
-    { rejectValue: string }
->('auth/Signup', async (data, thunkAPI) => {
-    try {
-        await AuthApi.signup(data);
-        return thunkAPI.fulfillWithValue(null);
-    } catch (e) {
-        return thunkAPI.rejectWithValue(e.message as string);
-    }
-});
+export const signup = createAsyncThunk<any, SignUpRequest, AsyncThunkConfig>(
+    'auth/Signup',
+    async (data, thunkAPI) => {
+        try {
+            await AuthApi.signup(data);
+            return thunkAPI.fulfillWithValue(null);
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message as string);
+        }
+    },
+);
 
-export const login = createAsyncThunk<
-    User,
-    LoginRequest,
-    { rejectValue: string }
->('auth/Login', async (data, thunkAPI) => {
-    try {
-        const { data: resp } = await AuthApi.login(data);
-        localStorage.setItem('refreshToken', resp.refreshToken);
-        Cookies.set('accessToken', resp.accessToken);
-        return thunkAPI.fulfillWithValue(resp.user) as User;
-    } catch (e) {
-        return thunkAPI.rejectWithValue(e.message as string);
-    }
-});
+export const login = createAsyncThunk<User, LoginRequest, AsyncThunkConfig>(
+    'auth/Login',
+    async (data, thunkAPI) => {
+        try {
+            const { data: resp } = await AuthApi.login(data);
+            localStorage.setItem('refreshToken', resp.refreshToken);
+            Cookies.set('accessToken', resp.accessToken);
+            return thunkAPI.fulfillWithValue(resp.user) as User;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message as string);
+        }
+    },
+);
 
-export const googleLogin = createAsyncThunk<
-    User,
-    string,
-    { rejectValue: string }
->('auth/LoginGoogle', async (data, thunkAPI) => {
-    try {
-        const { data: resp } = await AuthApi.googleSignIn({
-            access_token: data,
-        });
-        localStorage.setItem('refreshToken', resp.refreshToken);
-        Cookies.set('accessToken', resp.accessToken);
-        return thunkAPI.fulfillWithValue(resp.user) as User;
-    } catch (e) {
-        return thunkAPI.rejectWithValue(e.message as string);
-    }
-});
+export const googleLogin = createAsyncThunk<User, string, AsyncThunkConfig>(
+    'auth/LoginGoogle',
+    async (data, thunkAPI) => {
+        try {
+            const { data: resp } = await AuthApi.googleSignIn({
+                access_token: data,
+            });
+            localStorage.setItem('refreshToken', resp.refreshToken);
+            Cookies.set('accessToken', resp.accessToken);
+            return thunkAPI.fulfillWithValue(resp.user) as User;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message as string);
+        }
+    },
+);
 
-export const userInfo = createAsyncThunk<User, null, { rejectValue: string }>(
+export const userInfo = createAsyncThunk<User, null, AsyncThunkConfig>(
     'auth/Info',
     async (_, thunkAPI) => {
         try {

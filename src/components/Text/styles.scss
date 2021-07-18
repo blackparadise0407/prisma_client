@@ -17,5 +17,12 @@
         &--large {
             font-size: $fs-large;
         }
+        &--collapsible {
+            span {
+                font-weight: 500;
+                color: t($text-secondary);
+                cursor: pointer;
+            }
+        }
     }
 }

@@ -60,9 +60,13 @@ axiosClient.interceptors.response.use(
                     data: { accessToken },
                 } = await AuthApi.refreshToken(token);
                 Cookies.set('accessToken', accessToken);
-                await request(method, url, data);
+                return await axiosClient.request({
+                    headers,
+                    method,
+                    url,
+                    data,
+                });
             } catch (e) {
-                console.log(e);
                 throw e;
             }
         }

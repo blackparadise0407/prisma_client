@@ -5,7 +5,7 @@
     @include themed() {
         width: $left-sider-width;
         height: calc(100vh - #{$header-height});
-        background-color: #fff;
+        background-color: t($text-contrast);
         position: sticky;
         display: flex;
         flex-direction: column;

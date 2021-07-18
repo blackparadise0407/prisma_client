@@ -1,7 +1,7 @@
 import { AuthApi } from 'api';
 import { IMAGES } from 'assets';
 import clsx from 'clsx';
-import { Avatar, Text } from 'components';
+import { Avatar, FlexGrow, Text } from 'components';
 import { authSelector, logout } from 'features/auth/authSlice';
 import i18n from 'i18n';
 import { map } from 'lodash';
@@ -99,7 +99,7 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
                 </Link>
             </ul>
             {/* {_renderItems(pathname)} */}
-            <div className="flex-grow"></div>
+            <FlexGrow />
             <div onClick={handleToggleCollapse} className="collapse-btn">
                 <BiExpand className="icon" />
             </div>

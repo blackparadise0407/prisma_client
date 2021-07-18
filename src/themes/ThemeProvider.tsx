@@ -1,9 +1,9 @@
+import { SupportedTheme } from 'features/preferences/preferencesSlice';
 import React, { ReactNode } from 'react';
-import { Theme } from 'schema';
 
 type Props = {
     children: ReactNode;
-    themeMode?: Theme;
+    themeMode?: SupportedTheme;
 };
 
 const ThemeProvider = ({ children, themeMode = 'default' }: Props) => {

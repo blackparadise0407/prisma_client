@@ -3,40 +3,52 @@
 
 .button {
     @include themed() {
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         align-items: center;
-        padding: 1rem 2rem;
+        padding: 1.1rem 2.3rem;
         border-radius: 10px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        overflow: hidden;
         &--default {
-            color: #000;
+            color: t($text-primary);
             background-color: #fff;
             @include hover(#fff, true);
-            &--outline {
-                color: t($primary);
-                border: 1px solid t($primary);
-            }
-            @include active(t($primary));
+            @include active(#fff);
         }
         &--primary {
             color: t($text-contrast);
             background-color: t($primary);
             @include hover(t($primary), true);
+            @include active(t($primary));
         }
         &--secondary {
             color: t($text-contrast);
             background-color: t($secondary);
             @include hover(t($secondary), true);
+            @include active(t($secondary));
         }
         &--danger {
             color: t($text-contrast);
             background-color: t($danger);
             @include hover(t($danger), true);
+            @include active(t($danger));
+        }
+        &--ghost {
+            color: t($text-secondary);
+            background-color: t($ghost);
+            @include active(t($ghost));
         }
         &--block {
             width: 100%;
+            justify-content: center;
         }
-        span {
+        &--loading {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .icon {
             margin-left: 0.6rem;
             display: grid;
             place-items: center;

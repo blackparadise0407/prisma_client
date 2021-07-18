@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { FlexGrow } from 'components';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -38,7 +39,7 @@ const Login = () => {
                     <p className="main">{t('login.heading_main')}</p>
                 </div>
                 <p className="welcome-text">{t('login.welcome_text')}</p>
-                <div className="flex-grow"></div>
+                <FlexGrow />
                 <div className="btn-group">
                     <button
                         onClick={goToLogin}

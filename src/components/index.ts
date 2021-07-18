@@ -10,6 +10,8 @@ import UserBanner from './UserBanner';
 import Text from './Text';
 import Divider from './Divider';
 import Button from './Button';
+import FlexGrow from './FlexGrow';
+import Skeleton from './Skeleton';
 
 export {
     Loader,
@@ -24,4 +26,6 @@ export {
     Text,
     Divider,
     Button,
+    FlexGrow,
+    Skeleton,
 };

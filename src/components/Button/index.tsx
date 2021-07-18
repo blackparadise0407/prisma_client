@@ -1,8 +1,9 @@
 import clsx from 'clsx';
+import Spin from 'components/Spin';
 import React from 'react';
 import './styles.scss';
 
-type ButtonType = 'default' | 'primary' | 'danger' | 'secondary';
+type ButtonType = 'default' | 'primary' | 'danger' | 'secondary' | 'ghost';
 
 type HTMLType = 'button' | 'reset' | 'submit';
 
@@ -13,7 +14,7 @@ type Props = {
     icon?: JSX.Element;
     htmlType?: HTMLType;
     block?: boolean;
-    outlined?: boolean;
+    loading?: boolean;
 };
 
 const Button = ({
@@ -23,20 +24,24 @@ const Button = ({
     type = 'default',
     icon,
     block = false,
-    outlined = false,
+    loading = false,
 }: Props) => {
+    const handleOnClick = () => {
+        onClick && !loading && onClick();
+    };
     return (
         <button
             type={htmlType}
             className={clsx(
                 'button',
-                `button--${type}${outlined ? '--outline' : ''}`,
                 `button--${type}`,
                 block && 'button--block',
+                loading && 'button--loading',
             )}
-            onClick={onClick}
+            onClick={handleOnClick}
         >
-            {children} <span>{icon}</span>
+            <div className="text">{loading ? 'Loading' : children}</div>
+            <span className={clsx(icon && 'icon')}>{icon}</span>
         </button>
     );
 };

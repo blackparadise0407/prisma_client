@@ -1,11 +1,10 @@
 import { PrivateRoute, ScrollToTop } from 'components';
+import { userInfo } from 'features/auth/authSlice';
 import Google from 'features/auth/Google';
 import Login from 'features/auth/SignUp';
-import { themeSelector } from 'features/theme/themeSlice';
-import { userInfo } from 'features/auth/authSlice';
+import { preferencesSelector } from 'features/preferences/preferencesSlice';
 import { map } from 'lodash';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Router, Switch } from 'react-router-dom';
 import { routes } from 'routes';
@@ -19,7 +18,7 @@ const _renderRoutes = () => {
 };
 function App() {
     const dispatch = useDispatch();
-    const { theme } = useSelector(themeSelector);
+    const { theme } = useSelector(preferencesSelector);
 
     useEffect(() => {
         dispatch(userInfo());

@@ -1,0 +1,79 @@
+@import 'themes/color-theme';
+.post-create {
+    @include themed() {
+        width: 100%;
+        box-shadow: t($shadow);
+        border-radius: 10px;
+        background-color: t($text-contrast);
+
+        .container {
+            max-height: 60rem;
+
+            textarea {
+                width: 100%;
+                height: 14rem;
+                padding: 3rem;
+                resize: none;
+                white-space: normal;
+                letter-spacing: 0.1px;
+                word-break: normal;
+                word-wrap: break-word;
+                line-height: 1.33;
+                background-color: transparent;
+                overflow-y: scroll;
+                font-size: $fs-middle;
+
+                &::placeholder {
+                    color: t($text-secondary);
+                    font-size: $fs-middle;
+                }
+            }
+            .photo-group {
+                display: flex;
+                flex-wrap: wrap;
+                .photo {
+                    &--half {
+                        width: 50%;
+                    }
+                    &--quater {
+                        width: 25%;
+                    }
+                }
+            }
+            overflow-y: scroll;
+        }
+        .action {
+            display: flex;
+            flex-direction: row;
+            padding: 2rem 3rem;
+
+            .action-list {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                & > * + * {
+                    margin-left: 1rem;
+                }
+                .action-item {
+                    $size: 4rem;
+                    width: $size;
+                    height: $size;
+                    display: grid;
+                    place-items: center;
+                    font-size: 2.2rem;
+                    border-radius: 10px;
+                    transition: background ease 0.2s;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: t($hover);
+                    }
+                }
+            }
+            .button-list {
+                & > * + * {
+                    margin-left: 1rem;
+                }
+            }
+        }
+    }
+}

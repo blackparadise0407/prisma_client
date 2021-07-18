@@ -7,8 +7,6 @@
         .banner {
             width: 100%;
             height: 12rem;
-            // background: url('../../assets/images/mock-cover.jpg') center
-            //     no-repeat;
             background: rgb(0, 80, 255);
             background: linear-gradient(
                 90deg,
@@ -18,9 +16,6 @@
             background-size: cover;
             border-radius: 10px;
             .title-wrapper {
-                // position: absolute;
-                // top: 2rem;
-                // left: 2rem;
                 padding: 2rem;
                 color: #fff;
                 .title {
@@ -29,6 +24,11 @@
                 .sub {
                     font-size: 1.6rem;
                 }
+            }
+        }
+        .content {
+            > * {
+                margin-top: 2rem;
             }
         }
     }
