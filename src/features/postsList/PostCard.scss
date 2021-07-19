@@ -1,18 +1,19 @@
 @import 'themes/color-theme';
+@import 'themes/mixins';
 
 $padding: 3rem;
 
-.post-card {
+.card {
     @include themed() {
         background-color: t($text-contrast);
         border-radius: 10px;
         box-shadow: t($shadow);
-        .header {
+        &__header {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: $padding;
+            padding: $padding $padding 1rem;
             .user {
                 display: flex;
                 flex-direction: row;
@@ -35,24 +36,115 @@ $padding: 3rem;
                 align-self: baseline;
             }
         }
-        .body {
+        &__body {
             .content {
-                padding: 0 $padding $padding;
+                padding: 1rem $padding;
             }
             .photos {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
+                padding: 0 $padding $padding;
+
                 .photo {
                     width: 100%;
+                    margin: 0.1rem;
+                    cursor: pointer;
                     &--two {
-                        width: 50%;
+                        width: calc(100% / 2 - 0.2rem);
                     }
                     &--three {
-                        width: calc(100% / 3);
+                        width: calc(100% / 2 - 0.2rem);
                         &:first-child {
                             width: 100%;
                         }
+                    }
+                    &--four {
+                        width: calc(100% / 3 - 0.2rem);
+                        &:first-child {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            .reactions {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0.8rem $padding;
+                .reaction-wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .reaction-list {
+                        display: flex;
+                        flex-direction: row;
+                        > * + * {
+                            margin-left: -0.5rem;
+                        }
+                        .reaction {
+                            &:nth-child(1) {
+                                z-index: 2;
+                            }
+                            &:nth-child(2) {
+                                z-index: 1;
+                            }
+                            &:nth-child(3) {
+                                z-index: 0;
+                            }
+                        }
+                    }
+                    .number {
+                        margin-left: 1rem;
+                        font-weight: 500;
+                        color: t($text-primary);
+                    }
+                }
+                .comment-wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    color: t($text-primary);
+
+                    > * + * {
+                        margin-left: 1rem;
+                    }
+                    > * {
+                        padding: 0 1rem;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        @include hover(t($text-secondary), false);
+                    }
+                }
+            }
+            .actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 0.5rem $padding;
+                place-items: center;
+                .action-item {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    text-align: center;
+                    color: t($text-secondary);
+                    padding: 1rem 0;
+                    width: 100%;
+                    border-radius: 10px;
+                    background-color: t($text-contrast);
+                    @include active(t($text-contrast));
+                    transition: all ease 0.2s;
+                    &:hover {
+                        color: t($text-primary);
+                    }
+                    .icon {
+                        font-size: 2rem;
+                        margin-right: 1rem;
                     }
                 }
             }

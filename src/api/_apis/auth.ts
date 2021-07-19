@@ -1,5 +1,5 @@
 import request from 'api/request';
-import { GeneralApiResponse, Token, User } from 'schema';
+import { GeneralApiResponse, User } from 'schema';
 
 const AuthEndpoint = '/auth';
 const UserEndpoint = '/user';

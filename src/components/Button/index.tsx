@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import Spin from 'components/Spin';
 import React from 'react';
 import './styles.scss';
 
@@ -15,6 +14,7 @@ type Props = {
     htmlType?: HTMLType;
     block?: boolean;
     loading?: boolean;
+    className?: string;
 };
 
 const Button = ({
@@ -25,6 +25,7 @@ const Button = ({
     icon,
     block = false,
     loading = false,
+    className,
 }: Props) => {
     const handleOnClick = () => {
         onClick && !loading && onClick();
@@ -33,6 +34,7 @@ const Button = ({
         <button
             type={htmlType}
             className={clsx(
+                className,
                 'button',
                 `button--${type}`,
                 block && 'button--block',

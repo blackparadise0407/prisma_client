@@ -3,6 +3,9 @@
 
 .newsfeed-wrapper {
     @include themed() {
+        > * + * {
+            margin-top: 2rem;
+        }
         min-height: 100%;
         .banner {
             width: 100%;
@@ -27,8 +30,12 @@
             }
         }
         .content {
-            > * {
+            .post-list {
                 margin-top: 2rem;
+
+                > * + * {
+                    margin-top: 2rem;
+                }
             }
         }
     }

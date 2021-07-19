@@ -6,7 +6,7 @@
         border-radius: 10px;
         background-color: t($text-contrast);
 
-        .container {
+        &__container {
             max-height: 60rem;
 
             textarea {
@@ -42,7 +42,7 @@
             }
             overflow-y: scroll;
         }
-        .action {
+        &__action {
             display: flex;
             flex-direction: row;
             padding: 2rem 3rem;

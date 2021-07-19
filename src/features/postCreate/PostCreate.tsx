@@ -21,6 +21,7 @@ const PostCreate = () => {
 
     const { post, status } = useSelector(postCreateSelector);
 
+    const bottomEl = useRef(null);
     const uploadEl = useRef(null);
     const inputEl = useRef(null);
 
@@ -33,6 +34,10 @@ const PostCreate = () => {
 
     const handleInputClick = () => {
         uploadEl.current.click();
+    };
+
+    const scrollToBottom = () => {
+        bottomEl.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +55,7 @@ const PostCreate = () => {
                 },
             }),
         );
+        // scrollToBottom();
     };
 
     const handleCreatePost = () => {
@@ -70,7 +76,7 @@ const PostCreate = () => {
                 onChange={handleUpload}
                 style={{ display: 'none' }}
             />
-            <div className="container">
+            <div className="post-create__container">
                 <textarea
                     ref={inputEl}
                     placeholder={`${t('newsfeed.post_create.placeholder')}, ${
@@ -81,22 +87,28 @@ const PostCreate = () => {
                 <Divider />
 
                 {post.photos.length ? (
-                    <div className="photo-group">
-                        {map(post.photos, (p, idx) => (
-                            <img
-                                key={p.blob.substring(0, 10) + idx}
-                                src={p.blob}
-                                alt="post"
-                                className={clsx(
-                                    idx > 0 && 'photo--half',
-                                    idx > 2 && 'photo--quater',
-                                )}
-                            />
-                        ))}
-                    </div>
+                    <React.Fragment>
+                        <div className="photo-group">
+                            {map(post.photos, (p, idx) => (
+                                <img
+                                    key={p.blob.substring(0, 10) + idx}
+                                    src={p.blob}
+                                    alt="post"
+                                    className={clsx(
+                                        idx > 0 && 'photo--half',
+                                        idx > 2 && 'photo--quater',
+                                    )}
+                                />
+                            ))}
+                        </div>
+                        {/* <div
+                            style={{ float: 'left', clear: 'both' }}
+                            ref={bottomEl}
+                        ></div> */}
+                    </React.Fragment>
                 ) : null}
             </div>
-            <div className="action">
+            <div className="post-create__action">
                 <div className="action-list">
                     <div
                         onClick={handleInputClick}

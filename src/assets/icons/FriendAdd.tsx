@@ -3,6 +3,7 @@ import React from 'react';
 type Props = {
     size?: number;
     color?: string;
+    [key: string]: string | number;
 };
 
 const FriendAdd = ({ color, size = 16, ...rest }: Props) => {

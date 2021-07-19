@@ -1,11 +1,17 @@
 import { Post } from 'api/_apis/post';
-import { Avatar, Text } from 'components';
-import { BsThreeDots } from 'react-icons/bs';
+import { Anger, Laugh, Sad } from 'assets/icons';
+import clsx from 'clsx';
+import { Avatar, Divider, Text } from 'components';
+import { map } from 'lodash';
 import React from 'react';
+import {
+    AiOutlineComment,
+    AiOutlineLike,
+    AiOutlineShareAlt,
+} from 'react-icons/ai';
+import { BsThreeDots } from 'react-icons/bs';
 import moment from 'utils/moment';
 import './PostCard.scss';
-import { map } from 'lodash';
-import clsx from 'clsx';
 
 type Props = {
     data?: Post;
@@ -18,8 +24,8 @@ const PostCard = ({ data, loading }: Props) => {
     const { content, photos, userId, createdAt } = data;
 
     return (
-        <div className="post-card">
-            <div className="header">
+        <div className="card">
+            <div className="card__header">
                 <div className="user">
                     <Avatar size={5} src={userId.avatar} />
                     <div className="info">
@@ -33,7 +39,7 @@ const PostCard = ({ data, loading }: Props) => {
                 </div>
                 <BsThreeDots className="action" />
             </div>
-            <div className="body">
+            <div className="card__body">
                 <Text collapsible={content.length > 100} className="content">
                     {content}
                 </Text>
@@ -43,9 +49,12 @@ const PostCard = ({ data, loading }: Props) => {
                             if (idx <= 3) {
                                 return (
                                     <img
+                                        key={p.id}
                                         className={clsx(
+                                            'photo',
                                             photos.length > 1 && 'photo--two',
-                                            photos.length > 3 && 'photo--three',
+                                            photos.length > 2 && 'photo--three',
+                                            photos.length > 3 && 'photo--four',
                                         )}
                                         src={p.url}
                                         alt="img"
@@ -55,6 +64,39 @@ const PostCard = ({ data, loading }: Props) => {
                         })}
                     </div>
                 ) : null}
+
+                <Divider width="calc(100% - 4rem)" />
+                <div className="reactions">
+                    <div className="reaction-wrapper">
+                        <div className="reaction-list">
+                            <Laugh size={25} className="reaction" />
+                            <Anger size={25} className="reaction" />
+                            <Sad size={25} className="reaction" />
+                        </div>
+                        <Text size="middle" className="number">
+                            20
+                        </Text>
+                    </div>
+                    <div className="comment-wrapper">
+                        <div className="item comments">3 Comment</div>
+                        <div className="item share">2 Share</div>
+                    </div>
+                </div>
+                <Divider />
+                <div className="actions">
+                    <div className="action-item">
+                        <AiOutlineLike className="icon" />
+                        Like
+                    </div>
+                    <div className="action-item">
+                        <AiOutlineComment className="icon" />
+                        Comment
+                    </div>
+                    <div className="action-item">
+                        <AiOutlineShareAlt className="icon" />
+                        Share
+                    </div>
+                </div>
             </div>
         </div>
     );

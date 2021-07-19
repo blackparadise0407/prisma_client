@@ -17,19 +17,19 @@ const Header = ({ isCollapse }: Props) => {
                 isCollapse && 'app-header--collapsed',
             )}
         >
-            <div className="app-brand">
+            <div className="app-header__brand">
                 <img src={SVGS.game} alt="logo" />
                 <div className="name">prisma</div>
             </div>
-            <div className="main">
-                <ul className="menu">
+            <div className="app-header__main">
+                {/* <ul className="menu">
                     <li className="menu-item">Home</li>
                     <li className="menu-item">Contact</li>
                     <li className="menu-item">FAQs</li>
-                </ul>
+                </ul> */}
                 <Search />
             </div>
-            <div className="setting">
+            <div className="app-header__setting">
                 <Setting className="icon" size={20} color="#fff" />
             </div>
         </div>

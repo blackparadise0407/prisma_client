@@ -18,13 +18,15 @@ import {
 } from 'react-virtualized';
 import './Newsfeed.scss';
 
-const _renderPostList = (data: Post[]): JSX.Element[] => {
+const _renderPostList = (data: Post[]): JSX.Element => {
     if (!data.length) return null;
-    return map(data, (i) => (
+    return (
         <div className="post-list">
-            <PostCard data={i} />
+            {map(data, (i) => (
+                <PostCard key={i.id} data={i} />
+            ))}
         </div>
-    ));
+    );
 };
 
 const renderRow = ({ index, key, style, parent }, cache, posts) => {

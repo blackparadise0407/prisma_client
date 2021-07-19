@@ -13,7 +13,7 @@
         height: $header-height;
         background-color: t($primary);
 
-        .app-brand {
+        &__brand {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
@@ -31,7 +31,7 @@
             }
             transition: width ease 0.2s;
         }
-        .main {
+        &__main {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -58,7 +58,7 @@
             }
             transition: width ease 0.2s;
         }
-        .setting {
+        &__setting {
             position: relative;
             display: grid;
             place-items: center;
@@ -78,7 +78,7 @@
             }
         }
         &--collapsed {
-            .app-brand {
+            .app-header__brand {
                 display: block;
                 width: $left-sider-width-collapsed;
                 position: relative;
@@ -92,8 +92,8 @@
                     display: none;
                 }
             }
-            .main {
-                width: calc(100% - #{$left-sider-width-collapsed});
+            .app-header__main {
+                width: calc(100% - 2 * #{$left-sider-width-collapsed});
             }
         }
     }

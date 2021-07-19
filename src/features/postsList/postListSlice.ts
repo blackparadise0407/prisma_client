@@ -1,12 +1,7 @@
-import {
-    createAsyncThunk,
-    createSlice,
-    PayloadAction,
-    ThunkDispatch,
-} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PostApi } from 'api';
 import { Post } from 'api/_apis/post';
-import { AppState, AsyncThunkConfig } from 'app/rootReducer';
+import { AppState } from 'app/rootReducer';
 import { AppThunk } from 'app/store';
 import { ReducerStatus } from 'schema';
 

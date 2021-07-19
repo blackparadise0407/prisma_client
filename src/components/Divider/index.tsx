@@ -6,10 +6,16 @@ type Size = 'middle' | 'large';
 
 type Props = {
     size?: Size;
+    width?: string;
 };
 
-const Divider = ({ size = 'middle' }: Props) => {
-    return <div className={clsx('divider', `divider--${size}`)}></div>;
+const Divider = ({ size = 'middle', width = '100%' }: Props) => {
+    return (
+        <div
+            className={clsx('divider', `divider--${size}`)}
+            style={{ width }}
+        ></div>
+    );
 };
 
 export default Divider;
