@@ -21,11 +21,8 @@ const PostCreate = () => {
 
     const { post, status } = useSelector(postCreateSelector);
 
-    const bottomEl = useRef(null);
     const uploadEl = useRef(null);
     const inputEl = useRef(null);
-
-    const [textValue, setTextValue] = useState('');
 
     const { t } = useTranslation();
     const { user } = useSelector(authSelector);
@@ -34,16 +31,8 @@ const PostCreate = () => {
         dispatch(updateContent(e.target.value as string));
     };
 
-    const handleContentChange = (e) => {
-        setTextValue(e.target.value);
-    };
-
     const handleInputClick = () => {
         uploadEl.current.click();
-    };
-
-    const scrollToBottom = () => {
-        bottomEl.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +50,6 @@ const PostCreate = () => {
                 },
             }),
         );
-        // scrollToBottom();
     };
 
     const handleCreatePost = () => {
@@ -88,31 +76,24 @@ const PostCreate = () => {
                     placeholder={`${t('newsfeed.post_create.placeholder')}, ${
                         user?.username
                     }?`}
-                    onChange={handleContentChange}
                     onBlur={handleContentBlur}
                 />
 
                 <Divider />
                 {post.photos.length ? (
-                    <React.Fragment>
-                        <div className="photo-group">
-                            {map(post.photos, (p, idx) => (
-                                <img
-                                    key={p.blob.substring(0, 10) + idx}
-                                    src={p.blob}
-                                    alt="post"
-                                    className={clsx(
-                                        idx > 0 && 'photo--half',
-                                        idx > 2 && 'photo--quater',
-                                    )}
-                                />
-                            ))}
-                        </div>
-                        {/* <div
-                            style={{ float: 'left', clear: 'both' }}
-                            ref={bottomEl}
-                        ></div> */}
-                    </React.Fragment>
+                    <div className="photo-group">
+                        {map(post.photos, (p, idx) => (
+                            <img
+                                key={p.blob.substring(0, 10) + idx}
+                                src={p.blob}
+                                alt="post"
+                                className={clsx(
+                                    idx > 0 && 'photo--half',
+                                    idx > 2 && 'photo--quater',
+                                )}
+                            />
+                        ))}
+                    </div>
                 ) : null}
             </div>
             <div className="post-create__action">

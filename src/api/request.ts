@@ -31,7 +31,10 @@ axiosClient.interceptors.response.use(
     },
     async (error: any) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error.response.status === 401 && !Cookies.get('accessToken')) {
+            return Promise.reject('');
+        }
+        if (error.response.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
             const { headers } = originalRequest;
             if (!headers['Authorization']) {

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { FormInputItem } from 'schema';
 import { validateEmail } from 'utils/validation';
-import { authSelector, login } from './authSlice';
+import { authSelector, clearError, login } from './authSlice';
 import './LoginForm.scss';
 
 const queries = qs.stringify({
@@ -68,6 +68,10 @@ const LoginForm = () => {
         dispatch(login(v));
     };
 
+    const handleClearError = () => {
+        dispatch(clearError());
+    };
+
     useEffect(() => {
         if (isAuth) {
             history.push('/');
@@ -104,7 +108,14 @@ const LoginForm = () => {
         <form onSubmit={formik.handleSubmit} className="login-form">
             <h1 className="title">{t('login.form.title')}</h1>
             <img src={IMAGES.rocket} alt="rocket" className="rocket" />
-            {error && <Alert closable type="error" message={error} />}
+            {error && (
+                <Alert
+                    closable
+                    type="error"
+                    message={error}
+                    onClose={handleClearError}
+                />
+            )}
             {renderInput(inputItems, {
                 values: formik.values,
                 errors: formik.errors,

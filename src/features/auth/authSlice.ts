@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthApi, UserApi } from 'api';
 import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
 import { AppState, AsyncThunkConfig } from 'app/rootReducer';
+import { AppThunk } from 'app/store';
 import Cookies from 'js-cookie';
 import { ReducerStatus, User } from 'schema';
 import history from 'utils/history';
@@ -85,6 +86,18 @@ export const authSlice = createSlice({
         resetStatus: (state) => {
             state.status = 'idle';
         },
+        loginLoading: (state) => {
+            state.status = 'loading';
+            state.error = null;
+        },
+        loginSuccess: (state, { payload }: PayloadAction<User>) => {
+            state.status = 'success';
+            state.user = payload;
+            state.isAuth = true;
+        },
+        clearError: (state) => {
+            state.error = '';
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(login.pending, (state) => {
@@ -140,7 +153,20 @@ export const authSlice = createSlice({
     },
 });
 
-export const { logout, resetStatus } = authSlice.actions;
+export const loginA = (data: LoginRequest): AppThunk => {
+    return async (dispatch, state) => {
+        dispatch(loginLoading());
+        try {
+            const { data: resp } = await AuthApi.login(data);
+            localStorage.setItem('refreshToken', resp.refreshToken);
+            Cookies.set('accessToken', resp.accessToken);
+            dispatch(loginSuccess(resp.user));
+        } catch (e) {}
+    };
+};
+
+export const { logout, resetStatus, loginLoading, loginSuccess, clearError } =
+    authSlice.actions;
 
 export const authSelector = (state: AppState) => state.auth;
 
