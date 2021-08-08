@@ -13,8 +13,9 @@ export interface Post {
     photos?: Attachment[];
     createdAt?: string;
     updatedAt?: string;
-    userId?: User;
-    id?: string;
+    userId?: number;
+    user?: User;
+    id?: number;
 }
 
 const PostEndpoint = '/post';

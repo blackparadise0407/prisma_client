@@ -21,16 +21,16 @@ type Props = {
 const PostCard = ({ data, loading }: Props) => {
     if (!data) return null;
 
-    const { content, photos, userId, createdAt } = data;
+    const { content, user, createdAt } = data;
 
     return (
         <div className="card">
             <div className="card__header">
                 <div className="user">
-                    <Avatar size={5} src={userId.avatar} />
+                    <Avatar size={5} src={user.avatar} />
                     <div className="info">
                         <Text size="small" className="name">
-                            {userId.username}
+                            {user.username}
                         </Text>
                         <Text size="small" className="created-at">
                             {moment(createdAt).fromNow()}
@@ -43,7 +43,7 @@ const PostCard = ({ data, loading }: Props) => {
                 <Text collapsible={content.length > 100} className="content">
                     {content}
                 </Text>
-                {photos.length ? (
+                {/* {photos.length ? (
                     <div className="photos">
                         {map(photos, (p, idx) => {
                             if (idx <= 3) {
@@ -63,15 +63,15 @@ const PostCard = ({ data, loading }: Props) => {
                             } else return null;
                         })}
                     </div>
-                ) : null}
+                ) : null} */}
 
                 <Divider width="calc(100% - 4rem)" />
                 <div className="reactions">
                     <div className="reaction-wrapper">
                         <div className="reaction-list">
-                            <Laugh size={25} className="reaction" />
-                            <Anger size={25} className="reaction" />
-                            <Sad size={25} className="reaction" />
+                            <Laugh size={24} className="reaction" />
+                            <Anger size={24} className="reaction" />
+                            <Sad size={24} className="reaction" />
                         </div>
                         <Text size="middle" className="number">
                             20

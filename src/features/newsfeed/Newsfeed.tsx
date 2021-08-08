@@ -18,7 +18,7 @@ import {
 } from 'react-virtualized';
 import './Newsfeed.scss';
 
-const _renderPostList = (data: Post[]): JSX.Element => {
+const _renderPostList = (data: Post[] = []): JSX.Element => {
     if (!data.length) return null;
     return (
         <div className="post-list">

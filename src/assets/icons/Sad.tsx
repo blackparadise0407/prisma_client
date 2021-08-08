@@ -31,7 +31,7 @@ const Sad = ({ color, size = 16, borderColor = '#ffffff', ...rest }: Props) => {
                             transform="translate(386 321)"
                             fill="#ffd54f"
                             stroke={borderColor}
-                            stroke-width="2"
+                            strokeWidth="2"
                         />
                         <g
                             id="Group_2"

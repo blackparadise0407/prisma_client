@@ -1,5 +1,5 @@
 import store, { persistor } from 'app/store';
-import { Loader } from 'components';
+import { ErrorBoundary, Loader } from 'components';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -12,11 +12,13 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback={<Loader />}>
-            <PersistGate persistor={persistor}>
-                <Provider store={store}>
-                    <App />
-                </Provider>
-            </PersistGate>
+            <ErrorBoundary>
+                <PersistGate persistor={persistor}>
+                    <Provider store={store}>
+                        <App />
+                    </Provider>
+                </PersistGate>
+            </ErrorBoundary>
         </Suspense>
     </React.StrictMode>,
     document.getElementById('root'),

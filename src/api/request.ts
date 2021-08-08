@@ -3,14 +3,6 @@ import { config, HOST } from 'constant/config';
 import Cookies from 'js-cookie';
 import qs from 'query-string';
 import AuthApi from './_apis/auth';
-interface OriginalRequest {
-    url?: string;
-    data?: any;
-    headers?: any;
-    method?: any;
-}
-
-const originalRequest: OriginalRequest = {};
 
 const axiosClient = axios.create({
     baseURL: HOST + '/api',
@@ -28,14 +20,6 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
     const token = Cookies.get('accessToken');
     if (token) config['headers']['Authorization'] = `Bearer ${token}`;
-    const { url, data, headers, baseURL, method } = config;
-
-    if (url !== '/auth/refresh-token') {
-        originalRequest.url = baseURL + url;
-        originalRequest.data = data;
-        originalRequest.headers = headers;
-        originalRequest.method = method;
-    }
     return config;
 });
 
@@ -45,9 +29,11 @@ axiosClient.interceptors.response.use(
             return response.data;
         }
     },
-    async (error) => {
-        if (error.response.status === 401) {
-            const { headers, method, data, url } = originalRequest;
+    async (error: any) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const { headers } = originalRequest;
             if (!headers['Authorization']) {
                 return Promise.reject('');
             }
@@ -60,12 +46,8 @@ axiosClient.interceptors.response.use(
                     data: { accessToken },
                 } = await AuthApi.refreshToken(token);
                 Cookies.set('accessToken', accessToken);
-                return await axiosClient.request({
-                    headers,
-                    method,
-                    url,
-                    data,
-                });
+                headers['Authorization'] = `Bearer ${accessToken}`;
+                return await axiosClient(originalRequest);
             } catch (e) {
                 throw e;
             }

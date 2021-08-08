@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Button, Divider, FlexGrow } from 'components';
 import { authSelector } from 'features/auth/authSlice';
 import { map } from 'lodash';
-import React, { ChangeEvent, useEffect, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { BiHash } from 'react-icons/bi';
@@ -25,11 +25,17 @@ const PostCreate = () => {
     const uploadEl = useRef(null);
     const inputEl = useRef(null);
 
+    const [textValue, setTextValue] = useState('');
+
     const { t } = useTranslation();
     const { user } = useSelector(authSelector);
 
-    const handleContentChange = (e) => {
+    const handleContentBlur = (e) => {
         dispatch(updateContent(e.target.value as string));
+    };
+
+    const handleContentChange = (e) => {
+        setTextValue(e.target.value);
     };
 
     const handleInputClick = () => {
@@ -82,10 +88,11 @@ const PostCreate = () => {
                     placeholder={`${t('newsfeed.post_create.placeholder')}, ${
                         user?.username
                     }?`}
-                    onBlur={handleContentChange}
+                    onChange={handleContentChange}
+                    onBlur={handleContentBlur}
                 />
-                <Divider />
 
+                <Divider />
                 {post.photos.length ? (
                     <React.Fragment>
                         <div className="photo-group">

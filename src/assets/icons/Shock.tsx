@@ -30,7 +30,7 @@ const Chat = ({ color, size = 16, borderColor = '#fff', ...rest }: Props) => {
                         transform="translate(488 321)"
                         fill="#ffd54f"
                         stroke={borderColor}
-                        stroke-width="2"
+                        strokeWidth="2"
                     />
                     <circle
                         id="Ellipse_10"

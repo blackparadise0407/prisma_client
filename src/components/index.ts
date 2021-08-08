@@ -12,6 +12,7 @@ import Divider from './Divider';
 import Button from './Button';
 import FlexGrow from './FlexGrow';
 import Skeleton from './Skeleton';
+import ErrorBoundary from './ErrorBoundary';
 
 export {
     Loader,
@@ -28,4 +29,5 @@ export {
     Button,
     FlexGrow,
     Skeleton,
+    ErrorBoundary,
 };

@@ -30,7 +30,7 @@ const Laugh = ({ color, size = 16, borderColor = '#fff', ...rest }: Props) => {
                         transform="translate(419 321)"
                         fill="#ffd54f"
                         stroke={borderColor}
-                        stroke-width="2"
+                        strokeWidth="2"
                     />
                     <path
                         id="Path_6"
