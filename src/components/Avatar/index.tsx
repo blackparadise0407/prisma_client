@@ -1,3 +1,4 @@
+import { IMAGES } from 'assets';
 import clsx from 'clsx';
 import React from 'react';
 import './styles.scss';
@@ -39,7 +40,7 @@ const Avatar = ({
                         className="avatar-inner2"
                         style={{ width: _size, height: _size, backgroundColor }}
                     >
-                        <img src={src} alt="avatar" />
+                        <img src={src ?? IMAGES.mockCover} alt="avatar" />
                     </div>
                 </div>
             </div>
@@ -47,4 +48,4 @@ const Avatar = ({
     );
 };
 
-export default Avatar;
+export default React.memo(Avatar);

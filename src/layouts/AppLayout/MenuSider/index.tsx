@@ -1,4 +1,3 @@
-import { AuthApi } from 'api';
 import { IMAGES } from 'assets';
 import clsx from 'clsx';
 import { Avatar, FlexGrow, Text } from 'components';
@@ -59,7 +58,6 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
 
     const handleLogout = async () => {
         dispatch(logout());
-        await AuthApi.logout();
     };
 
     return (

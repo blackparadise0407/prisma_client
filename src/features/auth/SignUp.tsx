@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { authSelector } from './authSlice';
+import ForgetPasswordForm from './ForgetPasswordForm';
 import LoginForm from './LoginForm';
 import './SignUp.scss';
 import SignUpForm from './SignUpForm';
@@ -63,7 +64,9 @@ const Login = () => {
                     </button>
                 </div>
             </div>
-            {pathname === '/login' ? <LoginForm /> : <SignUpForm />}
+            {pathname === '/login' && <LoginForm />}
+            {pathname === '/signup' && <SignUpForm />}
+            {pathname === '/forget-password' && <ForgetPasswordForm />}
         </div>
     );
 };

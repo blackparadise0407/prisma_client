@@ -18,4 +18,4 @@ const Divider = ({ size = 'middle', width = '100%' }: Props) => {
     );
 };
 
-export default Divider;
+export default React.memo(Divider);

@@ -2,6 +2,7 @@ import { IMAGES } from 'assets';
 import { Alert, CheckBox, FormInput, Spin } from 'components';
 import { config } from 'constant/config';
 import { FormikErrors, useFormik } from 'formik';
+import { useQuery } from 'hooks';
 import i18n from 'i18n';
 import { map } from 'lodash';
 import qs from 'query-string';
@@ -59,6 +60,7 @@ export function renderInput(
 }
 
 const LoginForm = () => {
+    const { email } = useQuery<{ email: string }>();
     const { t } = useTranslation();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -72,6 +74,10 @@ const LoginForm = () => {
         dispatch(clearError());
     };
 
+    const navigateToForgetPassword = () => {
+        history.push('/forget-password');
+    };
+
     useEffect(() => {
         if (isAuth) {
             history.push('/');
@@ -80,7 +86,7 @@ const LoginForm = () => {
 
     const formik = useFormik<FormValues>({
         initialValues: {
-            email: '',
+            email: email || '',
             password: '',
         },
         validate: ({ email, password }: FormValues) => {
@@ -124,7 +130,10 @@ const LoginForm = () => {
             })}
             <div className="util">
                 <CheckBox name="remember" label={t('login.form.remember')} />
-                <div className="forgot-password">
+                <div
+                    onClick={navigateToForgetPassword}
+                    className="forgot-password"
+                >
                     {t('login.form.forget_password')}
                 </div>
             </div>

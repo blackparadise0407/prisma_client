@@ -74,15 +74,35 @@ export const userInfo = createAsyncThunk<User, null, AsyncThunkConfig>(
     },
 );
 
+export const logout = (): AppThunk => {
+    return async (dispatch) => {
+        dispatch(logoutLoading());
+        try {
+            await AuthApi.logout();
+            Cookies.remove('accessToken');
+            dispatch(logoutSuccess());
+        } catch (_) {}
+    };
+};
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState: authInitState,
     reducers: {
-        logout: (state) => {
+        logoutLoading: (state) => {
+            state.status = 'loading';
+        },
+        logoutSuccess: (state) => {
+            state.status = 'success';
             state.isAuth = false;
             state.user = null;
-            history.push('/login');
         },
+        // logout: (state) => {
+        //     Cookies.remove('accessToken');
+        //     state.isAuth = false;
+        //     state.user = null;
+        //     history.push('/login');
+        // },
         resetStatus: (state) => {
             state.status = 'idle';
         },
@@ -165,8 +185,14 @@ export const loginA = (data: LoginRequest): AppThunk => {
     };
 };
 
-export const { logout, resetStatus, loginLoading, loginSuccess, clearError } =
-    authSlice.actions;
+export const {
+    logoutLoading,
+    logoutSuccess,
+    resetStatus,
+    loginLoading,
+    loginSuccess,
+    clearError,
+} = authSlice.actions;
 
 export const authSelector = (state: AppState) => state.auth;
 

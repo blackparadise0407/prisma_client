@@ -12,4 +12,4 @@ const Skeleton = ({ shape = 'rect' }: Props) => {
     return <div className={clsx('skeleton', 'skeleton--' + shape)}></div>;
 };
 
-export default Skeleton;
+export default React.memo(Skeleton);
