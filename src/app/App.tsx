@@ -32,6 +32,7 @@ function App() {
                 <Route component={Google} path="/google" />
                 <Route component={Login} path="/login" />
                 <Route component={Login} path="/signup" />
+                <Route component={Login} path="/forget-password" />
             </ThemeProvider>
         </Router>
     );

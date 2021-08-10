@@ -27,7 +27,7 @@ const PostCard = ({ data, loading }: Props) => {
         <div className="card">
             <div className="card__header">
                 <div className="user">
-                    <Avatar size={5} src={user.avatar} />
+                    <Avatar size={5} src={user?.avatar?.url} />
                     <div className="info">
                         <Text size="small" className="name">
                             {user.username}

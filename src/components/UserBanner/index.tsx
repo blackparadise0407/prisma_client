@@ -15,7 +15,7 @@ const UserBanner = () => {
             </div>
             <div className="info">
                 <div className="user">
-                    <Avatar size={14} src={user?.avatar} />
+                    <Avatar size={14} src={user?.avatar?.url} />
                 </div>
             </div>
         </div>

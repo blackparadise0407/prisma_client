@@ -59,7 +59,7 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
     const handleLogout = async () => {
         dispatch(logout());
     };
-
+    console.log(user);
     return (
         <div
             className={clsx(
@@ -72,7 +72,7 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
                     <img src={IMAGES.mockCover} alt="cover" />
                 </div>
                 <Avatar
-                    src={user?.avatar}
+                    src={user?.avatar?.url}
                     className="avatar"
                     size={!isCollapse ? 9 : 5}
                 />

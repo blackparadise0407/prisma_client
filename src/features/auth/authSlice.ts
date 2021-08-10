@@ -80,6 +80,7 @@ export const logout = (): AppThunk => {
         try {
             await AuthApi.logout();
             Cookies.remove('accessToken');
+            localStorage.removeItem('refreshToken');
             dispatch(logoutSuccess());
         } catch (_) {}
     };

@@ -1,3 +1,4 @@
+import { Attachment } from 'api/_apis/attachment';
 import { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
 import { LoadableComponent } from 'react-loadable';
 import { RouteProps } from 'react-router-dom';
@@ -29,7 +30,7 @@ export interface User {
     username?: string;
     email?: string;
     id?: string;
-    avatar?: string;
+    avatar?: Attachment;
 }
 
 export interface GeneralApiResponse<T = {}> {

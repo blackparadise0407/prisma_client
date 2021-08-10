@@ -66,6 +66,20 @@
             "contact": "contact us!"
         }
     },
+    "forget_password": {
+        "form": {
+            "title": "Forgot your password?",
+            "sub_title": "Don't worry, we will help you find it!",
+            "error": {
+                "email": {
+                    "required": "Email address cannot be empty",
+                    "invalid": "Please enter a valid email address"
+                }
+            },
+            "btn": "Send us now!",
+            "home_link": "Already remember? Back to home!"
+        }
+    },
     "layout": {
         "header": {
             "search": {

@@ -6,7 +6,7 @@ const AttachmentEndpoint = '/attachment';
 export type AttachmentType = 'IMAGE' | 'VIDEO' | 'FILE';
 
 export interface Attachment {
-    id?: string;
+    id?: number;
     size?: number;
     type?: AttachmentType;
     url?: string;

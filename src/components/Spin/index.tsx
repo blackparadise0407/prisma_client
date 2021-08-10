@@ -10,7 +10,7 @@ type Props = {
 const Spin = ({ size = 2 * 10 }: Props) => {
     return (
         <AiOutlineLoading3Quarters
-            className="loader"
+            className="spinner"
             style={{ fontSize: `${size / config.rootFontSize}rem` }}
         />
         // <div w>

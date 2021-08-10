@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FlexGrow } from 'components';
+import { FlexGrow, Loader } from 'components';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -40,29 +40,33 @@ const Login = () => {
                     <p className="main">{t('login.heading_main')}</p>
                 </div>
                 <p className="welcome-text">{t('login.welcome_text')}</p>
-                <FlexGrow />
-                <div className="btn-group">
-                    <button
-                        onClick={goToLogin}
-                        className={clsx(
-                            'btn',
-                            'btn-login',
-                            pathname === '/login' && 'btn--active',
-                        )}
-                    >
-                        {t('login.login_button')}
-                    </button>
-                    <button
-                        onClick={goToRegister}
-                        className={clsx(
-                            'btn',
-                            'btn-register',
-                            pathname === '/signup' && 'btn--active',
-                        )}
-                    >
-                        {t('login.register_button')}
-                    </button>
-                </div>
+                {pathname !== '/forget-password' && (
+                    <React.Fragment>
+                        <FlexGrow />
+                        <div className="btn-group">
+                            <button
+                                onClick={goToLogin}
+                                className={clsx(
+                                    'btn',
+                                    'btn-login',
+                                    pathname === '/login' && 'btn--active',
+                                )}
+                            >
+                                {t('login.login_button')}
+                            </button>
+                            <button
+                                onClick={goToRegister}
+                                className={clsx(
+                                    'btn',
+                                    'btn-register',
+                                    pathname === '/signup' && 'btn--active',
+                                )}
+                            >
+                                {t('login.register_button')}
+                            </button>
+                        </div>
+                    </React.Fragment>
+                )}
             </div>
             {pathname === '/login' && <LoginForm />}
             {pathname === '/signup' && <SignUpForm />}

@@ -1,4 +1,6 @@
 @import 'themes/color-theme';
+@import 'themes/mixins';
+
 .login-form {
     @include themed() {
         position: relative;
@@ -22,6 +24,11 @@
             color: t($text-primary);
             font-weight: 700;
             margin: 4rem 0;
+        }
+        .sub-title {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: t($text-secondary);
         }
         .input {
             width: 100%;
@@ -216,6 +223,17 @@
             color: t($text-primary);
             a {
                 color: t($text-secondary);
+            }
+        }
+        .home-link {
+            text-decoration: underline;
+            cursor: pointer;
+            color: t($text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            transition: opacity ease 0.2s;
+            &:hover {
+                opacity: 0.6;
             }
         }
     }

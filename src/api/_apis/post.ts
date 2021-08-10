@@ -5,7 +5,7 @@ import { Attachment } from './attachment';
 
 export interface PostCreateRequest {
     content?: string;
-    photos?: string[];
+    photos?: number[];
 }
 
 export interface Post {
