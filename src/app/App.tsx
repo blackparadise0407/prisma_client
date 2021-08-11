@@ -33,6 +33,7 @@ function App() {
                 <Route component={Login} path="/login" />
                 <Route component={Login} path="/signup" />
                 <Route component={Login} path="/forget-password" />
+                <Route component={Login} path="/reset-password" />
             </ThemeProvider>
         </Router>
     );

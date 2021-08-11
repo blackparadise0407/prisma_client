@@ -20,6 +20,7 @@
             text-align: center;
             .heading {
                 .sub {
+                    font-size: 2rem;
                     text-transform: uppercase;
                     color: t($text-contrast);
                 }
@@ -32,6 +33,7 @@
                 }
             }
             .welcome-text {
+                font-size: 1.6rem;
                 color: t($text-contrast);
             }
             .btn-group {

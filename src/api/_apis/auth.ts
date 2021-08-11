@@ -21,6 +21,16 @@ export interface SignUpRequest {
     username?: string;
 }
 
+export interface ForgetPasswordRequest {
+    email: string;
+}
+
+export interface ResetPasswordRequest {
+    password: string;
+    code: string;
+    confirm_password: string;
+}
+
 const AuthApi = {
     login: (data: LoginRequest) => {
         return request<GeneralApiResponse<LoginResponse>>(
@@ -45,6 +55,18 @@ const AuthApi = {
         ),
 
     logout: () => request<GeneralApiResponse>('GET', AuthEndpoint + '/logout'),
+    forgetPassword: (body: ForgetPasswordRequest) =>
+        request<GeneralApiResponse>(
+            'POST',
+            AuthEndpoint + '/forget-password',
+            body,
+        ),
+    resetPassword: (body: ResetPasswordRequest) =>
+        request<GeneralApiResponse>(
+            'POST',
+            AuthEndpoint + '/reset-password',
+            body,
+        ),
 };
 
 export default AuthApi;

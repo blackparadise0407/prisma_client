@@ -40,6 +40,12 @@ textarea {
         outline: 0;
         border: 0;
     }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
 }
 
 input[type='password']::-ms-reveal,

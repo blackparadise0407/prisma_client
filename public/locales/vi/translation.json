@@ -1,5 +1,130 @@
 {
-    "translation": {
-        "hello": "Diz me"
+    "login": {
+        "welcome_text": "Mạng xã hội thế hệ mới cho Gen Z",
+        "heading_sub": "Chào mừng tới",
+        "heading_main": "Prisma",
+        "register_button": "Đăng ký",
+        "login_button": "Đăng nhập",
+        "form": {
+            "error": {
+                "email": {
+                    "required": "Email không được trống",
+                    "invalid": "Vui lòng nhập email hợp lệ"
+                },
+                "password": {
+                    "required": "Mật khẩu không được trống",
+                    "min": "Mật khẩu quá ngắn",
+                    "max": "Mật khẩu quá dài"
+                }
+            },
+            "label": {
+                "email": "Email",
+                "password": "Mật khẩu"
+            },
+            "divider": "Đăng nhập với",
+            "remember": "Nhớ mật khẩu",
+            "title": "Đăng nhập tài khoản",
+            "forget_password": "Quên mật khẩu?",
+            "login_button": "Đăng nhập ngay!"
+        }
+    },
+    "signup": {
+        "form": {
+            "success": "Đăng ký thành công!",
+            "title": "Tạo tài khoản!",
+            "newsletter": "Gửi tôi thông tin và cập nhật qua email",
+            "label": {
+                "username": "Tên người dùng",
+                "email": "Email",
+                "password": "Mật khẩu",
+                "confirm_password": "Nhập lại mật khẩu"
+            },
+            "register_button": "Đăng ký ngay",
+            "error": {
+                "email": {
+                    "required": "Email không được trống",
+                    "invalid": "Vui lòng nhập email hợp lệ"
+                },
+                "password": {
+                    "required": "Vui lòng nhập mật khẩu",
+                    "not_match": "Mật khẩu không trùng khớp",
+                    "min": "Mật khẩu quá ngắn",
+                    "max": "Mật khẩu quá dài"
+                },
+                "confirm_password": {
+                    "required": "Vui lòng nhập lại mật khẩu",
+                    "not_match": "Mật khẩu không trùng khớp"
+                },
+                "username": {
+                    "required": "Vui lòng chọn tên người dùng",
+                    "invalid": "Tên người dùng không được chứa ký tự đặc biệt",
+                    "min": "Tên người dùng quá ngắn",
+                    "max": "Tên người dùng quá dài"
+                }
+            },
+            "reminder": "Bạn sẽ nhận được một email xác nhận trong hộp thư của bạn với một link để kích hoạt tài khoản. Nếu gặp bất cứ vấn đề gì, ",
+            "contact": "liên hệ chúng tôi!"
+        }
+    },
+    "forget_password": {
+        "form": {
+            "title": "Quên mật khẩu?",
+            "sub_title": "Đừng lo, chúng tôi sẽ giúp bạn khôi phục!",
+            "error": {
+                "email": {
+                    "required": "Email không được trống",
+                    "invalid": "Vui lòng nhập email hợp lệ"
+                }
+            },
+            "btn": "Gửi ngay!",
+            "home_link": "Đã nhớ ra? Trở về!",
+            "success": "Một link khôi phục đã được gửi tới email của bạn!"
+        }
+    },
+    "reset_password": {
+        "form": {
+            "title": "Khôi phục mật khẩu",
+            "error": {
+                "email": {
+                    "required": "Email address cannot be empty",
+                    "invalid": "Please enter a valid email address"
+                }
+            },
+            "label": {
+                "email": "Email",
+                "password": "Password",
+                "confirm_password": "Repeat password"
+            },
+            "btn": "Reset my password",
+            "home_link": "Back to home",
+            "success": "Your password has been successfully reset"
+        }
+    },
+    "layout": {
+        "header": {
+            "search": {
+                "placeholder": "Search here for people or posts"
+            }
+        },
+        "sidebar": {
+            "newsfeed": "Newsfeed",
+            "logout": "Logout"
+        }
+    },
+    "newsfeed": {
+        "banner": {
+            "title": "Newsfeed",
+            "sub": "Check what your friends have been up to!"
+        },
+        "post_create": {
+            "placeholder": "What's on your mind",
+            "discard": "Discard",
+            "post": "Post"
+        }
+    },
+    "components": {
+        "text": {
+            "see_more": "See more"
+        }
     }
 }

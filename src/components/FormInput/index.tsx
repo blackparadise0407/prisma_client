@@ -25,7 +25,7 @@ const FormInput = ({
     error,
     name,
     className,
-    autoComplete = true,
+    autoComplete = false,
     ...rest
 }: Props) => {
     const { t } = useTranslation();
@@ -71,7 +71,7 @@ const FormInput = ({
                 {t(label)}
             </div>
             <input
-                autoComplete={autoComplete ? 'off' : 'auto'}
+                autoComplete={!autoComplete ? 'off' : 'auto'}
                 name={name}
                 type={
                     type === 'password' ? (isShow ? 'text' : 'password') : type

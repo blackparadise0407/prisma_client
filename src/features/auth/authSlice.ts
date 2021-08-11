@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthApi, UserApi } from 'api';
-import { LoginRequest, SignUpRequest } from 'api/_apis/auth';
+import {
+    LoginRequest,
+    ResetPasswordRequest,
+    SignUpRequest,
+} from 'api/_apis/auth';
 import { AppState, AsyncThunkConfig } from 'app/rootReducer';
 import { AppThunk } from 'app/store';
 import Cookies from 'js-cookie';
 import { ReducerStatus, User } from 'schema';
-import history from 'utils/history';
+import { isPendingAction, isRejectedAction } from 'utils/toolkit';
+
 export interface AuthState {
     isAuth?: boolean;
     user?: User;
@@ -86,6 +91,31 @@ export const logout = (): AppThunk => {
     };
 };
 
+export const forgetPassword = createAsyncThunk<any, string, AsyncThunkConfig>(
+    'auth/ForgetPassword',
+    async (email, thunkAPI) => {
+        try {
+            await AuthApi.forgetPassword({ email });
+            return thunkAPI.fulfillWithValue(null);
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message as string);
+        }
+    },
+);
+
+export const resetPassword = createAsyncThunk<
+    any,
+    ResetPasswordRequest,
+    AsyncThunkConfig
+>('auth/ResetPassword', async (data, thunkAPI) => {
+    try {
+        await AuthApi.resetPassword(data);
+        return thunkAPI.fulfillWithValue(null);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message as string);
+    }
+});
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState: authInitState,
@@ -98,12 +128,6 @@ export const authSlice = createSlice({
             state.isAuth = false;
             state.user = null;
         },
-        // logout: (state) => {
-        //     Cookies.remove('accessToken');
-        //     state.isAuth = false;
-        //     state.user = null;
-        //     history.push('/login');
-        // },
         resetStatus: (state) => {
             state.status = 'idle';
         },
@@ -121,70 +145,41 @@ export const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(login.pending, (state) => {
-            state.status = 'loading';
-            state.error = null;
-        });
         builder.addCase(login.fulfilled, (state, { payload }) => {
             state.status = 'success';
             state.isAuth = true;
             state.user = payload;
-        });
-        builder.addCase(login.rejected, (state, { payload }) => {
-            state.status = 'error';
-            state.error = payload as string;
-        });
-        builder.addCase(googleLogin.pending, (state) => {
-            state.status = 'loading';
-            state.error = null;
         });
         builder.addCase(googleLogin.fulfilled, (state, { payload }) => {
             state.status = 'success';
             state.isAuth = true;
             state.user = payload;
         });
-        builder.addCase(googleLogin.rejected, (state, { payload }) => {
-            state.status = 'error';
-            state.error = payload as string;
-        });
-        builder.addCase(signup.pending, (state) => {
-            state.status = 'loading';
-            state.error = null;
-        });
         builder.addCase(signup.fulfilled, (state) => {
             state.status = 'success';
-        });
-        builder.addCase(signup.rejected, (state, { payload }) => {
-            state.status = 'error';
-            state.error = payload as string;
-        });
-        builder.addCase(userInfo.pending, (state) => {
-            state.status = 'loading';
-            state.error = null;
         });
         builder.addCase(userInfo.fulfilled, (state, { payload }) => {
             state.status = 'success';
             state.isAuth = true;
             state.user = payload;
         });
-        builder.addCase(userInfo.rejected, (state, { payload }) => {
-            state.status = 'error';
-            state.error = payload as string;
+        builder.addCase(forgetPassword.fulfilled, (state) => {
+            state.status = 'success';
         });
+        builder.addCase(resetPassword.fulfilled, (state) => {
+            state.status = 'success';
+        });
+        builder.addMatcher(isPendingAction, (state) => {
+            state.status = 'loading';
+            state.error = null;
+        });
+        builder.addMatcher(isRejectedAction, (state, { payload }) => {
+            state.status = 'error';
+            state.error = payload;
+        });
+        builder.addDefaultCase(() => {});
     },
 });
-
-export const loginA = (data: LoginRequest): AppThunk => {
-    return async (dispatch, state) => {
-        dispatch(loginLoading());
-        try {
-            const { data: resp } = await AuthApi.login(data);
-            localStorage.setItem('refreshToken', resp.refreshToken);
-            Cookies.set('accessToken', resp.accessToken);
-            dispatch(loginSuccess(resp.user));
-        } catch (e) {}
-    };
-};
 
 export const {
     logoutLoading,

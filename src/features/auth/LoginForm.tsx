@@ -33,10 +33,10 @@ interface FormValues {
 }
 
 const inputItems: FormInputItem[] = [
-    { name: 'email', label: 'login.form.label.email', type: 'email' },
+    { name: 'email', label: 'form.label.email', type: 'email' },
     {
         name: 'password',
-        label: 'login.form.label.password',
+        label: 'form.label.password',
         type: 'password',
     },
 ];
@@ -92,16 +92,16 @@ const LoginForm = () => {
         validate: ({ email, password }: FormValues) => {
             let errors: FormikErrors<FormValues> = {};
             if (!email) {
-                errors.email = i18n.t('login.form.error.email.required');
+                errors.email = i18n.t('form.error.email.required');
             } else if (!validateEmail(email)) {
-                errors.email = i18n.t('login.form.error.email.invalid');
+                errors.email = i18n.t('form.error.email.invalid');
             }
             if (!password) {
-                errors.password = i18n.t('login.form.error.password.required');
+                errors.password = i18n.t('form.error.password.required');
             } else if (password.length < 3) {
-                errors.password = i18n.t('login.form.error.password.min');
+                errors.password = i18n.t('form.error.password.min');
             } else if (password.length > 20) {
-                errors.password = i18n.t('login.form.error.password.max');
+                errors.password = i18n.t('form.error.password.max');
             }
             return errors;
         },

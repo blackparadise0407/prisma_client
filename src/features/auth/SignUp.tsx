@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FlexGrow, Loader } from 'components';
+import { FlexGrow } from 'components';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { authSelector } from './authSlice';
 import ForgetPasswordForm from './ForgetPasswordForm';
 import LoginForm from './LoginForm';
+import ResetPasswordForm from './ResetPasswordForm';
 import './SignUp.scss';
 import SignUpForm from './SignUpForm';
 
@@ -40,7 +41,8 @@ const Login = () => {
                     <p className="main">{t('login.heading_main')}</p>
                 </div>
                 <p className="welcome-text">{t('login.welcome_text')}</p>
-                {pathname !== '/forget-password' && (
+                {['/forget-password', '/reset-password'].indexOf(pathname) ===
+                    -1 && (
                     <React.Fragment>
                         <FlexGrow />
                         <div className="btn-group">
@@ -71,6 +73,7 @@ const Login = () => {
             {pathname === '/login' && <LoginForm />}
             {pathname === '/signup' && <SignUpForm />}
             {pathname === '/forget-password' && <ForgetPasswordForm />}
+            {pathname === '/reset-password' && <ResetPasswordForm />}
         </div>
     );
 };

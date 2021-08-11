@@ -1,8 +1,6 @@
 import { Post } from 'api/_apis/post';
 import { Anger, Laugh, Sad } from 'assets/icons';
-import clsx from 'clsx';
 import { Avatar, Divider, Text } from 'components';
-import { map } from 'lodash';
 import React from 'react';
 import {
     AiOutlineComment,
