@@ -1,11 +1,12 @@
 import { Post } from 'api/_apis/post';
-import { Text } from 'components';
+import { Button, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
 import {
     fetchPostList,
     postListSelector,
 } from 'features/postsList/postListSlice';
+import { add, remove, toast } from 'features/toast/toastSlice';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -83,7 +84,26 @@ const Newsfeed = () => {
                     </Text>
                 </div>
             </div>
-
+            <Button
+                onClick={() => toast.info({ title: 'hello', content: 'Hi' })}
+            >
+                add toast
+            </Button>
+            <Button
+                onClick={() => toast.error({ title: 'hello', content: 'Hi' })}
+            >
+                add toast
+            </Button>
+            <Button
+                onClick={() => toast.warn({ title: 'hello', content: 'Hi' })}
+            >
+                add toast
+            </Button>
+            <Button
+                onClick={() => toast.success({ title: 'hello', content: 'Hi' })}
+            >
+                add toast
+            </Button>
             <div className="content">
                 <PostCreate />
                 {_renderPostList(posts)}

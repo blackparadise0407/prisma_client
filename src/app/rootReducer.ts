@@ -9,6 +9,7 @@ import postListReducer, {
 import preferencesReducer, {
     PreferencesState,
 } from 'features/preferences/preferencesSlice';
+import toastReducer, { ToastState } from 'features/toast/toastSlice';
 import userReducer, { UserState } from 'features/users/userSlice';
 import { persistReducer } from 'redux-persist';
 import sessionStorage from 'redux-persist/lib/storage/session';
@@ -19,6 +20,7 @@ export interface AppState {
     user: UserState;
     postCreate: PostCreateState;
     postList: PostListState;
+    toast: ToastState;
 }
 
 export type AsyncThunkConfig = {
@@ -39,6 +41,7 @@ const rootReducer = combineReducers<AppState>({
     postCreate: postCreateReducer,
     user: userReducer,
     postList: postListReducer,
+    toast: toastReducer,
 });
 
 const persistedReducer = persistReducer<AppState>(persistConfig, rootReducer);

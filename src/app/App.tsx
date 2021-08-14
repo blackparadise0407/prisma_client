@@ -3,6 +3,7 @@ import { userInfo } from 'features/auth/authSlice';
 import Google from 'features/auth/Google';
 import Login from 'features/auth/SignUp';
 import { preferencesSelector } from 'features/preferences/preferencesSlice';
+import ToastContainer from 'features/toast/ToastContainer';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,6 +35,7 @@ function App() {
                 <Route component={Login} path="/signup" />
                 <Route component={Login} path="/forget-password" />
                 <Route component={Login} path="/reset-password" />
+                <ToastContainer position="top-right" />
             </ThemeProvider>
         </Router>
     );

@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { FormInputItem } from 'schema';
 import { validateEmail } from 'utils/validation';
-import { authSelector, clearError, login } from './authSlice';
+import { authSelector, clearError, login, resetStatus } from './authSlice';
 import './LoginForm.scss';
 
 const queries = qs.stringify({
@@ -55,6 +55,7 @@ export function renderInput(
             onChange={handleChange}
             value={values[i.name]}
             error={errors[i.name]}
+            autoComplete
         />
     ));
 }
@@ -83,6 +84,13 @@ const LoginForm = () => {
             history.push('/');
         }
     }, [history, isAuth]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetStatus());
+            dispatch(clearError());
+        };
+    }, []);
 
     const formik = useFormik<FormValues>({
         initialValues: {

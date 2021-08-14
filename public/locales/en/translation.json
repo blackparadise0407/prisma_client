@@ -96,5 +96,11 @@
         "text": {
             "see_more": "See more"
         }
+    },
+    "toast": {
+        "info": "Information",
+        "success": "Success",
+        "error": "Error",
+        "warning": "Warning"
     }
 }
