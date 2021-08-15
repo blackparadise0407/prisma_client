@@ -1,4 +1,34 @@
 {
+    "form": {
+        "error": {
+            "username": {
+                "required": "Please enter your desired username",
+                "invalid": "Username must not contain special characters",
+                "min": "Your username is too short",
+                "max": "Your username is too long"
+            },
+            "email": {
+                "required": "Email address cannot be empty",
+                "invalid": "Please enter a valid email address"
+            },
+            "password": {
+                "required": "Password cannot be empty",
+                "min": "Your password is too short",
+                "max": "Your password is too long",
+                "not_match": "Your password and confirmation password do not match"
+            },
+            "confirm_password": {
+                "required": "Please enter confirmation password",
+                "not_match": "Your password and confirmation password do not match"
+            }
+        },
+        "label": {
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "confirm_password": "Repeat password"
+        }
+    },
     "login": {
         "welcome_text": "Mạng xã hội thế hệ mới cho Gen Z",
         "heading_sub": "Chào mừng tới",
@@ -62,7 +92,7 @@
                     "max": "Tên người dùng quá dài"
                 }
             },
-            "reminder": "Bạn sẽ nhận được một email xác nhận trong hộp thư của bạn với một link để kích hoạt tài khoản. Nếu gặp bất cứ vấn đề gì, ",
+            "reminder": "Một email xác nhận sẽ được gửi tới hộp thư của bạn. Nếu gặp bất cứ vấn đề gì, ",
             "contact": "liên hệ chúng tôi!"
         }
     },

@@ -27,7 +27,7 @@ interface FormValues {
 
 const ForgetPasswordForm = () => {
     const dispatch = useDispatch();
-    const { status } = useSelector(authSelector);
+    const { status, error } = useSelector(authSelector);
 
     const [success, setSuccess] = useState(false);
 
@@ -64,6 +64,7 @@ const ForgetPasswordForm = () => {
     const handleClose = () => {
         setSuccess(false);
         dispatch(resetStatus());
+        dispatch(clearError());
     };
 
     useEffect(() => {
@@ -92,6 +93,14 @@ const ForgetPasswordForm = () => {
                     closable
                     type="success"
                     message={t('forget_password.form.success')}
+                />
+            )}
+            {error && (
+                <Alert
+                    onClose={handleClose}
+                    closable
+                    type="error"
+                    message={error}
                 />
             )}
             {renderInput(inputItems, {

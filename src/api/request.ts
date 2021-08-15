@@ -31,7 +31,7 @@ axiosClient.interceptors.response.use(
     },
     async (error: any) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !Cookies.get('accessToken')) {
+        if (error.response.status === 401) {
             return Promise.reject('');
         }
         if (error.response.status === 403 && !originalRequest._retry) {

@@ -1,12 +1,18 @@
 import clsx from 'clsx';
 import i18n from 'i18n';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+    CSSProperties,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import {
-    AiOutlineCheckCircle,
+    AiFillCheckCircle,
+    AiFillCloseCircle,
+    AiFillInfoCircle,
+    AiFillWarning,
     AiOutlineClose,
-    AiOutlineCloseCircle,
-    AiOutlineInfoCircle,
-    AiOutlineWarning,
 } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import './Toast.scss';
@@ -37,9 +43,10 @@ const _getTitle = (type: ToastType): string => {
 const Toast = ({
     autoClose = false,
     position,
-    toast: { title, content, type, id },
+    toast: { content, type, id },
 }: Props) => {
     const dispatch = useDispatch();
+    const [style, setStyle] = useState<CSSProperties>(undefined);
     const toastEl = useRef(null);
 
     const handleRemove = useCallback((id: number) => {
@@ -49,35 +56,34 @@ const Toast = ({
     useEffect(() => {
         const interval = setInterval(() => {
             if (autoClose) {
-                console.log('why true');
+                setStyle({
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                });
+            }
+        }, (+autoClose - 500) as number);
+        const _interval = setInterval(() => {
+            if (autoClose) {
                 dispatch(autoRemove());
             }
         }, autoClose as number);
         return () => {
             clearInterval(interval);
+            clearInterval(_interval);
         };
     }, []);
-
-    // useEffect(() => {
-    //     gsap.fromTo(
-    //         toastEl.current,
-    //         { opacity: 0, x: 500 },
-    //         { opacity: 1, x: 0 },
-    //     );
-    // }, []);
 
     return (
         <div
             className={clsx('toast', `toast--${type}`, `toast--${position}`)}
             ref={toastEl}
+            style={style}
         >
             <div className="toast__left">
-                {type === 'success' && (
-                    <AiOutlineCheckCircle className="icon" />
-                )}
-                {type === 'info' && <AiOutlineInfoCircle className="icon" />}
-                {type === 'error' && <AiOutlineCloseCircle className="icon" />}
-                {type === 'warning' && <AiOutlineWarning className="icon" />}
+                {type === 'success' && <AiFillCheckCircle className="icon" />}
+                {type === 'info' && <AiFillInfoCircle className="icon" />}
+                {type === 'error' && <AiFillCloseCircle className="icon" />}
+                {type === 'warning' && <AiFillWarning className="icon" />}
             </div>
             <div className="toast__right">
                 <div className="title">{_getTitle(type)}</div>

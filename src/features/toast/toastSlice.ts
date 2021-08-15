@@ -8,7 +8,6 @@ export type ToastType = 'success' | 'info' | 'error' | 'warning';
 
 export interface Toast {
     content?: ReactNode;
-    title?: string;
     type?: ToastType;
     id?: number;
 }
@@ -44,17 +43,17 @@ export const toastSlice = createSlice({
 });
 
 export const toast = {
-    info: (payload: Toast) => {
-        store.dispatch(add({ ...payload, type: 'info' }));
+    info: (content: string) => {
+        store.dispatch(add({ content, type: 'info' }));
     },
-    success: (payload: Toast) => {
-        store.dispatch(add({ ...payload, type: 'success' }));
+    success: (content: string) => {
+        store.dispatch(add({ content, type: 'success' }));
     },
-    warn: (payload: Toast) => {
-        store.dispatch(add({ ...payload, type: 'warning' }));
+    warn: (content: string) => {
+        store.dispatch(add({ content, type: 'warning' }));
     },
-    error: (payload: Toast) => {
-        store.dispatch(add({ ...payload, type: 'error' }));
+    error: (content: string) => {
+        store.dispatch(add({ content, type: 'error' }));
     },
 };
 

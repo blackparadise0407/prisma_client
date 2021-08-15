@@ -1,20 +1,22 @@
 @import 'themes/color-theme';
 
+$slide-distance: 30rem;
+
 .toast {
     @include themed() {
         position: relative;
         display: flex;
         align-items: center;
-        width: 28rem;
+        width: 30rem;
         margin: 2rem 0;
         padding: 1.5rem 2rem;
         border-radius: 8px;
         background-color: t($text-contrast);
         color: t($text-primary);
         box-shadow: t($shadow);
-        animation-duration: 0.4s;
-        animation-timing-function: cubic-bezier(0.39, 0.75, 0.26, 1.36);
-
+        animation-duration: 0.3s;
+        animation-timing-function: cubic-bezier(0.49, 1.39, 1, 1.56);
+        will-change: transform;
         &__left {
             margin-right: 1rem;
             .icon {
@@ -48,33 +50,33 @@
             cursor: pointer;
         }
         &--info {
-            background: t($text-contrast);
+            background: t($primary);
             .icon {
-                color: t($primary);
+                color: t($text-contrast);
             }
             .title {
-                color: t($primary);
+                color: t($text-contrast);
             }
             .content {
-                color: t($primary);
+                color: t($text-contrast);
             }
             .toast__close-icon {
-                color: t($primary);
+                color: t($text-contrast);
             }
         }
         &--success {
             background: t($success);
             .icon {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .title {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .content {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .toast__close-icon {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
         }
         &--error {
@@ -95,16 +97,16 @@
         &--warning {
             background: t($warning);
             .icon {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .title {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .content {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
             .toast__close-icon {
-                color: t($text-primary);
+                color: t($text-contrast);
             }
         }
         &--top-right {
@@ -130,36 +132,36 @@
 
 @keyframes toast-in-right {
     from {
-        transform: translateX(500px);
+        transform: translate3d($slide-distance, 0, 0);
     }
     to {
-        transform: translateX(0);
+        transform: translate3d(0);
     }
 }
 
 @keyframes toast-in-left {
     from {
-        transform: translateX(-500px);
+        transform: translate3d(-$slide-distance, 0, 0);
     }
     to {
-        transform: translateX(0);
+        transform: translate3d(0);
     }
 }
 
 @keyframes toast-in-top {
     from {
-        transform: translateY(-500px);
+        transform: translate3d(0, -$slide-distance, 0);
     }
     to {
-        transform: translateY(0);
+        transform: translate3d(0);
     }
 }
 
 @keyframes toast-in-bottom {
     from {
-        transform: translateY(500px);
+        transform: translate3d(0, $slide-distance, 0);
     }
     to {
-        transform: translateY(0);
+        transform: translate3d(0);
     }
 }

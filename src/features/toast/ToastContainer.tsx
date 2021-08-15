@@ -20,7 +20,7 @@ type Props = {
 };
 
 const ToastContainer = ({
-    autoClose = 4000,
+    autoClose = 5000,
     position = 'top-right',
 }: Props) => {
     const { toasts } = useSelector(toastSelector);
