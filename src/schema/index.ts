@@ -1,4 +1,3 @@
-import { Attachment } from 'api/_apis/attachment';
 import { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
 import { LoadableComponent } from 'react-loadable';
 import { RouteProps } from 'react-router-dom';
@@ -47,4 +46,49 @@ export interface INavigationItem {
     name: string;
     icon?: JSX.Element;
     path?: string;
+}
+
+export type AttachmentType = 'IMAGE' | 'VIDEO' | 'FILE';
+
+export interface Attachment {
+    id?: number;
+    size?: number;
+    type?: AttachmentType;
+    url?: string;
+    blob?: string;
+    file?: File;
+}
+
+export enum ReactionType {
+    LIKE = 'LIKE',
+    LOVE = 'LOVE',
+    HAHA = 'HAHA',
+    WOW = 'WOW',
+    ANGER = 'ANGER',
+    SAD = 'SAD',
+}
+
+export enum UserActionType {
+    REACTION = 'REACTION',
+    COMMENT = 'COMMENT',
+    SHARE = 'SHARE',
+}
+export interface UserActions {
+    reactionType?: ReactionType;
+    type?: UserActionType;
+    id?: number;
+}
+export interface Post {
+    content?: string;
+    photos?: Attachment[];
+    createdAt?: string;
+    updatedAt?: string;
+    userId?: number;
+    user?: User;
+    id?: number;
+    reactionCount?: number;
+    shareCount?: number;
+    commentCount?: number;
+    reactions?: UserActions[];
+    userActions?: UserActions[];
 }

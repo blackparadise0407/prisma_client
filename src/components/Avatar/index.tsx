@@ -40,7 +40,13 @@ const Avatar = ({
                         className="avatar-inner2"
                         style={{ width: _size, height: _size, backgroundColor }}
                     >
-                        <img src={src ?? IMAGES.mockCover} alt="avatar" />
+                        <img
+                            src={
+                                src ??
+                                'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                            }
+                            alt="avatar"
+                        />
                     </div>
                 </div>
             </div>

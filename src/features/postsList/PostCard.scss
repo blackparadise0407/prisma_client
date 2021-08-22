@@ -72,6 +72,7 @@ $padding: 3rem;
                 flex-direction: row;
                 justify-content: space-between;
                 padding: 0.8rem $padding;
+                min-height: 4rem;
                 .reaction-wrapper {
                     display: flex;
                     flex-direction: row;
@@ -79,6 +80,7 @@ $padding: 3rem;
                     .reaction-list {
                         display: flex;
                         flex-direction: row;
+                        align-items: center;
                         > * + * {
                             margin-left: -0.5rem;
                         }
@@ -122,8 +124,13 @@ $padding: 3rem;
             .actions {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
-                padding: 0.5rem $padding;
+                padding: 0.6rem $padding;
                 place-items: center;
+                column-gap: 2rem;
+                background-color: lighten(t($background), 0.5%);
+                border-width: 1px 0;
+                border-style: solid;
+                border-color: t($border);
                 .action-item {
                     display: flex;
                     flex-direction: row;
@@ -132,20 +139,28 @@ $padding: 3rem;
                     font-size: 1.4rem;
                     font-weight: 500;
                     text-align: center;
-                    color: t($text-secondary);
+                    color: t($text-primary);
                     padding: 1rem 0;
                     width: 100%;
                     border-radius: 10px;
-                    background-color: t($text-contrast);
                     @include active(t($text-contrast));
+
                     transition: all ease 0.2s;
                     &:hover {
-                        color: t($text-primary);
+                        background-color: t($text-contrast);
+                        box-shadow: t($shadow);
                     }
                     .icon {
                         font-size: 2rem;
                         margin-right: 1rem;
                     }
+                }
+            }
+        }
+        &__comment {
+            ul {
+                & > * {
+                    margin-top: 1rem;
                 }
             }
         }

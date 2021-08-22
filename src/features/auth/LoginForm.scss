@@ -120,7 +120,7 @@
                 transform: scale(1.05);
                 color: t($secondary);
                 background-color: t($text-contrast);
-                box-shadow: 0px 0px 10px -5px rgb(49, 49, 49);
+                box-shadow: t($shadow);
             }
         }
         .divider {
@@ -184,7 +184,7 @@
                 cursor: pointer;
                 &:hover {
                     transform: scale(1.1);
-                    box-shadow: 0px 0px 10px -5px rgb(49, 49, 49);
+                    box-shadow: t($shadow);
                     background-color: #fff;
                     &.google .icon {
                         color: #ea4335;

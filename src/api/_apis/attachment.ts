@@ -1,18 +1,7 @@
 import request from 'api/request';
-import { GeneralApiResponse } from 'schema';
+import { Attachment, GeneralApiResponse } from 'schema';
 
 const AttachmentEndpoint = '/attachment';
-
-export type AttachmentType = 'IMAGE' | 'VIDEO' | 'FILE';
-
-export interface Attachment {
-    id?: number;
-    size?: number;
-    type?: AttachmentType;
-    url?: string;
-    blob?: string;
-    file?: File;
-}
 
 const attachmentApi = {
     uploadImage: (blob: File) => {

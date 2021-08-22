@@ -13,6 +13,7 @@ import Button from './Button';
 import FlexGrow from './FlexGrow';
 import Skeleton from './Skeleton';
 import ErrorBoundary from './ErrorBoundary';
+import AutoSizeTextarea from './AutoSizeTextarea';
 
 export {
     Loader,
@@ -30,4 +31,5 @@ export {
     FlexGrow,
     Skeleton,
     ErrorBoundary,
+    AutoSizeTextarea,
 };

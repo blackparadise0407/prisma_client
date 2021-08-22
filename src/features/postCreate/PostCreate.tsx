@@ -82,7 +82,7 @@ const PostCreate = () => {
                 <Divider />
                 {post.photos.length ? (
                     <div className="photo-group">
-                        {map(post.photos, (p, idx) => (
+                        {map(post.photos, (p, idx: number) => (
                             <img
                                 key={p.blob.substring(0, 10) + idx}
                                 src={p.blob}

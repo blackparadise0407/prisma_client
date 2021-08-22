@@ -4,6 +4,12 @@ import Cookies from 'js-cookie';
 import qs from 'query-string';
 import AuthApi from './_apis/auth';
 
+export interface RequestQuery {
+    page?: number;
+    limit?: number;
+    keyword?: string;
+}
+
 const axiosClient = axios.create({
     baseURL: HOST + '/api',
     timeout: config.apiTimeout,

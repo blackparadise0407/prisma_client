@@ -1,0 +1,19 @@
+@import 'themes/color-theme';
+
+$padding: 3rem;
+
+.comment-input {
+    @include themed() {
+        display: flex;
+        padding: 1rem $padding;
+
+        &__textarea {
+            margin-left: 1rem;
+            padding: 1rem;
+            font-size: 1.4rem;
+            border-radius: 10px;
+            border: 1px solid t($border);
+            align-self: center;
+        }
+    }
+}

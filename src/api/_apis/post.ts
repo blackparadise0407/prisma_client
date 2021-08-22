@@ -1,29 +1,25 @@
-import request from 'api/request';
+import request, { RequestQuery } from 'api/request';
 
-import { GeneralApiResponse, User } from 'schema';
-import { Attachment } from './attachment';
+import { GeneralApiResponse, Post } from 'schema';
 
 export interface PostCreateRequest {
     content?: string;
     photos?: number[];
 }
 
-export interface Post {
-    content?: string;
-    photos?: Attachment[];
-    createdAt?: string;
-    updatedAt?: string;
-    userId?: number;
-    user?: User;
-    id?: number;
-}
+export interface PostRequestQuery extends RequestQuery {}
 
 const PostEndpoint = '/post';
 
 const postApi = {
     create: (data: PostCreateRequest) =>
         request<GeneralApiResponse>('POST', PostEndpoint, data),
-    getAll: () => request<GeneralApiResponse<Post[]>>('GET', PostEndpoint),
+    getAll: (query: PostRequestQuery) =>
+        request<GeneralApiResponse<{ posts: Post[]; total: number }>>(
+            'GET',
+            PostEndpoint,
+            query,
+        ),
 };
 
 export default postApi;

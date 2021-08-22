@@ -95,6 +95,13 @@
     "components": {
         "text": {
             "see_more": "See more"
+        },
+        "post_card": {
+            "comment": "Comments",
+            "share": "Shares"
+        },
+        "comment_input": {
+            "placeholder": "Your reply"
         }
     },
     "toast": {
@@ -102,5 +109,13 @@
         "success": "Success",
         "error": "Error",
         "warning": "Warning"
+    },
+    "reaction": {
+        "like": "Like",
+        "love": "Love",
+        "sad": "Sad",
+        "haha": "Haha",
+        "angry": "Angry",
+        "wow": "Wow"
     }
 }

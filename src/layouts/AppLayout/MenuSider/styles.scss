@@ -42,6 +42,7 @@
             }
         }
         transition: width ease 0.2s;
+        will-change: width;
 
         .menu-list {
             display: flex;

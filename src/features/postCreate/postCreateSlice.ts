@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PostApi } from 'api';
-import attachmentApi, { Attachment } from 'api/_apis/attachment';
-import { Post, PostCreateRequest } from 'api/_apis/post';
+import attachmentApi from 'api/_apis/attachment';
+
+import { PostCreateRequest } from 'api/_apis/post';
 import { AppState, AsyncThunkConfig } from 'app/rootReducer';
 import { map as blueBirdMap } from 'bluebird';
 import { map } from 'lodash';
 
-import { ReducerStatus } from 'schema';
+import { Attachment, Post, ReducerStatus } from 'schema';
 
 export interface PostCreateState {
     status?: ReducerStatus;

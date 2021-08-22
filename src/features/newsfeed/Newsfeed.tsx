@@ -1,4 +1,3 @@
-import { Post } from 'api/_apis/post';
 import { Skeleton, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
@@ -16,6 +15,7 @@ import {
     CellMeasurerCache,
     List,
 } from 'react-virtualized';
+import { Post } from 'schema';
 import './Newsfeed.scss';
 
 const _renderPostList = (data: Post[] = []): JSX.Element => {
