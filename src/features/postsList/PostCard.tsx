@@ -120,7 +120,7 @@ const PostCard = ({ data, loading }: Props) => {
                     </div>
                 ) : null} */}
 
-                <Divider width="calc(100% - 4rem)" />
+                {/* <Divider width="calc(100% - 4rem)" /> */}
                 <div className="reactions">
                     {reactionCount ? (
                         <div className="reaction-wrapper">
@@ -151,12 +151,16 @@ const PostCard = ({ data, loading }: Props) => {
                     ) : null}
                     <FlexGrow />
                     <div className="comment-wrapper">
-                        <div className="item comments">{`${commentCount} ${t(
-                            'components.post_card.comment',
-                        )}`}</div>
-                        <div className="item share">{`${shareCount} ${t(
-                            'components.post_card.share',
-                        )}`}</div>
+                        {commentCount ? (
+                            <div className="item comments">{`${commentCount} ${t(
+                                'components.post_card.comment',
+                            )}`}</div>
+                        ) : null}
+                        {shareCount ? (
+                            <div className="item share">{`${shareCount} ${t(
+                                'components.post_card.share',
+                            )}`}</div>
+                        ) : null}
                     </div>
                 </div>
                 {/* <Divider /> */}
@@ -190,7 +194,7 @@ const PostCard = ({ data, loading }: Props) => {
                 </div>
             </div>
             <div className="card__comment">
-                {/* <Divider /> */}
+                <Divider />
                 <ul>
                     <Comment />
                     <Comment />

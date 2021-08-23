@@ -8,6 +8,7 @@ $padding: 3rem;
         background-color: t($text-contrast);
         border-radius: 10px;
         box-shadow: t($shadow);
+        overflow: hidden;
         &__header {
             display: flex;
             flex-direction: row;
@@ -72,7 +73,6 @@ $padding: 3rem;
                 flex-direction: row;
                 justify-content: space-between;
                 padding: 0.8rem $padding;
-                min-height: 4rem;
                 .reaction-wrapper {
                     display: flex;
                     flex-direction: row;
@@ -128,9 +128,7 @@ $padding: 3rem;
                 place-items: center;
                 column-gap: 2rem;
                 background-color: lighten(t($background), 0.5%);
-                border-width: 1px 0;
-                border-style: solid;
-                border-color: t($border);
+                border-top: 1px solid t($border);
                 .action-item {
                     display: flex;
                     flex-direction: row;
