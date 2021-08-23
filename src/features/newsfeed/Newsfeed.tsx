@@ -1,4 +1,4 @@
-import { Skeleton, Text } from 'components';
+import { Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
 import {
@@ -9,12 +9,7 @@ import { map } from 'lodash';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    AutoSizer,
-    CellMeasurer,
-    CellMeasurerCache,
-    List,
-} from 'react-virtualized';
+import { CellMeasurer } from 'react-virtualized';
 import { Post } from 'schema';
 import './Newsfeed.scss';
 
