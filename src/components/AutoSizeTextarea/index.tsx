@@ -32,4 +32,4 @@ const AutoSizeTextarea = ({ className, ...rest }: Props) => {
     );
 };
 
-export default AutoSizeTextarea;
+export default React.memo(AutoSizeTextarea);

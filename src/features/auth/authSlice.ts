@@ -84,10 +84,12 @@ export const logout = (): AppThunk => {
         dispatch(logoutLoading());
         try {
             await AuthApi.logout();
+        } catch (_) {
+        } finally {
             Cookies.remove('accessToken');
             localStorage.removeItem('refreshToken');
             dispatch(logoutSuccess());
-        } catch (_) {}
+        }
     };
 };
 

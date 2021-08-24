@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+import { useCallback } from 'react';
 import './styles.scss';
 
 type ButtonType = 'default' | 'primary' | 'danger' | 'secondary' | 'ghost';
@@ -27,9 +28,10 @@ const Button = ({
     loading = false,
     className,
 }: Props) => {
-    const handleOnClick = () => {
+    const handleOnClick = useCallback(() => {
         onClick && !loading && onClick();
-    };
+    }, [onClick]);
+
     return (
         <button
             type={htmlType}

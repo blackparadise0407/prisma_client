@@ -1,6 +1,10 @@
 import clsx from 'clsx';
-import React, { ChangeEventHandler, useRef, useState } from 'react';
-import { useEffect } from 'react';
+import React, {
+    ChangeEventHandler,
+    useCallback,
+    useRef,
+    useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { InputType } from 'schema';
@@ -30,59 +34,40 @@ const FormInput = ({
 }: Props) => {
     const { t } = useTranslation();
     const inputEl = useRef(null);
-    const [isFocus, setIsFocus] = useState<boolean>(false);
-    // const [_val, setVal] = useState<string>(value);
-    const [isShow, setIsShow] = useState<boolean>(false);
-    const [isTouch, setIsTouch] = useState<boolean>(false);
+    const [isShow, setIsShow] = useState(false);
+    const [isTouch, setIsTouch] = useState(false);
 
-    useEffect(() => {
-        if (inputEl.current.value) {
-            setIsFocus(true);
-        }
+    const handleBlur = useCallback(() => {
+        setIsTouch(true);
     }, []);
 
-    const handleFocus = () => {
-        setIsFocus(true);
-        inputEl.current.focus();
-    };
-
-    const handleBlur = () => {
-        if (!inputEl.current.value) setIsFocus(false);
-        setIsTouch(true);
-    };
-
     const handleChange = (e) => {
-        // setVal(e.target.value as string);
         onChange && onChange(e);
     };
 
-    const toggleShow = () => {
+    const onLabelClick = useCallback(() => {
+        inputEl.current.focus();
+    }, []);
+
+    const toggleShow = useCallback(() => {
         setIsShow(!isShow);
-    };
+    }, [isShow]);
     return (
-        <div
-            className={clsx(
-                'form-input',
-                isFocus && 'form-input--focus',
-                className,
-            )}
-        >
-            <div className="label" onClick={handleFocus}>
-                {t(label)}
-            </div>
+        <div className={clsx('form-input', className)}>
             <input
-                autoComplete={!autoComplete ? 'off' : 'auto'}
+                ref={inputEl}
                 name={name}
                 type={
                     type === 'password' ? (isShow ? 'text' : 'password') : type
                 }
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                ref={inputEl}
+                placeholder=" "
                 value={value}
+                autoComplete={!autoComplete ? 'off' : 'auto'}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 {...rest}
             />
+            <label onClick={onLabelClick}>{t(label)}</label>
             {type === 'password' &&
                 (!isShow ? (
                     <AiOutlineEyeInvisible
@@ -97,4 +82,4 @@ const FormInput = ({
     );
 };
 
-export default FormInput;
+export default React.memo(FormInput);

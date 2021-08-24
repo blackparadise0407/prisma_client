@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { Button, Divider, FlexGrow } from 'components';
 import { authSelector } from 'features/auth/authSlice';
 import { map } from 'lodash';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { BiHash } from 'react-icons/bi';
@@ -52,9 +53,9 @@ const PostCreate = () => {
         );
     };
 
-    const handleCreatePost = () => {
+    const handleCreatePost = useCallback(() => {
         dispatch(createPost());
-    };
+    }, []);
 
     useEffect(() => {
         if (status) {
@@ -78,7 +79,6 @@ const PostCreate = () => {
                     }?`}
                     onBlur={handleContentBlur}
                 />
-
                 <Divider />
                 {post.photos.length ? (
                     <div className="photo-group">

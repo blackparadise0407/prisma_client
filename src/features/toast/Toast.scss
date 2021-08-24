@@ -14,7 +14,8 @@ $slide-distance: 30rem;
         background-color: t($text-contrast);
         color: t($text-primary);
         box-shadow: t($shadow);
-        animation-duration: 0.3s;
+        animation-duration: 0.2s;
+        animation-fill-mode: forwards;
         animation-timing-function: cubic-bezier(0.49, 1.39, 1, 1.56);
         will-change: transform;
         &__left {

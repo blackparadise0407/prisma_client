@@ -1,5 +1,7 @@
+import { Text } from 'components';
 import { findIndex, includes } from 'lodash';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { authSelector, googleLogin } from './authSlice';
@@ -16,11 +18,11 @@ const Google = () => {
     const history = useHistory();
     const { hash } = useLocation();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const { status } = useSelector(authSelector);
 
     useEffect(() => {
-        console.log(hash);
         if (getToken(hash)) {
             dispatch(googleLogin(getToken(hash)));
         }
@@ -32,7 +34,7 @@ const Google = () => {
         }
     }, [status]);
 
-    return null;
+    return <Text size="large">{t('google.redirect')}</Text>;
 };
 
 export default Google;

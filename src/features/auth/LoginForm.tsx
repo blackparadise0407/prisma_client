@@ -7,6 +7,7 @@ import i18n from 'i18n';
 import { map } from 'lodash';
 import qs from 'query-string';
 import React, { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     AiFillFacebook,
@@ -67,17 +68,17 @@ const LoginForm = () => {
     const dispatch = useDispatch();
     const { isAuth, error, status } = useSelector(authSelector);
 
-    const handleFinish = (v: FormValues) => {
+    const handleFinish = useCallback((v: FormValues) => {
         dispatch(login(v));
-    };
+    }, []);
 
-    const handleClearError = () => {
+    const handleClearError = useCallback(() => {
         dispatch(clearError());
-    };
+    }, []);
 
-    const navigateToForgetPassword = () => {
+    const navigateToForgetPassword = useCallback(() => {
         history.push('/forget-password');
-    };
+    }, []);
 
     useEffect(() => {
         if (isAuth) {

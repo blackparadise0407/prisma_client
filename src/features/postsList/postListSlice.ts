@@ -30,7 +30,6 @@ export const postListSlice = createSlice({
             state,
             { payload }: PayloadAction<{ posts: Post[]; total: number }>,
         ) => {
-            console.log(payload);
             state.posts = payload.posts;
             state.status = 'success';
             state.total = payload.total;

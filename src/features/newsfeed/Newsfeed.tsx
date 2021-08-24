@@ -7,6 +7,7 @@ import {
 } from 'features/postsList/postListSlice';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { CellMeasurer } from 'react-virtualized';
@@ -40,6 +41,7 @@ const renderRow = ({ index, key, style, parent }, cache, posts) => {
 
 const Newsfeed = () => {
     const dispatch = useDispatch();
+    const [_var, setVar] = useState(false);
 
     const { t } = useTranslation();
 

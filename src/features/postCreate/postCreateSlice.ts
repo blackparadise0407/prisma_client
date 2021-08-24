@@ -5,6 +5,7 @@ import attachmentApi from 'api/_apis/attachment';
 import { PostCreateRequest } from 'api/_apis/post';
 import { AppState, AsyncThunkConfig } from 'app/rootReducer';
 import { map as blueBirdMap } from 'bluebird';
+import { toast } from 'features/toast/toastSlice';
 import { map } from 'lodash';
 
 import { Attachment, Post, ReducerStatus } from 'schema';
@@ -36,7 +37,8 @@ export const createPost = createAsyncThunk<any, null, AsyncThunkConfig>(
             content,
         };
 
-        if (!post.content && !post.photos.length) {
+        if (!post.content || !post.photos.length) {
+            toast.error('Post must have content or have at least 1 photo');
             return thunkAPI.rejectWithValue(
                 'Post must have content or have at least 1 photo',
             );

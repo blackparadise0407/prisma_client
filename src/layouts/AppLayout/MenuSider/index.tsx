@@ -59,7 +59,7 @@ const MenuSider = ({ isCollapse, handleToggleCollapse }: Props) => {
     const handleLogout = async () => {
         dispatch(logout());
     };
-    console.log(user);
+
     return (
         <div
             className={clsx(

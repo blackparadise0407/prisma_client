@@ -14,7 +14,7 @@
         color: t($text-contrast);
         background-color: t($primary);
         box-shadow: t($shadow);
-        transition: all ease 0.7s;
+        transition: transform ease 0.7s;
         .icon {
             $width: 1.4rem;
             $height: 2px;

@@ -1,6 +1,6 @@
-import { IMAGES } from 'assets';
 import clsx from 'clsx';
 import React from 'react';
+import { useMemo } from 'react';
 import './styles.scss';
 
 type Props = {
@@ -18,7 +18,7 @@ const Avatar = ({
     className,
     src,
 }: Props) => {
-    const _size = `${size}rem`;
+    const _size = useMemo(() => `${size}rem`, [size]);
     return (
         <div
             className={clsx('avatar-wrapper', className)}
