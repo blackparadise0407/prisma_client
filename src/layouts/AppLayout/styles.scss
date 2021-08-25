@@ -3,17 +3,47 @@
 .layout {
     @include themed() {
         background-color: t($background);
-        .main {
+        &__header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        &__main {
+            position: relative;
             height: 100%;
-            display: flex;
-            flex-direction: row;
-            .content-wrapper {
-                width: 100%;
-                padding: 3rem;
-                background-color: t($background);
-                height: calc(100vh - #{$header-height});
-                overflow-y: scroll;
-                scroll-behavior: smooth;
+            width: 100vw;
+        }
+        &__left-sider {
+            position: fixed;
+            top: $header-height;
+            left: 0;
+            width: $left-sider-width;
+            height: calc(100vh - #{$header-height});
+            z-index: 1000;
+        }
+        &__right-sider {
+            position: fixed;
+            top: $header-height;
+            right: 0;
+            height: calc(100vh - #{$header-height});
+            width: $right-sider-width;
+            z-index: 1000;
+        }
+        &__content-wrapper {
+            padding: 3rem;
+            margin-top: $header-height;
+            background-color: t($background);
+            margin-right: $right-sider-width;
+            margin-left: $left-sider-width;
+            // height: calc(100vh - #{$header-height});
+            // overflow-y: scroll;
+            // scroll-behavior: smooth;
+            transition: margin-left 0.2s ease;
+            will-change: margin-left;
+            &--collapsed {
+                margin-left: $left-sider-width-collapsed;
             }
         }
     }

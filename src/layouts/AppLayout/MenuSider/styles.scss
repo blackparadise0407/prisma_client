@@ -3,12 +3,12 @@
 
 .menu-sider {
     @include themed() {
-        width: $left-sider-width;
-        height: calc(100vh - #{$header-height});
-        background-color: t($text-contrast);
-        position: sticky;
         display: flex;
         flex-direction: column;
+        width: 100%;
+        height: 100%;
+        background-color: t($text-contrast);
+        box-shadow: t($shadow);
         .user-profile {
             .cover-img {
                 position: relative;
@@ -41,8 +41,8 @@
                 }
             }
         }
-        transition: width ease 0.2s;
-        will-change: width;
+        transition: all ease 0.2s;
+        // will-change: width;
 
         .menu-list {
             display: flex;
@@ -92,8 +92,8 @@
                 @include absoluteCenter();
             }
         }
-        transition: all ease 0.2s;
-
+        transition: width ease 0.2s;
+        will-change: width;
         &--collapsed {
             width: $left-sider-width-collapsed;
             .user-profile {

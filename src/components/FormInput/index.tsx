@@ -8,6 +8,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { InputType } from 'schema';
+
 import './styles.scss';
 
 type Props = {

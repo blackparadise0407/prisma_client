@@ -5,14 +5,10 @@
     @include themed() {
         display: flex;
         flex-direction: row;
-        // display: flex;
-        // flex-direction: row;
-        // align-items: center;
-        // grid-template-columns: $left-sider-width auto $right-sider-width;
         width: 100%;
         height: $header-height;
         background-color: t($primary);
-
+        box-shadow: t($shadow);
         &__brand {
             display: flex;
             flex-direction: row;
@@ -73,9 +69,6 @@
                 background-color: t($border);
                 opacity: 0.7;
                 transform: translateY(-50%);
-            }
-
-            .icon {
             }
         }
         &--collapsed {

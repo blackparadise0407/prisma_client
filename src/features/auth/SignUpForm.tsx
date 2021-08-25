@@ -105,6 +105,7 @@ const SignUpForm = () => {
         return () => {
             dispatch(resetStatus());
             dispatch(clearError());
+            setSuccess(false);
         };
     }, []);
 

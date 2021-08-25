@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { ReactNode, useState } from 'react';
 import FriendSider from './FriendSider';
 import Header from './Header';
@@ -19,16 +20,25 @@ const AppLayout = ({ children }: Props) => {
 
     return (
         <div className="layout">
-            <Header isCollapse={isCollapse} />
-            <div className="main">
-                <div className="left-sider">
+            <div className="layout__header">
+                <Header isCollapse={isCollapse} />
+            </div>
+            <div className="layout__main">
+                <div className="layout__left-sider">
                     <MenuSider
                         handleToggleCollapse={handleToggleCollapse}
                         isCollapse={isCollapse}
                     />
                 </div>
-                <div className="content-wrapper">{children}</div>
-                <div className="right-sider">
+                <div
+                    className={clsx(
+                        'layout__content-wrapper',
+                        isCollapse && 'layout__content-wrapper--collapsed',
+                    )}
+                >
+                    {children}
+                </div>
+                <div className="layout__right-sider">
                     <FriendSider />
                 </div>
             </div>

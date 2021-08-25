@@ -1,9 +1,9 @@
 @import 'themes/color-theme';
 .friend-sider {
     @include themed() {
-        height: calc(100vh - #{$header-height});
-        top: $header-height;
-        width: $right-sider-width;
+        width: 100%;
+        height: 100%;
         background: #fff;
+        box-shadow: t($shadow);
     }
 }
