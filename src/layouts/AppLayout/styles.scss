@@ -8,7 +8,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            z-index: 500;
         }
         &__main {
             position: relative;
@@ -21,7 +21,7 @@
             left: 0;
             width: $left-sider-width;
             height: calc(100vh - #{$header-height});
-            z-index: 1000;
+            z-index: 500;
         }
         &__right-sider {
             position: fixed;
@@ -29,7 +29,7 @@
             right: 0;
             height: calc(100vh - #{$header-height});
             width: $right-sider-width;
-            z-index: 1000;
+            z-index: 500;
         }
         &__content-wrapper {
             padding: 3rem;

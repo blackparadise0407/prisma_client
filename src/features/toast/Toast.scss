@@ -1,6 +1,6 @@
 @import 'themes/color-theme';
 
-$slide-distance: 30rem;
+$slide-distance: 40rem;
 
 .toast {
     @include themed() {
@@ -16,7 +16,7 @@ $slide-distance: 30rem;
         box-shadow: t($shadow);
         animation-duration: 0.2s;
         animation-fill-mode: forwards;
-        animation-timing-function: cubic-bezier(0.49, 1.39, 1, 1.56);
+        animation-timing-function: ease-in-out;
         will-change: transform;
         &__left {
             margin-right: 1rem;

@@ -1,10 +1,11 @@
-import { Text } from 'components';
+import { Button, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
 import {
     fetchPostList,
     postListSelector,
 } from 'features/postsList/postListSlice';
+import { toast } from 'features/toast/toastSlice';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CellMeasurer } from 'react-virtualized';
 import { Post } from 'schema';
 import { io } from 'socket.io-client';
-
 import './Newsfeed.scss';
 
 const _renderPostList = (data: Post[] = []): JSX.Element => {
@@ -40,17 +40,20 @@ const renderRow = ({ index, key, style, parent }, cache, posts) => {
     );
 };
 
+var wss = io('ws://localhost:5050/app');
+
 const Newsfeed = () => {
     const dispatch = useDispatch();
-
     const { t } = useTranslation();
 
     const { posts } = useSelector(postListSelector);
 
     useEffect(() => {
-        const wss = io('ws://localhost:5050/app');
         wss.on('connect', () => {
             console.log('HEllo from socket');
+        });
+        wss.on('alo', (data) => {
+            toast.info(data);
         });
     }, []);
 
@@ -79,6 +82,13 @@ const Newsfeed = () => {
 
     return (
         <div className="newsfeed-wrapper">
+            <Button
+                onClick={() => {
+                    wss.emit('ping', () => {});
+                }}
+            >
+                Ping
+            </Button>
             <div className="banner">
                 <div className="title-wrapper">
                     <div className="title">{t('newsfeed.banner.title')}</div>
