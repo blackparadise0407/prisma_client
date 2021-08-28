@@ -74,9 +74,16 @@ export enum UserActionType {
     SHARE = 'SHARE',
 }
 export interface UserActions {
+    id?: number;
     reactionType?: ReactionType;
     type?: UserActionType;
-    id?: number;
+    content?: string;
+    userId?: number;
+    postId?: number;
+    photoId?: number;
+    user?: User;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 export interface Post {
     content?: string;

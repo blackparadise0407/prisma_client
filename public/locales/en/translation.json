@@ -71,7 +71,7 @@
         }
     },
     "google": {
-        "redirect": "We are validating your information! You will be redirect to our website soon"
+        "please_wait": "Please wait..."
     },
     "layout": {
         "header": {

@@ -34,7 +34,7 @@ const Google = () => {
         }
     }, [status]);
 
-    return <Text size="large">{t('google.redirect')}</Text>;
+    return <Text size="large">{t('google.please_wait')}</Text>;
 };
 
 export default Google;

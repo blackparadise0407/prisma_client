@@ -20,6 +20,12 @@ const postApi = {
             PostEndpoint,
             query,
         ),
+    getCommentByPostId: (postId: number, query: PostRequestQuery) =>
+        request<GeneralApiResponse>(
+            'GET',
+            PostEndpoint + `/${postId}/comment`,
+            query,
+        ),
 };
 
 export default postApi;

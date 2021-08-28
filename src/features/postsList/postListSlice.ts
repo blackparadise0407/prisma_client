@@ -1,26 +1,52 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+    createEntityAdapter,
+    createSlice,
+    EntityAdapter,
+    EntityState,
+    PayloadAction,
+} from '@reduxjs/toolkit';
 import { PostApi } from 'api';
 import { AppState } from 'app/rootReducer';
 import { AppThunk } from 'app/store';
 import { ReducerStatus, Post } from 'schema';
 
-export interface PostListState {
-    posts?: Post[];
-    status?: ReducerStatus;
-    error?: string;
-    total?: number;
+// export interface PostListState {
+//     posts?: Post[];
+//     status?: ReducerStatus;
+//     error?: string;
+//     total?: number;
+// }
+
+// const postListInitState: PostListState = {
+//     status: 'idle',
+//     error: null,
+//     posts: [],
+//     total: 0,
+// };
+
+export interface PostListState extends EntityState<Post> {
+    status: ReducerStatus;
+    error: string;
+    total: number;
+    page: number;
+    limit: number;
 }
 
-const postListInitState: PostListState = {
-    status: 'idle',
+export const postListAdapter: EntityAdapter<Post> = createEntityAdapter<Post>({
+    selectId: (post: Post) => post.id,
+});
+
+const initialState: PostListState = postListAdapter.getInitialState({
     error: null,
-    posts: [],
+    status: 'idle',
     total: 0,
-};
+    page: 1,
+    limit: 5,
+});
 
 export const postListSlice = createSlice({
     name: 'postList',
-    initialState: postListInitState,
+    initialState: initialState,
     reducers: {
         fetchPostListLoading: (state) => {
             state.status = 'loading';
@@ -30,7 +56,7 @@ export const postListSlice = createSlice({
             state,
             { payload }: PayloadAction<{ posts: Post[]; total: number }>,
         ) => {
-            state.posts = payload.posts;
+            postListAdapter.addMany(state, payload.posts);
             state.status = 'success';
             state.total = payload.total;
         },
@@ -54,6 +80,10 @@ export const fetchPostList = (): AppThunk => {
             dispatch(fetchPostListError(e.message));
         }
     };
+};
+
+export const fetchCommentByPostId = (): AppThunk => {
+    return async () => {};
 };
 
 export const postListSelector = (state: AppState) => state.postList;

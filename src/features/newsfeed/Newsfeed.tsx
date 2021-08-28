@@ -1,6 +1,7 @@
 import { Button, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
+import { selectAllPost } from 'features/postsList/postListSelector';
 import {
     fetchPostList,
     postListSelector,
@@ -46,7 +47,7 @@ const Newsfeed = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const { posts } = useSelector(postListSelector);
+    const posts = useSelector(selectAllPost);
 
     useEffect(() => {
         wss.on('connect', () => {
