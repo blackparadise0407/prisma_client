@@ -41,7 +41,7 @@
                 }
             }
         }
-        transition: all ease 0.2s;
+        transition: width ease 0.2s;
         // will-change: width;
 
         .menu-list {
@@ -92,21 +92,16 @@
                 @include absoluteCenter();
             }
         }
-        transition: width ease 0.2s;
-        will-change: width;
         &--collapsed {
-            width: $left-sider-width-collapsed;
             .user-profile {
                 .cover-img {
                     display: none;
-                    // visibility: collapse;
                 }
                 .avatar {
                     margin: 1rem auto;
                 }
                 .name-wrapper {
                     display: none;
-                    // visibility: collapse;
                 }
             }
             .menu-list {

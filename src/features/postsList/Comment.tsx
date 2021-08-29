@@ -1,38 +1,43 @@
 import { Avatar, Text } from 'components';
 import React from 'react';
 import { BsThreeDots } from 'react-icons/bs';
-import { User } from 'schema';
+import { UserActions } from 'schema';
+import moment from 'utils/moment';
 import './Comment.scss';
 
 type Props = {
-    comment?: string;
-    user?: User;
+    data: UserActions;
 };
 
-const Comment = ({ comment, user }: Props) => {
+const Comment = ({ data }: Props) => {
+    if (!!!data) return null;
+
+    const { id, content, user, createdAt } = data;
+
     return (
         <div className="comment">
             <div className="comment__user">
-                <Avatar src={undefined} size={4} />
+                <Avatar src={user?.avatar?.url} size={4} />
             </div>
             <div className="comment__main">
                 <div className="comment__body">
                     <div className="container">
-                        <Text className="username">Kyle</Text>
+                        <Text className="username">{user?.username}</Text>
                         <Text
                             className="content"
                             size="small"
                             // collapsible={Math.random() > 0.5}
                         >
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit.
+                            {content}
                         </Text>
                     </div>
                     <div className="action">
                         <BsThreeDots />
                     </div>
                 </div>
-                <div className="comment__footer"></div>
+                <div className="comment__footer">
+                    {moment(createdAt).fromNow()}
+                </div>
             </div>
         </div>
     );

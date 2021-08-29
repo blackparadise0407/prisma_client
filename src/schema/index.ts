@@ -98,4 +98,5 @@ export interface Post {
     commentCount?: number;
     reactions?: UserActions[];
     userActions?: UserActions[];
+    comments?: UserActions[];
 }

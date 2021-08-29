@@ -1,6 +1,6 @@
 import request, { RequestQuery } from 'api/request';
 
-import { GeneralApiResponse, Post } from 'schema';
+import { GeneralApiResponse, Post, UserActions } from 'schema';
 
 export interface PostCreateRequest {
     content?: string;
@@ -21,9 +21,9 @@ const postApi = {
             query,
         ),
     getCommentByPostId: (postId: number, query: PostRequestQuery) =>
-        request<GeneralApiResponse>(
+        request<GeneralApiResponse<{ comments: UserActions[]; total: number }>>(
             'GET',
-            PostEndpoint + `/${postId}/comment`,
+            PostEndpoint + `/${postId}/comments`,
             query,
         ),
 };

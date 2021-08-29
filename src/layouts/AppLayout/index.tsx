@@ -24,7 +24,12 @@ const AppLayout = ({ children }: Props) => {
                 <Header isCollapse={isCollapse} />
             </div>
             <div className="layout__main">
-                <div className="layout__left-sider">
+                <div
+                    className={clsx(
+                        'layout__left-sider',
+                        isCollapse && 'layout__left-sider--collapsed',
+                    )}
+                >
                     <MenuSider
                         handleToggleCollapse={handleToggleCollapse}
                         isCollapse={isCollapse}

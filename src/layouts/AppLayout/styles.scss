@@ -22,6 +22,11 @@
             width: $left-sider-width;
             height: calc(100vh - #{$header-height});
             z-index: 500;
+            transition: width ease 0.2s;
+            will-change: width;
+            &--collapsed {
+                width: $left-sider-width-collapsed;
+            }
         }
         &__right-sider {
             position: fixed;

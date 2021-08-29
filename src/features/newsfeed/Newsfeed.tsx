@@ -1,15 +1,19 @@
 import { Button, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
-import { selectAllPost } from 'features/postsList/postListSelector';
+import {
+    selectAllPost,
+    selectCanLoadMore
+} from 'features/postsList/postListSelector';
 import {
     fetchPostList,
-    postListSelector,
+    loadMore
 } from 'features/postsList/postListSlice';
 import { toast } from 'features/toast/toastSlice';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import { CellMeasurer } from 'react-virtualized';
 import { Post } from 'schema';
@@ -17,7 +21,7 @@ import { io } from 'socket.io-client';
 import './Newsfeed.scss';
 
 const _renderPostList = (data: Post[] = []): JSX.Element => {
-    if (!data.length) return null;
+    if (!data.length) return <></>;
     return (
         <div className="post-list">
             {map(data, (i) => (
@@ -48,6 +52,7 @@ const Newsfeed = () => {
     const { t } = useTranslation();
 
     const posts = useSelector(selectAllPost);
+    const canLoadMore = useSelector(selectCanLoadMore);
 
     useEffect(() => {
         wss.on('connect', () => {
@@ -57,6 +62,10 @@ const Newsfeed = () => {
             toast.info(data);
         });
     }, []);
+
+    const handleLoadMore = () => {
+        dispatch(loadMore());
+    };
 
     // const cache = new CellMeasurerCache({
     //     fixedWidth: true,
@@ -100,7 +109,15 @@ const Newsfeed = () => {
             </div>
             <div className="content">
                 <PostCreate />
-                {_renderPostList(posts)}
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={handleLoadMore}
+                    hasMore={canLoadMore}
+                    threshold={50}
+                    loader={'Loading...'}
+                >
+                    {_renderPostList(posts)}
+                </InfiniteScroll>
                 {/* <AutoSizer>
                     {({ width, height }) => (
                         <List

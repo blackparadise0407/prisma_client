@@ -2,7 +2,7 @@ import { Anger, Laugh, Love, Sad, Shock } from 'assets/icons';
 import { Avatar, Divider, FlexGrow, Text } from 'components';
 import i18n from 'i18n';
 import { map } from 'lodash';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     AiOutlineComment,
@@ -10,11 +10,13 @@ import {
     AiOutlineShareAlt,
 } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
-import { Post, ReactionType } from 'schema';
+import { useDispatch } from 'react-redux';
+import { Post, ReactionType, UserActions } from 'schema';
 import moment from 'utils/moment';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
 import './PostCard.scss';
+import { fetchCommentByPostId } from './postListSlice';
 
 type Props = {
     data?: Post;
@@ -62,12 +64,29 @@ const _renderReactionText = (reactionType: ReactionType): string => {
     }
 };
 
+const _renderCommentList = (comments: UserActions[] = []): JSX.Element => {
+    if (!comments.length) return <></>;
+    return (
+        <ul>
+            {map(comments, (c) => (
+                <Comment key={c.id} data={c} />
+            ))}
+        </ul>
+    );
+};
+
 const PostCard = ({ data, loading }: Props) => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+
+    const handleFetchComment = useCallback(() => {
+        dispatch(fetchCommentByPostId(id));
+    }, []);
 
     if (!data) return null;
 
     const {
+        id,
         content,
         user,
         createdAt,
@@ -76,6 +95,7 @@ const PostCard = ({ data, loading }: Props) => {
         shareCount,
         reactions,
         userActions,
+        comments,
     } = data;
 
     return (
@@ -183,7 +203,7 @@ const PostCard = ({ data, loading }: Props) => {
                             </React.Fragment>
                         )}
                     </div>
-                    <div className="action-item">
+                    <div onClick={handleFetchComment} className="action-item">
                         <AiOutlineComment className="icon" />
                         Comment
                     </div>
@@ -195,11 +215,7 @@ const PostCard = ({ data, loading }: Props) => {
             </div>
             <div className="card__comment">
                 <Divider />
-                <ul>
-                    <Comment />
-                    <Comment />
-                    <Comment />
-                </ul>
+                {_renderCommentList(comments)}
                 <CommentInput />
             </div>
         </div>
