@@ -27,6 +27,9 @@ import { ReducerStatus, Post, UserActions } from 'schema';
 
 export interface PostState extends Post {
     status: ReducerStatus;
+    page: number;
+    limit: number;
+    canLoadMoreComment?: boolean;
 }
 
 export interface PostListState extends EntityState<PostState> {
@@ -99,11 +102,24 @@ export const postListSlice = createSlice({
         },
         fetchCommentSuccess: (
             state,
-            { payload }: PayloadAction<{ id: number; comments: UserActions[] }>,
+            {
+                payload,
+            }: PayloadAction<{
+                id: number;
+                comments: UserActions[];
+                canLoadMoreComment: boolean;
+            }>,
         ) => {
             postListAdapter.updateOne(state, {
                 id: payload.id,
-                changes: { status: 'success', comments: payload.comments },
+                changes: {
+                    status: 'success',
+                    comments: [
+                        ...(state.entities[payload.id]?.comments ?? []),
+                        ...payload.comments,
+                    ],
+                    canLoadMoreComment: payload.canLoadMoreComment,
+                },
             });
         },
         fetchCommentError: (
@@ -137,6 +153,8 @@ export const fetchPostList = (): AppThunk => {
             const posts: PostState[] = map(data.posts, (p) => ({
                 ...p,
                 status: 'idle',
+                limit: 10,
+                page: 1,
             }));
             dispatch(fetchPostListUpdate({ posts, total: data.total }));
         } catch (e) {
@@ -157,6 +175,8 @@ export const loadMore = (): AppThunk => {
             const posts: PostState[] = map(data.posts, (p) => ({
                 ...p,
                 status: 'idle',
+                limit: 10,
+                page: 1,
             }));
             dispatch(
                 loadMorePost({
@@ -175,13 +195,44 @@ export const fetchCommentByPostId = (postId: number): AppThunk => {
     return async (dispatch, state) => {
         dispatch(fetchCommentLoading({ id: postId }));
         try {
+            const { page, limit } = { ...state().postList.entities[postId] };
             const { data } = await PostApi.getCommentByPostId(postId, {
                 page: 1,
                 limit: 10,
             });
             const { comments, total } = data;
-            console.log(comments);
-            dispatch(fetchCommentSuccess({ id: postId, comments }));
+            const canLoadMore = page * limit < total;
+            dispatch(
+                fetchCommentSuccess({
+                    id: postId,
+                    comments,
+                    canLoadMoreComment: canLoadMore,
+                }),
+            );
+        } catch (e) {
+            dispatch(fetchCommentError({ id: postId }));
+        }
+    };
+};
+
+export const loadMoreCommentByPostId = (postId: number): AppThunk => {
+    return async (dispatch, state) => {
+        dispatch(fetchCommentLoading({ id: postId }));
+        try {
+            const { page, limit } = { ...state().postList.entities[postId] };
+            const { data } = await PostApi.getCommentByPostId(postId, {
+                page: page + 1,
+                limit,
+            });
+            const { comments, total } = data;
+            const canLoadMore = page + 1 * limit < total;
+            dispatch(
+                fetchCommentSuccess({
+                    id: postId,
+                    comments,
+                    canLoadMoreComment: canLoadMore,
+                }),
+            );
         } catch (e) {
             dispatch(fetchCommentError({ id: postId }));
         }

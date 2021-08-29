@@ -20,4 +20,15 @@ export const selectEntities = createSelector(
 );
 
 export const selectEntityById = (id: number) =>
-    createSelector(selectEntities, (entity) => entity[id]);
+    createSelector(selectEntities, (entities) =>
+        !!entities ? entities[id] : null,
+    );
+
+export const selectEnitityStatusById = (id: number) =>
+    createSelector(selectEntities, (entities) =>
+        !!entities ? entities[id].status : null,
+    );
+export const selectCanLoadMoreById = (id: number) =>
+    createSelector(selectEntities, (entities) =>
+        !!entities ? entities[id].canLoadMoreComment : null,
+    );

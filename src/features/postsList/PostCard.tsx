@@ -1,5 +1,6 @@
 import { Anger, Laugh, Love, Sad, Shock } from 'assets/icons';
-import { Avatar, Divider, FlexGrow, Text } from 'components';
+import clsx from 'clsx';
+import { Avatar, Divider, FlexGrow, Spin, Text } from 'components';
 import i18n from 'i18n';
 import { map } from 'lodash';
 import React, { useCallback } from 'react';
@@ -10,13 +11,18 @@ import {
     AiOutlineShareAlt,
 } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Post, ReactionType, UserActions } from 'schema';
 import moment from 'utils/moment';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
+import CommentList from './CommentList';
 import './PostCard.scss';
-import { fetchCommentByPostId } from './postListSlice';
+import {
+    selectCanLoadMoreById,
+    selectEnitityStatusById,
+} from './postListSelector';
+import { fetchCommentByPostId, loadMoreCommentByPostId } from './postListSlice';
 
 type Props = {
     data?: Post;
@@ -76,15 +82,6 @@ const _renderCommentList = (comments: UserActions[] = []): JSX.Element => {
 };
 
 const PostCard = ({ data, loading }: Props) => {
-    const { t } = useTranslation();
-    const dispatch = useDispatch();
-
-    const handleFetchComment = useCallback(() => {
-        dispatch(fetchCommentByPostId(id));
-    }, []);
-
-    if (!data) return null;
-
     const {
         id,
         content,
@@ -97,6 +94,23 @@ const PostCard = ({ data, loading }: Props) => {
         userActions,
         comments,
     } = data;
+
+    const { t } = useTranslation();
+    const dispatch = useDispatch();
+
+    const entityStatus = useSelector(selectEnitityStatusById(id));
+
+    const entityCanLoadMore = useSelector(selectCanLoadMoreById(id));
+
+    const handleFetchComment = useCallback(() => {
+        dispatch(fetchCommentByPostId(id));
+    }, []);
+
+    const handleFetchMoreComment = useCallback(() => {
+        dispatch(loadMoreCommentByPostId(id));
+    }, []);
+
+    if (!data) return null;
 
     return (
         <div className="card">
@@ -203,8 +217,18 @@ const PostCard = ({ data, loading }: Props) => {
                             </React.Fragment>
                         )}
                     </div>
-                    <div onClick={handleFetchComment} className="action-item">
-                        <AiOutlineComment className="icon" />
+                    <div
+                        onClick={handleFetchComment}
+                        className={clsx(
+                            'action-item',
+                            !!comments?.length && 'action-item--active',
+                        )}
+                    >
+                        {entityStatus === 'loading' ? (
+                            <Spin className="icon" />
+                        ) : (
+                            <AiOutlineComment className="icon" />
+                        )}
                         Comment
                     </div>
                     <div className="action-item">
@@ -215,7 +239,12 @@ const PostCard = ({ data, loading }: Props) => {
             </div>
             <div className="card__comment">
                 <Divider />
-                {_renderCommentList(comments)}
+                {/* {_renderCommentList(comments)} */}
+                <CommentList
+                    loadMore={handleFetchMoreComment}
+                    canLoadMore={entityCanLoadMore}
+                    comments={comments}
+                />
                 <CommentInput />
             </div>
         </div>

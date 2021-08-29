@@ -152,6 +152,14 @@ $padding: 3rem;
                         font-size: 2rem;
                         margin-right: 1rem;
                     }
+
+                    &--active {
+                        background-color: t($text-contrast);
+                        box-shadow: t($shadow);
+                        .icon {
+                            color: t($secondary);
+                        }
+                    }
                 }
             }
         }

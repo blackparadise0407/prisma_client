@@ -11,6 +11,7 @@ type Props = {
     children: string;
     className?: string;
     collapsible?: boolean;
+    [key: string]: any;
 };
 
 const Text = ({
@@ -18,6 +19,7 @@ const Text = ({
     children,
     className,
     collapsible = false,
+    ...rest
 }: Props) => {
     const [isCollapsed, setIsCollapsed] = useState(collapsible);
     const { t } = useTranslation();
@@ -33,6 +35,7 @@ const Text = ({
                 collapsible && 'text--collapsible',
                 className,
             )}
+            {...rest}
         >
             {isCollapsed ? children.substring(0, 300) + '...' : children}
             {collapsible && isCollapsed && (

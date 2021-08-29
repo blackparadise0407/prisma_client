@@ -101,7 +101,8 @@
         },
         "post_card": {
             "comment": "Comments",
-            "share": "Shares"
+            "share": "Shares",
+            "view_more_comment": "View more comments"
         },
         "comment_input": {
             "placeholder": "Your reply"

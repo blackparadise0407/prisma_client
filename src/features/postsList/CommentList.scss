@@ -1,0 +1,18 @@
+@import 'themes/color-theme';
+
+.comment-list {
+    @include themed() {
+        &__load-more {
+            display: inline-block;
+            color: t($text-secondary);
+            margin-left: 3rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity ease 0.2s;
+            &:hover {
+                opacity: 0.9;
+                text-decoration: underline;
+            }
+        }
+    }
+}
