@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import { useCallback } from 'react';
 import './styles.scss';
 
 type AlertType = 'success' | 'warning' | 'error' | 'info';
@@ -21,16 +20,18 @@ const Alert = ({
     onClose,
 }: Props) => {
     const [isShow, setIsShow] = useState(true);
+
     useEffect(() => {
-        if (autoClose) {
-            const _timeout = setTimeout(() => {
+        const _timeout = setTimeout(() => {
+            if (autoClose) {
                 setIsShow(false);
                 onClose && onClose();
-            }, autoClose * 1000);
-            return () => {
-                clearTimeout(_timeout);
-            };
-        }
+            }
+        }, autoClose * 1000);
+
+        return () => {
+            clearTimeout(_timeout);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -38,11 +39,10 @@ const Alert = ({
         setIsShow(true);
     }, [message]);
 
-    const handleClose = useCallback(() => {
+    const handleClose = () => {
         setIsShow(false);
         onClose && onClose();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    };
 
     return (
         <div

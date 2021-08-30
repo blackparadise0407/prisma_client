@@ -2,6 +2,9 @@
 
 .comment-list {
     @include themed() {
+        & > * {
+            // margin-top: 1rem;
+        }
         &__load-more {
             display: inline-block;
             color: t($text-secondary);

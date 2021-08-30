@@ -1,7 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
-import { useCallback } from 'react';
-
+import React, { ReactNode } from 'react';
 import './styles.scss';
 
 type ButtonType = 'default' | 'primary' | 'danger' | 'secondary' | 'ghost';
@@ -10,7 +8,7 @@ type HTMLType = 'button' | 'reset' | 'submit';
 
 type Props = {
     onClick?: () => void;
-    children: string;
+    children?: ReactNode;
     type?: ButtonType;
     icon?: JSX.Element;
     htmlType?: HTMLType;
@@ -29,9 +27,9 @@ const Button = ({
     loading = false,
     className,
 }: Props) => {
-    const handleOnClick = useCallback(() => {
+    const handleOnClick = () => {
         onClick && !loading && onClick();
-    }, [onClick]);
+    };
 
     return (
         <button

@@ -102,7 +102,9 @@
         "post_card": {
             "comment": "Comments",
             "share": "Shares",
-            "view_more_comment": "View more comments"
+            "view_more_comment": "View more comments",
+            "comment_reply": "Reply",
+            "view_replies": "See {{ replyCount }} replies"
         },
         "comment_input": {
             "placeholder": "Your reply"

@@ -8,8 +8,8 @@ type Props = {
 };
 
 const AutoSizeTextarea = ({ className, ...rest }: Props) => {
-    const ref = useRef(null);
     const [currentValue, setCurrentValue] = useState('');
+    const ref = useRef(null);
 
     useEffect(() => {
         ref.current.style.height = '0px';

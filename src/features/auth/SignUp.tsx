@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { FlexGrow } from 'components';
 import React, { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -24,13 +25,13 @@ const Login = () => {
         }
     }, [isAuth]);
 
-    const goToLogin = () => {
+    const goToLogin = useCallback(() => {
         history.push('/login');
-    };
+    }, []);
 
-    const goToRegister = () => {
+    const goToRegister = useCallback(() => {
         history.push('/signup');
-    };
+    }, []);
 
     return (
         <div className="signup-page">

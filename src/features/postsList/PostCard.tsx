@@ -103,12 +103,12 @@ const PostCard = ({ data, loading }: Props) => {
     const entityCanLoadMore = useSelector(selectCanLoadMoreById(id));
 
     const handleFetchComment = useCallback(() => {
-        dispatch(fetchCommentByPostId(id));
-    }, []);
+        if (!!!comments?.length) dispatch(fetchCommentByPostId(id));
+    }, [comments?.length, id]);
 
     const handleFetchMoreComment = useCallback(() => {
         dispatch(loadMoreCommentByPostId(id));
-    }, []);
+    }, [id]);
 
     if (!data) return null;
 

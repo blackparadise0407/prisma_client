@@ -8,7 +8,7 @@ type Size = 'middle' | 'large' | 'small';
 
 type Props = {
     size?: Size;
-    children: string;
+    children: any;
     className?: string;
     collapsible?: boolean;
     [key: string]: any;

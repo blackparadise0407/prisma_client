@@ -14,7 +14,7 @@ type Props = {
 const Avatar = ({
     size,
     backgroundColor = '#fff',
-    borderColor = '#efefef',
+    borderColor = '#20d2e3',
     className,
     src,
 }: Props) => {

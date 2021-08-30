@@ -2,9 +2,11 @@
 
 .comment {
     @include themed() {
+        position: relative;
         display: flex;
-        padding: 1rem 3rem;
+        padding: 1.5rem 3rem 1rem;
         border-bottom: 1px solid t($border);
+
         // &__user {
         // }
         &__main {
@@ -21,6 +23,8 @@
                 border-radius: 10px;
                 margin-right: 0.7rem;
                 padding: 0 1rem 0.8rem 0;
+                // background-color: darken(t($text-contrast), 5%);
+
                 color: t($text-primary);
                 .username {
                     font-size: 1.4rem;
@@ -48,8 +52,43 @@
             }
         }
         &__footer {
+            display: flex;
+            align-items: center;
             font-size: 1.2rem;
+            font-weight: 500;
             color: t($text-secondary);
+            & > * + * {
+                margin-left: 1rem;
+            }
+            .time {
+                font-weight: 400;
+            }
         }
+        &__see-reply {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+.see-reply {
+    @include themed() {
+        position: relative;
+        margin-left: 8rem;
+
+        // &::after {
+        //     content: '';
+        //     position: absolute;
+        //     top: 0;
+        //     left: -3rem;
+        //     width: 2rem;
+        //     height: 1rem;
+        //     border-style: solid;
+        //     border-width: 0 0 1px 1px;
+        //     border-bottom-left-radius: 4px;
+        //     border-color: #000;
+        // }
     }
 }

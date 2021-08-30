@@ -3,6 +3,7 @@ import { Alert, CheckBox, Spin } from 'components';
 import { FormikErrors, useFormik } from 'formik';
 import i18n from 'i18n';
 import React, { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormInputItem } from 'schema';
@@ -39,9 +40,9 @@ const SignUpForm = () => {
 
     const [success, setSuccess] = useState(false);
 
-    const onFinish = (v: FormValues) => {
+    const onFinish = useCallback((v: FormValues) => {
         dispatch(signup(v));
-    };
+    }, []);
 
     const formik = useFormik<FormValues>({
         initialValues: {

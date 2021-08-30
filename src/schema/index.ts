@@ -82,6 +82,9 @@ export interface UserActions {
     postId?: number;
     photoId?: number;
     user?: User;
+    replyCount?: number;
+    replies?: UserActions;
+    replyToId?: number;
     createdAt?: Date;
     updatedAt?: Date;
 }
