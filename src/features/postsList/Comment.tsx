@@ -9,13 +9,18 @@ import './Comment.scss';
 
 type Props = {
     data: UserActions;
+    onGetReplies: (commentId: number) => void;
 };
 
-const Comment = ({ data }: Props) => {
+const Comment = ({ data, onGetReplies }: Props) => {
     const { t } = useTranslation();
     if (!!!data) return null;
 
     const { id, content, user, createdAt, replyCount } = data;
+
+    const handleLoadReply = () => {
+        onGetReplies && onGetReplies(id);
+    };
 
     return (
         <React.Fragment>
@@ -45,19 +50,30 @@ const Comment = ({ data }: Props) => {
                             {moment(createdAt).fromNow()}
                         </span>
                     </div>
+                    {/* {replyCount ? (
+                        <Text size="small" className="comment__see-reply">
+                            View {replyCount} replies
+                        </Text>
+                    ) : null} */}
                 </div>
-                {replyCount ? (
+                {/* {replyCount ? (
                     <Button
                         className="comment__see-reply"
                         icon={<AiOutlineEnter />}
                     >
                         {t('components.post_card.view_replies', { replyCount })}
                     </Button>
-                ) : null}
+                ) : null} */}
             </div>
-            {/* {replyCount ? (
-                <Text className="see-reply">View {replyCount} replies</Text>
-            ) : null} */}
+            {replyCount ? (
+                <Text
+                    onClick={handleLoadReply}
+                    size="small"
+                    className="see-reply"
+                >
+                    View {replyCount} replies
+                </Text>
+            ) : null}
         </React.Fragment>
     );
 };

@@ -8,7 +8,7 @@ import {
 import { PostApi } from 'api';
 import { AppState } from 'app/rootReducer';
 import { AppThunk } from 'app/store';
-import { map } from 'lodash';
+import { findIndex, map } from 'lodash';
 import { ReducerStatus, Post, UserActions } from 'schema';
 
 // export interface PostListState {
@@ -131,6 +131,31 @@ export const postListSlice = createSlice({
                 changes: { status: 'error' },
             });
         },
+        fetchRepliesSuccess: (
+            state,
+            {
+                payload,
+            }: PayloadAction<{
+                postId: number;
+                commentId: number;
+                replies: UserActions[];
+            }>,
+        ) => {
+            const { postId, commentId, replies } = payload;
+            const cloneComment = [...state.entities[postId].comments];
+            const _cmtIdx = findIndex(
+                state.entities[postId].comments,
+                (i) => i.id === commentId,
+            );
+            cloneComment[_cmtIdx].replies = replies;
+            postListAdapter.updateOne(state, {
+                id: payload.postId,
+                changes: {
+                    comments: cloneComment,
+                    status: 'success',
+                },
+            });
+        },
     },
 });
 
@@ -142,6 +167,7 @@ export const {
     fetchCommentError,
     fetchCommentLoading,
     fetchCommentSuccess,
+    fetchRepliesSuccess,
 } = postListSlice.actions;
 
 export const fetchPostList = (): AppThunk => {
@@ -233,6 +259,25 @@ export const loadMoreCommentByPostId = (postId: number): AppThunk => {
                     canLoadMoreComment: canLoadMore,
                 }),
             );
+        } catch (e) {
+            dispatch(fetchCommentError({ id: postId }));
+        }
+    };
+};
+
+export const getRepliesByCommentId = (
+    postId: number,
+    commentId: number,
+): AppThunk => {
+    return async (dispatch, state) => {
+        dispatch(fetchCommentLoading({ id: postId }));
+        try {
+            const { data } = await PostApi.getRepliesByCommentId(
+                postId,
+                commentId,
+            );
+            dispatch(fetchRepliesSuccess({ postId, commentId, replies: data }));
+            console.log(data);
         } catch (e) {
             dispatch(fetchCommentError({ id: postId }));
         }

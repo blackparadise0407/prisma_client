@@ -12,9 +12,8 @@ import {
 } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
-import { Post, ReactionType, UserActions } from 'schema';
+import { Post, ReactionType } from 'schema';
 import moment from 'utils/moment';
-import Comment from './Comment';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import './PostCard.scss';
@@ -70,16 +69,16 @@ const _renderReactionText = (reactionType: ReactionType): string => {
     }
 };
 
-const _renderCommentList = (comments: UserActions[] = []): JSX.Element => {
-    if (!comments.length) return <></>;
-    return (
-        <ul>
-            {map(comments, (c) => (
-                <Comment key={c.id} data={c} />
-            ))}
-        </ul>
-    );
-};
+// const _renderCommentList = (comments: UserActions[] = []): JSX.Element => {
+//     if (!comments.length) return <></>;
+//     return (
+//         <ul>
+//             {map(comments, (c) => (
+//                 <Comment key={c.id} data={c} />
+//             ))}
+//         </ul>
+//     );
+// };
 
 const PostCard = ({ data, loading }: Props) => {
     const {
@@ -241,6 +240,7 @@ const PostCard = ({ data, loading }: Props) => {
                 <Divider />
                 {/* {_renderCommentList(comments)} */}
                 <CommentList
+                    postId={id}
                     loadMore={handleFetchMoreComment}
                     canLoadMore={entityCanLoadMore}
                     comments={comments}

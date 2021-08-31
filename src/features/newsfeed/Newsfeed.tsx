@@ -1,14 +1,11 @@
-import { Button, Text } from 'components';
+import { Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
 import {
     selectAllPost,
-    selectCanLoadMore
+    selectCanLoadMore,
 } from 'features/postsList/postListSelector';
-import {
-    fetchPostList,
-    loadMore
-} from 'features/postsList/postListSlice';
+import { fetchPostList, loadMore } from 'features/postsList/postListSlice';
 import { toast } from 'features/toast/toastSlice';
 import { map } from 'lodash';
 import React, { useEffect } from 'react';
@@ -92,13 +89,6 @@ const Newsfeed = () => {
 
     return (
         <div className="newsfeed-wrapper">
-            <Button
-                onClick={() => {
-                    wss.emit('ping', () => {});
-                }}
-            >
-                Ping
-            </Button>
             <div className="banner">
                 <div className="title-wrapper">
                     <div className="title">{t('newsfeed.banner.title')}</div>

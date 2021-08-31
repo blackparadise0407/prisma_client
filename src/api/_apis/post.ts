@@ -26,6 +26,11 @@ const postApi = {
             PostEndpoint + `/${postId}/comments`,
             query,
         ),
+    getRepliesByCommentId: (postId: number, commentId: number) =>
+        request<GeneralApiResponse<UserActions[]>>(
+            'GET',
+            PostEndpoint + `/${postId}/comments/${commentId}/reply`,
+        ),
 };
 
 export default postApi;

@@ -1,24 +1,37 @@
 import { Text } from 'components';
 import { map } from 'lodash';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { UserActions } from 'schema';
 import Comment from './Comment';
 import './CommentList.scss';
+import { getRepliesByCommentId } from './postListSlice';
 
 type Props = {
+    postId: number;
     comments: UserActions[];
     canLoadMore: boolean;
     loadMore: () => void;
 };
 
-const CommentList = ({ loadMore, canLoadMore, comments }: Props) => {
+const CommentList = ({ postId, loadMore, canLoadMore, comments }: Props) => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+
+    const handleFetchReply = useCallback((commentId: number) => {
+        dispatch(getRepliesByCommentId(postId, commentId));
+    }, []);
+
     if (!!!comments?.length) return null;
     return (
         <ul className="comment-list">
             {map(comments, (c) => (
-                <Comment key={c.id} data={c} />
+                <Comment
+                    onGetReplies={() => handleFetchReply(c.id)}
+                    key={c.id}
+                    data={c}
+                />
             ))}
             {canLoadMore && (
                 <Text

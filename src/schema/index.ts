@@ -83,7 +83,7 @@ export interface UserActions {
     photoId?: number;
     user?: User;
     replyCount?: number;
-    replies?: UserActions;
+    replies?: UserActions[];
     replyToId?: number;
     createdAt?: Date;
     updatedAt?: Date;
