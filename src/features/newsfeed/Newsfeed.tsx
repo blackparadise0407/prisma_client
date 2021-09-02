@@ -1,4 +1,4 @@
-import { Text } from 'components';
+import { Button, Text } from 'components';
 import PostCreate from 'features/postCreate/PostCreate';
 import PostCard from 'features/postsList/PostCard';
 import {
@@ -14,7 +14,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import { CellMeasurer } from 'react-virtualized';
 import { Post } from 'schema';
-import { io } from 'socket.io-client';
+import { wssApp } from 'utils/socket';
 import './Newsfeed.scss';
 
 const _renderPostList = (data: Post[] = []): JSX.Element => {
@@ -42,8 +42,6 @@ const renderRow = ({ index, key, style, parent }, cache, posts) => {
     );
 };
 
-var wss = io('ws://localhost:5050/app');
-
 const Newsfeed = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -52,10 +50,10 @@ const Newsfeed = () => {
     const canLoadMore = useSelector(selectCanLoadMore);
 
     useEffect(() => {
-        wss.on('connect', () => {
+        wssApp.on('connect', () => {
             console.log('HEllo from socket');
         });
-        wss.on('alo', (data) => {
+        wssApp.on('alo', (data) => {
             toast.info(data);
         });
     }, []);
@@ -89,6 +87,11 @@ const Newsfeed = () => {
 
     return (
         <div className="newsfeed-wrapper">
+            <Button
+                onClick={() => {
+                    wssApp.emit('ping', 'aa');
+                }}
+            ></Button>
             <div className="banner">
                 <div className="title-wrapper">
                     <div className="title">{t('newsfeed.banner.title')}</div>

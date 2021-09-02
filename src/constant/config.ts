@@ -14,6 +14,7 @@ const config = {
         response_type: 'token',
         scope: 'email profile',
     },
+    ws: { host: process.env.REACT_APP_WS_HOST },
 };
 
 export { HOST, isDev, config };

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Avatar, Button, Text } from 'components';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +10,15 @@ import './Comment.scss';
 
 type Props = {
     data: UserActions;
-    onGetReplies: (commentId: number) => void;
+    isChild?: boolean;
+    onGetReplies?: (commentId: number) => void;
 };
 
-const Comment = ({ data, onGetReplies }: Props) => {
+const Comment = ({ data, isChild = false, onGetReplies }: Props) => {
     const { t } = useTranslation();
     if (!!!data) return null;
 
-    const { id, content, user, createdAt, replyCount } = data;
+    const { id, content, user, createdAt, replyCount, replies } = data;
 
     const handleLoadReply = () => {
         onGetReplies && onGetReplies(id);
@@ -24,7 +26,7 @@ const Comment = ({ data, onGetReplies }: Props) => {
 
     return (
         <React.Fragment>
-            <div className="comment">
+            <div className={clsx('comment', isChild && 'comment--child')}>
                 <div className="comment__user">
                     <Avatar src={user?.avatar?.url} size={4} />
                 </div>
@@ -65,7 +67,7 @@ const Comment = ({ data, onGetReplies }: Props) => {
                     </Button>
                 ) : null} */}
             </div>
-            {replyCount ? (
+            {!!replyCount && !replies?.length ? (
                 <Text
                     onClick={handleLoadReply}
                     size="small"

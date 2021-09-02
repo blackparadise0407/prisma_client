@@ -66,6 +66,7 @@ export enum ReactionType {
     WOW = 'WOW',
     ANGER = 'ANGER',
     SAD = 'SAD',
+    DISLIKE = 'DISLIKE',
 }
 
 export enum UserActionType {

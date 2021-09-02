@@ -12,13 +12,14 @@ const Anger = ({ color, size = 16, borderColor = '#fff', ...rest }: Props) => {
         <div {...rest}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 width={size}
                 height={size}
                 viewBox="0 0 79.96 79.96"
             >
                 <defs>
                     <linearGradient
-                        id="a"
+                        id="anger"
                         x1="0.5"
                         y1="-0.435"
                         x2="0.5"
@@ -36,9 +37,11 @@ const Anger = ({ color, size = 16, borderColor = '#fff', ...rest }: Props) => {
                     <circle
                         cx="39.98"
                         cy="39.98"
-                        r="39.98"
+                        r="39"
                         transform="translate(9.652 86.473) rotate(-90)"
-                        fill="url(#a)"
+                        fill="url(#anger)"
+                        stroke={borderColor}
+                        strokeWidth="3"
                     />
                     <path
                         d="M187.8,318.622l-3.16,3.16L163.85,303.5l5.67-5.66Z"

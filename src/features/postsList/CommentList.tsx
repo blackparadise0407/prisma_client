@@ -27,11 +27,15 @@ const CommentList = ({ postId, loadMore, canLoadMore, comments }: Props) => {
     return (
         <ul className="comment-list">
             {map(comments, (c) => (
-                <Comment
-                    onGetReplies={() => handleFetchReply(c.id)}
-                    key={c.id}
-                    data={c}
-                />
+                <React.Fragment key={c.id}>
+                    <Comment
+                        onGetReplies={() => handleFetchReply(c.id)}
+                        data={c}
+                    />
+                    {map(c?.replies ?? [], (i) => (
+                        <Comment isChild key={i.id} data={i} />
+                    ))}
+                </React.Fragment>
             ))}
             {canLoadMore && (
                 <Text

@@ -1,9 +1,12 @@
-import { Anger, Laugh, Love, Sad, Shock } from 'assets/icons';
+import { Anger, Laugh, Love, Sad, Wow } from 'assets/icons';
+import Dislike from 'assets/icons/Dislike';
 import clsx from 'clsx';
-import { Avatar, Divider, FlexGrow, Spin, Text } from 'components';
+import { Avatar, Button, Divider, FlexGrow, Spin, Text } from 'components';
+import { selectCurrentUser } from 'features/auth/authSelector';
 import i18n from 'i18n';
 import { map } from 'lodash';
 import React, { useCallback } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     AiOutlineComment,
@@ -13,7 +16,9 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Post, ReactionType } from 'schema';
+import { io } from 'socket.io-client';
 import moment from 'utils/moment';
+import { wssPost } from 'utils/socket';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import './PostCard.scss';
@@ -34,17 +39,19 @@ const _renderReactions = (
 ): JSX.Element => {
     switch (reactionType) {
         case ReactionType.LIKE:
-            return <Anger size={24} {...agrs} />;
+            return <Anger size={22} {...agrs} />;
         case ReactionType.LOVE:
-            return <Love size={24} {...agrs} />;
+            return <Love size={22} {...agrs} />;
         case ReactionType.HAHA:
-            return <Laugh size={24} {...agrs} />;
+            return <Laugh size={22} {...agrs} />;
         case ReactionType.SAD:
-            return <Sad size={24} {...agrs} />;
+            return <Sad size={22} {...agrs} />;
         case ReactionType.ANGER:
-            return <Anger size={24} {...agrs} />;
+            return <Anger size={22} {...agrs} />;
         case ReactionType.WOW:
-            return <Shock size={24} {...agrs} />;
+            return <Wow size={22} {...agrs} />;
+        case ReactionType.DISLIKE:
+            return <Dislike size={22} {...agrs} />;
         default:
             return null;
     }
@@ -64,21 +71,33 @@ const _renderReactionText = (reactionType: ReactionType): string => {
             return i18n.t('reaction.angry');
         case ReactionType.WOW:
             return i18n.t('reaction.wow');
+        case ReactionType.DISLIKE:
+            return i18n.t('reaction.dislike');
         default:
             return '';
     }
 };
 
-// const _renderCommentList = (comments: UserActions[] = []): JSX.Element => {
-//     if (!comments.length) return <></>;
-//     return (
-//         <ul>
-//             {map(comments, (c) => (
-//                 <Comment key={c.id} data={c} />
-//             ))}
-//         </ul>
-//     );
-// };
+const _getColorByReactionType = (reactionType: ReactionType): string => {
+    switch (reactionType) {
+        case ReactionType.LIKE:
+            return '#0abcd5';
+        case ReactionType.LOVE:
+            return '#ec2631';
+        case ReactionType.HAHA:
+            return '#fcd30c';
+        case ReactionType.SAD:
+            return '#bce5f0';
+        case ReactionType.ANGER:
+            return '#f26424';
+        case ReactionType.WOW:
+            return '#fcd30c';
+        case ReactionType.DISLIKE:
+            return '#4255a5';
+        default:
+            return '';
+    }
+};
 
 const PostCard = ({ data, loading }: Props) => {
     const {
@@ -98,6 +117,7 @@ const PostCard = ({ data, loading }: Props) => {
     const dispatch = useDispatch();
 
     const entityStatus = useSelector(selectEnitityStatusById(id));
+    const currentUser = useSelector(selectCurrentUser);
 
     const entityCanLoadMore = useSelector(selectCanLoadMoreById(id));
 
@@ -109,10 +129,28 @@ const PostCard = ({ data, loading }: Props) => {
         dispatch(loadMoreCommentByPostId(id));
     }, [id]);
 
+    useEffect(() => {
+        wssPost.on(`post/${id}/comment`, (data) => {
+            console.log(data);
+        });
+    }, []);
+
     if (!data) return null;
 
     return (
         <div className="card">
+            <Button
+                onClick={() => {
+                    wssPost.emit('comment', {
+                        entityId: id,
+                        entityType: 'POST',
+                        content: 'Hello',
+                        user: currentUser,
+                    });
+                }}
+            >
+                send{' '}
+            </Button>
             <div className="card__header">
                 <div className="user">
                     <Avatar size={5} src={user?.avatar?.url} />
@@ -202,8 +240,16 @@ const PostCard = ({ data, loading }: Props) => {
                         {/* <AiOutlineLike className="icon" /> */}
                         {userActions.length ? (
                             <React.Fragment>
-                                <AiOutlineLike className="icon" />
-                                <span>
+                                {_renderReactions(userActions[0].reactionType, {
+                                    className: 'icon',
+                                })}
+                                <span
+                                    style={{
+                                        color: _getColorByReactionType(
+                                            userActions[0].reactionType,
+                                        ),
+                                    }}
+                                >
                                     {_renderReactionText(
                                         userActions[0].reactionType,
                                     )}

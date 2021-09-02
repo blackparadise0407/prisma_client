@@ -7,18 +7,19 @@ import { useSelector } from 'react-redux';
 import './CommentInput.scss';
 
 type Props = {
-    test?: any;
+    onSubmit?: () => void;
 };
 
-const CommentInput = ({ test }: Props) => {
+const CommentInput = ({ onSubmit }: Props) => {
     const { user } = useSelector(authSelector);
     const { t } = useTranslation();
     return (
         <div className="comment-input">
             <Avatar size={4} src={user?.avatar?.url} />
             <AutoSizeTextarea
-                placeholder={t('components.comment_input.placeholder')}
                 className="comment-input__textarea"
+                placeholder={t('components.comment_input.placeholder')}
+                onPressEnter={(v) => console.log(v)}
             />
         </div>
     );

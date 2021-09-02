@@ -3,7 +3,7 @@
 .comment-list {
     @include themed() {
         & > * {
-            // margin-top: 1rem;
+            margin-top: 1rem;
         }
         &__load-more {
             display: inline-block;
