@@ -5,8 +5,7 @@ import { Avatar, Button, Divider, FlexGrow, Spin, Text } from 'components';
 import { selectCurrentUser } from 'features/auth/authSelector';
 import i18n from 'i18n';
 import { map } from 'lodash';
-import React, { useCallback } from 'react';
-import { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     AiOutlineComment,
@@ -16,7 +15,6 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Post, ReactionType } from 'schema';
-import { io } from 'socket.io-client';
 import moment from 'utils/moment';
 import { wssPost } from 'utils/socket';
 import CommentInput from './CommentInput';
@@ -26,7 +24,13 @@ import {
     selectCanLoadMoreById,
     selectEnitityStatusById,
 } from './postListSelector';
-import { fetchCommentByPostId, loadMoreCommentByPostId } from './postListSlice';
+import {
+    commentByPostId,
+    fetchCommentByPostId,
+    loadMoreCommentByPostId,
+    updateCommentByPostId,
+    updateCommentByPostIdSuccess,
+} from './postListSlice';
 
 type Props = {
     data?: Post;
@@ -39,19 +43,19 @@ const _renderReactions = (
 ): JSX.Element => {
     switch (reactionType) {
         case ReactionType.LIKE:
-            return <Anger size={22} {...agrs} />;
+            return <Anger size={20} {...agrs} />;
         case ReactionType.LOVE:
-            return <Love size={22} {...agrs} />;
+            return <Love size={20} {...agrs} />;
         case ReactionType.HAHA:
-            return <Laugh size={22} {...agrs} />;
+            return <Laugh size={20} {...agrs} />;
         case ReactionType.SAD:
-            return <Sad size={22} {...agrs} />;
+            return <Sad size={20} {...agrs} />;
         case ReactionType.ANGER:
-            return <Anger size={22} {...agrs} />;
+            return <Anger size={20} {...agrs} />;
         case ReactionType.WOW:
-            return <Wow size={22} {...agrs} />;
+            return <Wow size={20} {...agrs} />;
         case ReactionType.DISLIKE:
-            return <Dislike size={22} {...agrs} />;
+            return <Dislike size={20} {...agrs} />;
         default:
             return null;
     }
@@ -122,15 +126,26 @@ const PostCard = ({ data, loading }: Props) => {
     const entityCanLoadMore = useSelector(selectCanLoadMoreById(id));
 
     const handleFetchComment = useCallback(() => {
-        if (!!!comments?.length) dispatch(fetchCommentByPostId(id));
-    }, [comments?.length, id]);
+        dispatch(fetchCommentByPostId(id));
+    }, []);
 
     const handleFetchMoreComment = useCallback(() => {
         dispatch(loadMoreCommentByPostId(id));
-    }, [id]);
+    }, []);
+
+    const handleComment = useCallback((v: string) => {
+        dispatch(commentByPostId(id, v));
+    }, []);
 
     useEffect(() => {
         wssPost.on(`post/${id}/comment`, (data) => {
+            dispatch(updateCommentByPostId(id, data));
+        });
+        wssPost.on(`post/${id}/comment/success`, (data) => {
+            const { postId, id: commentId, tempId } = data;
+            dispatch(
+                updateCommentByPostIdSuccess({ postId, commentId, tempId }),
+            );
             console.log(data);
         });
     }, []);
@@ -139,18 +154,6 @@ const PostCard = ({ data, loading }: Props) => {
 
     return (
         <div className="card">
-            <Button
-                onClick={() => {
-                    wssPost.emit('comment', {
-                        entityId: id,
-                        entityType: 'POST',
-                        content: 'Hello',
-                        user: currentUser,
-                    });
-                }}
-            >
-                send{' '}
-            </Button>
             <div className="card__header">
                 <div className="user">
                     <Avatar size={5} src={user?.avatar?.url} />
@@ -291,10 +294,11 @@ const PostCard = ({ data, loading }: Props) => {
                     canLoadMore={entityCanLoadMore}
                     comments={comments}
                 />
-                <CommentInput />
+                <CommentInput onSubmit={handleComment} />
             </div>
         </div>
     );
 };
+// TODO FIX COMMENT
 
 export default PostCard;

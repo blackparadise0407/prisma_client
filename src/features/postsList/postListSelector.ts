@@ -1,4 +1,6 @@
+import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { AppState } from 'app/rootReducer';
+import { filter, some } from 'lodash';
 import { createSelector } from 'reselect';
 import { postListAdapter } from './postListSlice';
 
@@ -32,3 +34,7 @@ export const selectCanLoadMoreById = (id: number) =>
     createSelector(selectEntities, (entities) =>
         !!entities ? entities[id].canLoadMoreComment : null,
     );
+
+// if (!comments?.length) return true;
+// // else if (some(comments, (i) => i?.status === 'loading')) return true;
+// else return false;

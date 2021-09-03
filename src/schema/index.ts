@@ -88,6 +88,8 @@ export interface UserActions {
     replyToId?: number;
     createdAt?: Date;
     updatedAt?: Date;
+    status?: ReducerStatus;
+    tempId?: number;
 }
 export interface Post {
     content?: string;

@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import { Avatar, Button, Text } from 'components';
+import { Avatar, Spin, Text } from 'components';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { AiOutlineEnter } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
 import { UserActions } from 'schema';
 import moment from 'utils/moment';
@@ -18,7 +17,7 @@ const Comment = ({ data, isChild = false, onGetReplies }: Props) => {
     const { t } = useTranslation();
     if (!!!data) return null;
 
-    const { id, content, user, createdAt, replyCount, replies } = data;
+    const { id, content, user, createdAt, replyCount, replies, status } = data;
 
     const handleLoadReply = () => {
         onGetReplies && onGetReplies(id);
@@ -32,7 +31,12 @@ const Comment = ({ data, isChild = false, onGetReplies }: Props) => {
                 </div>
                 <div className="comment__main">
                     <div className="comment__body">
-                        <div className="container">
+                        <div
+                            className={clsx(
+                                'container',
+                                status === 'loading' && 'content--loading',
+                            )}
+                        >
                             <Text className="username">{user?.username}</Text>
                             <Text
                                 className="content"

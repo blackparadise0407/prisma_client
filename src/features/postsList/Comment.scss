@@ -47,6 +47,9 @@
                 .content {
                     margin-top: 0.2rem;
                 }
+                &--loading {
+                    color: t($text-secondary);
+                }
             }
             .action {
                 $size: 3rem;

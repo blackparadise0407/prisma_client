@@ -25,7 +25,10 @@ const AutoSizeTextarea = ({ className, onPressEnter, ...rest }: Props) => {
     const _handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            onPressEnter && onPressEnter(currentValue);
+            if (onPressEnter) {
+                onPressEnter(currentValue);
+                setCurrentValue('');
+            }
         }
     };
 
